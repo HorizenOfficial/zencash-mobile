@@ -1,7 +1,7 @@
 {
-  "name": "react-onsenui-redux-weather",
-  "version": "1.0.0",
-  "description": "Simple Weather App implemntation with Onsen UI React Components and Redux",
+  "name": "zencash-mobile",
+  "version": "0.0.1a",
+  "description": "Mobile Wallet for ZENCash",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --host 0.0.0.0 --progress --content-base www/",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/argelius/react-onsenui-redux-weather.git"
+    "url": "git+https://github.com/ZencashOfficial/zencash-mobile.git"
   },
-  "author": "Andreas Argelius <andreas@argeli.us>",
+  "author": "Kendrick Tan <kendricktan0814@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/argelius/react-onsenui-redux-weather/issues"
+    "url": "https://github.com/ZencashOfficial/zencash-mobile/issues"
   },
-  "homepage": "https://github.com/argelius/react-onsenui-redux-weather#readme",
+  "homepage": "https://zensystem.io",
   "devDependencies": {
     "autoprefixer": "^6.5.1",
     "babel-core": "^6.18.0",
