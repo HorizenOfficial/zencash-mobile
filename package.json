@@ -40,10 +40,12 @@
         "onsenui": "2.0.4",
         "postcss-loader": "^1.0.0",
         "promise": "^7.1.1",
+        "qrcode.react": "^0.7.1",
         "react": "^15.3.1",
         "react-dom": "^15.3.1",
         "react-hot-loader": "^3.0.0-beta.6",
         "react-onsenui": "^1.0.4",
+        "react-qr-reader": "^1.2.1",
         "react-redux": "^4.4.5",
         "redux": "^3.6.0",
         "redux-logger": "^2.6.1",
@@ -54,13 +56,5 @@
         "url-loader": "^0.5.7",
         "webpack": "^1.13.2",
         "webpack-dev-server": "^1.16.2"
-    },
-    "dependencies": {
-        "cordova-plugin-qrscanner": "^2.5.0"
-    },
-    "cordova": {
-        "plugins": {
-            "cordova-plugin-qrscanner": {}
-        }
     }
 }

@@ -3,7 +3,9 @@ import React from 'react';
 import {
   Page,  
   Toolbar,  
-  BackButton
+  BackButton,
+  Button,
+  Input
 } from 'react-onsenui';
 
 class SendPage extends React.Component {
@@ -23,9 +25,22 @@ class SendPage extends React.Component {
   render() {    
     return (
       <Page renderToolbar={this.renderToolbar.bind(this)}>
-        <p>
-          Send page
-        </p>
+        <div style={{padding: '0 12px 0 12px'}}>
+          <p>
+            Address: <br/>
+            <Input style={{width: '100%'}} />
+          </p>
+          <p>
+            ZEN: <br/>
+            <Input style={{width: '100%'}} />
+          </p>
+          <p>
+            <Button style={{width: '100%'}}>Scan QR Code</Button>            
+          </p>
+          <p>
+            <Button style={{width: '100%'}}>Send</Button>
+          </p>
+        </div>
       </Page>
     );
   }

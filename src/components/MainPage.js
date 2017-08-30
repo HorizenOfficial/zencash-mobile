@@ -1,4 +1,5 @@
 import React from 'react';
+import QRCode from 'qrcode.react'
 
 import {
   Page,
@@ -103,10 +104,45 @@ class MainPage extends React.Component {
           </SplitterSide>
 
           <SplitterContent>
-            <Page renderToolbar={this.renderToolbar.bind(this)}>
-              <p style={{textAlign: 'center'}}>
-                Swipe left to open menu! :)
-              </p>
+            <Page renderToolbar={this.renderToolbar.bind(this)}> 
+              <p style={{fontSize: '15px', textAlign: 'center'}}>
+                Total ZEN: 12324242.12131
+              </p>              
+
+              <hr/>
+
+              <div style={{textAlign: 'center'}}>
+                <p>
+                  <QRCode value="hello world"/>                
+                </p>
+                <p style={{fontSize: '13px'}}>
+                  Value: 32323232.091234 ZEN
+                </p>
+                <p style={{fontSize: '10px', paddingBottom: '10px'}}>
+                  Address: znSDvF9nA5VCdse5HbEKmsoNbjCbsEA3VAH
+                </p>
+              </div>
+
+              <hr/>             
+
+              <List>
+                <ListItem tappable>
+                  <ons-row>
+                    <ons-col>+ Received</ons-col>
+                    <ons-col style={{textAlign: 'right', paddingRight: '12px'}}>
+                      10.0000000000 zen
+                    </ons-col>
+                  </ons-row>
+                </ListItem>
+                <ListItem tappable>
+                  <ons-row>
+                    <ons-col>+ Received</ons-col>
+                    <ons-col style={{textAlign: 'right', paddingRight: '12px'}}>
+                      10.0000000000 zen
+                    </ons-col>
+                  </ons-row>
+                </ListItem>    
+              </List>
             </Page>
           </SplitterContent>
         </Splitter>
