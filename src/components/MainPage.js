@@ -14,6 +14,10 @@ import {
   ListHeader
 } from 'react-onsenui';
 
+import SendPage from './SendPage';
+import ReceivePage from './ReceivePage'
+import SettingsPage from './SettingsPage'
+
 class MainPage extends React.Component {
   constructor(props) {
     super(props);
@@ -35,6 +39,13 @@ class MainPage extends React.Component {
     });
   }
 
+  gotoComponent(c) {    
+    this.props.navigator.pushPage({component: c});
+    this.setState({
+      isOpen: false
+    })
+  }
+
   renderToolbar() {
     return (
       <Toolbar>
@@ -44,13 +55,13 @@ class MainPage extends React.Component {
           </ToolbarButton>
         </div>
         <div className='center'>
-          ZENCash Mobile Wallet
+          ZENCash Wallet
         </div>        
       </Toolbar>
     );
   }
 
-  render() {
+  render() {    
     return (
       <Page>
         <Splitter>
@@ -64,9 +75,29 @@ class MainPage extends React.Component {
             isSwipeable={true}>
             <Page>
               <List
-                dataSource={['send', 'receive', 'settings']}
+                dataSource=
+                {[{
+                    name: 'send',
+                    component: SendPage
+                  },
+                  {
+                    name: 'receive',
+                    component: ReceivePage
+                  },
+                  {
+                    name: 'settings',
+                    component: SettingsPage
+                  }
+                ]}                
                 renderHeader={() => <ListHeader>zen</ListHeader>}
-                renderRow={(i) => <ListItem modifier='longdivider' tappable>{i}</ListItem>}
+                renderRow={(i) => 
+                  <ListItem
+                    onClick={this.gotoComponent.bind(this, i.component)}
+                    modifier='longdivider'
+                    tappable>
+                    {i.name}
+                  </ListItem>
+                }
               />
             </Page>
           </SplitterSide>
@@ -74,7 +105,7 @@ class MainPage extends React.Component {
           <SplitterContent>
             <Page renderToolbar={this.renderToolbar.bind(this)}>
               <p style={{textAlign: 'center'}}>
-                Swipe left to open menu!
+                Swipe left to open menu! :)
               </p>
             </Page>
           </SplitterContent>
@@ -84,4 +115,4 @@ class MainPage extends React.Component {
   }
 }
 
-module.exports = MainPage;
+export default MainPage;
