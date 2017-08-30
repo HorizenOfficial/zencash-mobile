@@ -35,3 +35,6 @@ node_modules
 # Cordova files
 platforms
 plugins
+
+.vscode/
+dist/

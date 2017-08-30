@@ -10,10 +10,10 @@ module.exports = {
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://0.0.0.0:9000',
     'webpack/hot/only-dev-server',
-    './index.js'
+    './src/index.js'
   ],
   output: {
-    path: path.join(__dirname, 'www'),
+    path: path.join(__dirname, 'dist'),
     filename: 'bundle.js'
   },
 
