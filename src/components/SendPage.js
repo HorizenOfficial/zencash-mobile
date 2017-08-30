@@ -8,7 +8,18 @@ import {
   Input
 } from 'react-onsenui';
 
+
+import ScannerPage from './ScannerPage'
+
+
 class SendPage extends React.Component {
+  gotoComponent(c) {    
+    this.props.navigator.pushPage({component: c});
+    this.setState({
+      sliderOpen: false
+    })
+  }
+
   renderToolbar() {
     return (
       <Toolbar>
@@ -35,7 +46,8 @@ class SendPage extends React.Component {
             <Input style={{width: '100%'}} />
           </p>
           <p>
-            <Button style={{width: '100%'}}>Scan QR Code</Button>            
+            <Button 
+              style={{width: '100%'}}>Scan QR Code</Button>            
           </p>
           <p>
             <Button style={{width: '100%'}}>Send</Button>

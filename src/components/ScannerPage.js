@@ -7,9 +7,7 @@ import {
   ToolbarButton
 } from 'react-onsenui';
 
-import QrReader from 'react-qr-reader'
-
-class SendPage extends React.Component {
+class ScannerPage extends React.Component {
   constructor(props){
     super(props)
     this.state = {
@@ -28,6 +26,8 @@ class SendPage extends React.Component {
     console.error(err)
   }
   render(){
+    console.log(QRScanner)
+
     const previewStyle = {
       height: 240,
       width: 320,
@@ -35,16 +35,9 @@ class SendPage extends React.Component {
 
     return(
       <Page>
-        <QrReader
-          delay={this.state.delay}
-          style={previewStyle}
-          onError={this.handleError}
-          onScan={this.handleScan}
-          />
-        <p>{this.state.result}</p>
       </Page>
     )
   }
 }
 
-export default SendPage;
+export default ScannerPage;

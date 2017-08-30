@@ -4,6 +4,12 @@ ZENCash mobile app built using Onsen UI, Redux, React and Webpack.
 
 ## How to run it
 
+You need to install cordova and iconic globally first
+
+```
+npm install -g cordova ionic
+```
+
 To run it simply do:
 
 ```bash
