@@ -7,7 +7,7 @@
     <author email="kendricktan0814@gmail.com" href="https://kndrck.co">
         Kendrick Tan
     </author>
-    <content src="index.html" />    
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -22,5 +22,7 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-    <hook src="./src/scripts/build.sh" type="before_prepare" />    
+    <hook src="./src/scripts/build.sh" type="before_prepare" />
+    <plugin name="cordova-plugin-file" spec="^4.3.3" />
+    <plugin name="cordova-plugin-qrscanner" spec="^2.5.0" />
 </widget>

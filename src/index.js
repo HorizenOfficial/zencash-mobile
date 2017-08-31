@@ -7,7 +7,7 @@ import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import {AppContainer} from 'react-hot-loader';
 
-import weatherApp from './reducers';
+import allReducers from './reducers';
 import App from './components/App';
 
 import './icons/css/weather-icons.css';
@@ -18,7 +18,7 @@ import './stylus/index.styl';
 
 const logger = createLogger();
 
-const store = createStore(weatherApp,
+const store = createStore(allReducers,
   window.devToolsExtension ? window.devToolsExtension() : f => f,
   process.env.NODE_ENV === 'production'
     ? applyMiddleware(thunk)

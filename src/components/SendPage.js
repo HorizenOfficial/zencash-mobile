@@ -2,10 +2,12 @@ import React from 'react';
 
 import {
   Page,  
-  Toolbar,  
+  Toolbar, 
+  ToolbarButton, 
   BackButton,
   Button,
-  Input
+  Input,
+  Icon
 } from 'react-onsenui';
 
 
@@ -28,7 +30,12 @@ class SendPage extends React.Component {
         </div>
         <div className='center'>
           Send ZENCash
-        </div>  
+        </div>
+        <div className='right'>
+          <ToolbarButton onClick={() => this.props.navigator.popPage()}>
+            <Icon icon='ion-camera'/>
+          </ToolbarButton>
+        </div>
       </Toolbar>
     );
   }

@@ -9,7 +9,19 @@ import {
   ListItem
 } from 'react-onsenui';
 
+import AboutPage from './AboutPage'
+import SecretPhrasePage from './SecretPhrasePage'
+import RecoverWalletPage from './RecoverWalletPage'
+import ShowPrivateKeyPage from './ShowPrivateKeyPage'
+
 class SettingsPage extends React.Component {
+  gotoComponent(c) {    
+    this.props.navigator.pushPage({component: c});
+    this.setState({
+      sliderOpen: false
+    })
+  }
+
   renderToolbar() {
     return (
       <Toolbar>
@@ -27,20 +39,25 @@ class SettingsPage extends React.Component {
     return (
       <Page renderToolbar={this.renderToolbar.bind(this)}>
         <List>
-          <ListItem tappable>
+          <ListItem 
+            onClick={this.gotoComponent.bind(this, AboutPage)}
+            tappable>
             about
           </ListItem>
-          <ListItem tappable>
+          <ListItem
+            onClick={this.gotoComponent.bind(this, SecretPhrasePage)}
+            tappable>
             secret phrase
           </ListItem>
-          <ListHeader></ListHeader>
-          <ListItem tappable>
-            change pin
+          <ListHeader></ListHeader>                    
+          <ListItem
+            onClick={this.gotoComponent.bind(this, ShowPrivateKeyPage)}
+            tappable>
+            show private keys
           </ListItem>
-          <ListItem tappable>
-            import private key
-          </ListItem>
-          <ListItem tappable style={{color: 'red'}}>
+          <ListItem
+            onClick={this.gotoComponent.bind(this, RecoverWalletPage)}
+            tappable style={{color: 'red'}}>
             start/recover another wallet
           </ListItem>
         </List>

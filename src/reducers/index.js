@@ -1,8 +1,10 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
+
+import SecretsReducer from './Secrets'
 
 
-const todoApp = combineReducers({
-    a: () => null
+const allReducers = combineReducers({  
+    secrets: SecretsReducer  
 });
 
-export default todoApp;
+export default allReducers;

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --host 0.0.0.0 --progress --content-base www/",
-    "build": "npm run lint && cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "lint": "eslint ."
   },
   "repository": {
@@ -18,7 +18,7 @@
     "url": "https://github.com/ZencashOfficial/zencash-mobile/issues"
   },
   "homepage": "https://zensystem.io",
-  "devDependencies": {    
+  "devDependencies": {
     "autoprefixer": "^6.5.1",
     "babel-core": "^6.18.0",
     "babel-loader": "^6.2.5",
@@ -32,7 +32,7 @@
     "eslint-plugin-promise": "^3.3.0",
     "eslint-plugin-react": "^6.4.1",
     "eslint-plugin-standard": "^2.0.0",
-    "file-loader": "^0.9.0",    
+    "file-loader": "^0.9.0",
     "isomorphic-fetch": "^2.2.1",
     "json-loader": "^0.5.4",
     "ncp": "^2.0.0",
@@ -43,8 +43,9 @@
     "qrcode.react": "^0.7.1",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
+    "react-fontawesome": "^1.6.1",
     "react-hot-loader": "^3.0.0-beta.6",
-    "react-onsenui": "^1.0.4",    
+    "react-onsenui": "^1.0.4",
     "react-redux": "^4.4.5",
     "redux": "^3.6.0",
     "redux-logger": "^2.6.1",
@@ -55,5 +56,18 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2"
+  },
+  "dependencies": {
+    "cordova-android": "^6.2.3",
+    "cordova-plugin-compat": "^1.1.0",
+    "cordova-plugin-file": "^4.3.3",
+    "cordova-plugin-qrscanner": "^2.5.0",
+    "zencashjs": "^1.1.5-a"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-qrscanner": {},
+      "cordova-plugin-file": {}
+    }
   }
 }
