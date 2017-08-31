@@ -20,8 +20,12 @@ import {
   ListHeader
 } from 'react-onsenui';
 
+import axios from 'axios'
+
 import SendPage from '../components/SendPage';
 import SettingsPage from '../components/SettingsPage'
+
+import { urlAppend } from '../utils/index'
 
 class MainPage extends React.Component {
   constructor(props) {
@@ -30,8 +34,16 @@ class MainPage extends React.Component {
     this.state = {
       sliderOpen: false,
       dialogOpen: false,
-      selectedAddress: ''      
+      selectedAddress: '',
+      selectedAddressValue: 'loading...',
+      totalZenValue: 'loading...'
     };
+
+    this.hide = this.hide.bind(this)
+    this.show = this.show.bind(this)
+    this.toggleDialog = this.toggleDialog.bind(this)
+    this.gotoComponent = this.gotoComponent.bind(this)
+    this.getAddressInfo = this.getAddressInfo.bind(this)
   }
 
   hide() {
@@ -52,6 +64,20 @@ class MainPage extends React.Component {
     })
   }
 
+  getAddressInfo(address) {    
+    const addrURL = urlAppend(this.props.settings.insightAPI, 'addr/' + address + '/')    
+    axios.get(addrURL)
+    .then(function(addr_info){    
+      console.log(addr_info)  
+      this.setState({                
+        selectedAddressValue: addr_info.data.totalReceived
+      })
+    }.bind(this))
+    .catch(function(err){
+      alert(err)
+    })
+  }
+
   gotoComponent(c) {    
     this.props.navigator.pushPage({component: c});
     this.setState({
@@ -61,10 +87,10 @@ class MainPage extends React.Component {
 
   componentDidMount() {
     if (this.props.secrets.length > 0){
+      const address = this.props.secrets[0].address;
       this.setState({
-        selectedAddress: this.props.secrets[0].address,
-        selectedPrivateKey: this.props.secrets[0].privateKey
-      })      
+        selectedAddress: address        
+      }, this.getAddressInfo(address))      
     }
   }
 
@@ -72,7 +98,7 @@ class MainPage extends React.Component {
     return (
       <Toolbar>
         <div className='left'>
-          <ToolbarButton onClick={this.show.bind(this)}>
+          <ToolbarButton onClick={(e) => this.show()}>
             <Icon icon='ion-navicon, material:md-menu' />
           </ToolbarButton>
         </div>
@@ -80,7 +106,7 @@ class MainPage extends React.Component {
           ZENCash Wallet
         </div>
         <div className='right'>
-          <ToolbarButton onClick={this.toggleDialog.bind(this)}>
+          <ToolbarButton onClick={(e) => this.toggleDialog()}>
             <Icon icon='ion-clipboard'/>
           </ToolbarButton>
         </div>        
@@ -95,8 +121,8 @@ class MainPage extends React.Component {
           <SplitterSide
             side='left'
             isOpen={this.state.sliderOpen}
-            onClose={this.hide.bind(this)}
-            onOpen={this.show.bind(this)}
+            onClose={(e) => this.hide()}
+            onOpen={(e) => this.show()}
             collapse={true}
             width={240}
             isSwipeable={true}>
@@ -115,7 +141,7 @@ class MainPage extends React.Component {
                 renderHeader={() => <ListHeader>zen</ListHeader>}
                 renderRow={(i) => 
                   <ListItem
-                    onClick={this.gotoComponent.bind(this, i.component)}
+                    onClick={() => this.gotoComponent(i.component)}
                     modifier='longdivider'
                     tappable>
                     {i.name}
@@ -126,7 +152,7 @@ class MainPage extends React.Component {
           </SplitterSide>
 
           <SplitterContent>
-            <Page renderToolbar={this.renderToolbar.bind(this)}>              
+            <Page renderToolbar={(e) => this.renderToolbar()}>
               <p style={{fontSize: '15px', textAlign: 'center'}}>
                 Total ZEN: 12324242.12131
               </p>              
@@ -138,7 +164,11 @@ class MainPage extends React.Component {
                   <QRCode value={this.state.selectedAddress}/>                
                 </p>
                 <p style={{fontSize: '13px'}}>
-                  Value: 32323232.091234 ZEN
+                  Value: {
+                    this.state.selectedAddressValue === 'loading...' ?
+                    this.state.selectedAddressValue :
+                    this.state.selectedAddressValue + ' ZEN'
+                  }
                 </p>
                 <p style={{fontSize: '12px'}}>                  
                   Address: { this.state.selectedAddress }
@@ -176,7 +206,7 @@ class MainPage extends React.Component {
 
         <Dialog
           isOpen={this.state.dialogOpen}
-          onCancel={this.toggleDialog.bind(this)}
+          onCancel={this.toggleDialog}
           cancelable>
           <List>
             <ListHeader>Choose Another Address</ListHeader>
@@ -188,8 +218,10 @@ class MainPage extends React.Component {
                     onClick={function(){                      
                       this.setState({
                         selectedAddress: e.address,
+                        selectedAddressValue: 'loading...',
                         dialogOpen: false
-                      })                      
+                      })
+                      this.getAddressInfo(e.address)
                     }.bind(this)}
                     tappable
                   >
@@ -208,7 +240,8 @@ class MainPage extends React.Component {
 
 function mapStateToProps(state){  
   return {
-    secrets: state.secrets    
+    secrets: state.secrets,
+    settings: state.settings  
   }
 }
 
