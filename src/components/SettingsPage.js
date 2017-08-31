@@ -3,7 +3,10 @@ import React from 'react';
 import {
   Page,  
   Toolbar,  
-  BackButton
+  BackButton,
+  List,
+  ListHeader,
+  ListItem
 } from 'react-onsenui';
 
 class SettingsPage extends React.Component {
@@ -23,9 +26,24 @@ class SettingsPage extends React.Component {
   render() {    
     return (
       <Page renderToolbar={this.renderToolbar.bind(this)}>
-        <p>
-          Settings page
-        </p>
+        <List>
+          <ListItem tappable>
+            about
+          </ListItem>
+          <ListItem tappable>
+            secret phrase
+          </ListItem>
+          <ListHeader></ListHeader>
+          <ListItem tappable>
+            change pin
+          </ListItem>
+          <ListItem tappable>
+            import private key
+          </ListItem>
+          <ListItem tappable style={{color: 'red'}}>
+            start/recover another wallet
+          </ListItem>
+        </List>
       </Page>
     );
   }

@@ -122,12 +122,15 @@ class MainPage extends React.Component {
                 <p style={{fontSize: '13px'}}>
                   Value: 32323232.091234 ZEN
                 </p>
+                <p style={{fontSize: '12px'}}>                  
+                  Address: znSDvF9nA5VCdse5HbEKmsoNbjCbsEA3VAH
+                </p>
                 
                 <Button
                   onClick={this.toggleDialog.bind(this)}
-                  style={{fontSize: '12px', marginBottom: '10px'}}>
-                  znSDvF9nA5VCdse5HbEKmsoNbjCbsEA3VAH
-                </Button>                
+                  style={{fontSize: '12px', marginBottom: '10px', width: '90%'}}>                  
+                  my addresses
+                </Button>            
               </div>
 
               <hr/>             
@@ -159,6 +162,7 @@ class MainPage extends React.Component {
           onCancel={this.toggleDialog.bind(this)}
           cancelable>
           <List>
+            <ListHeader>Addresses</ListHeader>
             <ListItem style={{fontSize: '12px'}}
               onClick={this.toggleDialog.bind(this)}
               tappable>

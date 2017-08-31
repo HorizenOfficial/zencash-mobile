@@ -38,17 +38,21 @@ class SendPage extends React.Component {
       <Page renderToolbar={this.renderToolbar.bind(this)}>
         <div style={{padding: '0 12px 0 12px'}}>
           <p>
-            Address: <br/>
-            <Input style={{width: '100%'}} />
+            From: <br/>
+            <Input placeholder="Your address" style={{width: '100%'}} />
           </p>
           <p>
-            ZEN: <br/>
-            <Input style={{width: '100%'}} />
+            To: <br/>
+            <Input placeholder="Receiver address" style={{width: '100%'}} />
           </p>
           <p>
-            <Button 
-              style={{width: '100%'}}>Scan QR Code</Button>            
+            Amount (ZEN): <br/>
+            <Input placeholder="42.42" style={{width: '100%'}} />
           </p>
+          <p>
+            Fees: <br/>
+            <Input style={{width: '100%'}} value='0'/>
+          </p>          
           <p>
             <Button style={{width: '100%'}}>Send</Button>
           </p>
