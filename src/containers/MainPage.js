@@ -43,7 +43,8 @@ class MainPage extends React.Component {
     this.show = this.show.bind(this)
     this.toggleDialog = this.toggleDialog.bind(this)
     this.gotoComponent = this.gotoComponent.bind(this)
-    this.getAddressInfo = this.getAddressInfo.bind(this)
+    this.setAddressInfo = this.setAddressInfo.bind(this)
+    this.setTotalZENValue = this.setTotalZENValue.bind(this)
   }
 
   hide() {
@@ -64,11 +65,30 @@ class MainPage extends React.Component {
     })
   }
 
-  getAddressInfo(address) {    
+  setTotalZENValue() {
+    this.setState({
+      totalZenValue: 0.0
+    })
+
+    this.props.secrets.map(function(s){
+      const addrURL = urlAppend(this.props.settings.insightAPI, 'addr/' + s.address + '/')    
+      axios.get(addrURL)
+      .then(function(addr_info){        
+        const totalZEN = addr_info.data.totalReceived + this.state.totalZenValue
+        this.setState({
+          totalZenValue: totalZEN
+        })
+      }.bind(this))
+      .catch(function(err){
+        alert(err)
+      })
+    }.bind(this))
+  }
+
+  setAddressInfo(address) {    
     const addrURL = urlAppend(this.props.settings.insightAPI, 'addr/' + address + '/')    
     axios.get(addrURL)
-    .then(function(addr_info){    
-      console.log(addr_info)  
+    .then(function(addr_info){      
       this.setState({                
         selectedAddressValue: addr_info.data.totalReceived
       })
@@ -89,8 +109,12 @@ class MainPage extends React.Component {
     if (this.props.secrets.length > 0){
       const address = this.props.secrets[0].address;
       this.setState({
-        selectedAddress: address        
-      }, this.getAddressInfo(address))      
+        selectedAddress: address,
+        selectedAddressValue: this.setAddressInfo(address)
+      }, () => {
+        this.setAddressInfo(address)
+        this.setTotalZENValue()
+      })      
     }
   }
 
@@ -154,7 +178,7 @@ class MainPage extends React.Component {
           <SplitterContent>
             <Page renderToolbar={(e) => this.renderToolbar()}>
               <p style={{fontSize: '15px', textAlign: 'center'}}>
-                Total ZEN: 12324242.12131
+                Total ZEN: { this.state.totalZenValue }
               </p>              
 
               <hr/>
@@ -221,7 +245,7 @@ class MainPage extends React.Component {
                         selectedAddressValue: 'loading...',
                         dialogOpen: false
                       })
-                      this.getAddressInfo(e.address)
+                      this.setAddressInfo(e.address)
                     }.bind(this)}
                     tappable
                   >
