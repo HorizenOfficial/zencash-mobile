@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 
 import {
   Page,
+  PullHook,
   Splitter,
   SplitterSide,
   SplitterContent,
@@ -37,10 +38,9 @@ class MainPage extends React.Component {
 
     this.state = {
       sliderOpen: false,
-      dialogOpen: false,
+      dialogOpen: false,        
       selectedAddress: '',
-      selectedAddressValue: 'loading...',
-      totalZenValue: 'loading...',
+      selectedAddressValue: null,      
       selectedAddressTxFrom: 10,
       selectedAddressTxTo: 0,
       selectedAddressTxs: [],
@@ -52,9 +52,9 @@ class MainPage extends React.Component {
     this.show = this.show.bind(this)
     this.toggleDialog = this.toggleDialog.bind(this)
     this.gotoComponent = this.gotoComponent.bind(this)
-    this.setAddressInfo = this.setAddressInfo.bind(this)
-    this.setTotalZENValue = this.setTotalZENValue.bind(this)
-    this.setAddressTxList = this.setAddressTxList.bind(this)
+    this.setAddressInfo = this.setAddressInfo.bind(this)    
+    this.setAddressTxList = this.setAddressTxList.bind(this)    
+    this.handlePullLoad = this.handlePullLoad.bind(this)
   }
 
   hide() {
@@ -69,34 +69,25 @@ class MainPage extends React.Component {
     });
   }
 
+  handlePullLoad(done){
+    const address = this.props.secrets.items[0].address;
+    this.setAddressInfo(address)
+    done()
+  }
+
   toggleDialog() {
     this.setState({
       dialogOpen: !this.state.dialogOpen
     })
   }  
 
-  setTotalZENValue() {
-    this.setState({
-      totalZenValue: 0.0
+  // Sets information about address
+  setAddressInfo(address) {
+    // Resets
+    this.setState({      
+      selectedAddressValue: null
     })
 
-    this.props.secrets.items.map(function(s){
-      const addrURL = urlAppend(this.props.settings.insightAPI, 'addr/' + s.address + '/')    
-      axios.get(addrURL)
-      .then(function(addr_info){        
-        const totalZEN = addr_info.data.totalReceived + this.state.totalZenValue
-        this.setState({
-          totalZenValue: totalZEN
-        })
-      }.bind(this))
-      .catch(function(err){
-        alert(err)
-      })
-    }.bind(this))
-  }
-
-  // Sets information about address
-  setAddressInfo(address) {   
     // How many zen
     const addrURL = urlAppend(this.props.settings.insightAPI, 'addr/' + address + '/')    
     axios.get(addrURL)
@@ -181,9 +172,9 @@ class MainPage extends React.Component {
     );
   }
 
-  render() {    
+  render() {
     return (
-      <Page>
+      <Page>        
         <Splitter>
           <SplitterSide
             side='left'
@@ -220,14 +211,16 @@ class MainPage extends React.Component {
 
           <SplitterContent>
             <Page renderToolbar={(e) => this.renderToolbar()}>
+              <PullHook onChange={this.handlePullChange} onLoad={this.handlePullLoad}>                
+              </PullHook>              
               <div style={{textAlign: 'center'}}>
                 <p>
                   <QRCode value={this.state.selectedAddress}/>                
                 </p>
                 <p style={{fontSize: '13px'}}>
                   Value: {
-                    this.state.selectedAddressValue === 'loading...' ?
-                    this.state.selectedAddressValue :
+                    this.state.selectedAddressValue === null ?
+                    'loading...' :
                     this.state.selectedAddressValue + ' ZEN'
                   }
                 </p>
@@ -248,7 +241,9 @@ class MainPage extends React.Component {
                   this.state.selectedAddressScannedTxs === false ?
                   (
                     <ListHeader>
-                      Loading...
+                      <div style={{textAlign: 'center'}}>
+                        <Icon icon='spinner' spin/>
+                      </div>
                     </ListHeader>
                   ) : 
                   this.state.selectedAddressNoTxs ?
@@ -298,10 +293,10 @@ class MainPage extends React.Component {
                     return ret                               
                   }.bind(this))
                 }                
-              </List>
+              </List>        
             </Page>
           </SplitterContent>
-        </Splitter>
+        </Splitter>        
 
         <Dialog
           isOpen={this.state.dialogOpen}
@@ -315,6 +310,10 @@ class MainPage extends React.Component {
                   <ListItem
                     style={{fontSize: '12px'}}
                     onClick={function(){
+                      // Some redundancy
+                      // TODO: set so mainpage uses
+                      // this.props.context
+                      // instead of this.state.selectedAddress..
                       this.props.setAddress(e.address)
                       this.props.setPrivateKey(e.privateKey)
                       this.setState({

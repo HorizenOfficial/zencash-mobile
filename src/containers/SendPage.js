@@ -17,11 +17,12 @@ import ScannerPage from '../components/ScannerPage'
 
 
 class SendPage extends React.Component {
-  gotoComponent(c) {    
-    this.props.navigator.pushPage({component: c});
-    this.setState({
-      sliderOpen: false
-    })
+  constructor(props){
+    super(props)
+
+    this.state = {
+      confirmSend: false   
+    }
   }
 
   renderToolbar() {
@@ -43,7 +44,6 @@ class SendPage extends React.Component {
   }
 
   render() {    
-    console.log(this.props.context)
     return (
       <Page renderToolbar={this.renderToolbar.bind(this)}>
         <div style={{padding: '0 12px 0 12px'}}>
@@ -62,9 +62,28 @@ class SendPage extends React.Component {
           <p>
             Fees: <br/>
             <Input style={{width: '100%'}} value='0'/>
-          </p>          
+          </p>
+
           <p>
-            <Button style={{width: '100%'}}>Send</Button>
+            <label className="left">
+              <Input 
+                onChange={(e) => {                  
+                  this.setState({
+                    confirmSend: !this.state.confirmSend                    
+                  })
+                }}
+                inputId='understoodCheckbox' type="checkbox"
+              />
+            </label>
+            <label htmlFor='understoodCheckbox' className="center">
+              &nbsp;I want to send these ZEN
+            </label>
+          </p>
+
+          <p>
+            <Button
+              disabled={!this.state.confirmSend}
+              style={{width: '100%'}}>Send</Button>
           </p>
         </div>
       </Page>

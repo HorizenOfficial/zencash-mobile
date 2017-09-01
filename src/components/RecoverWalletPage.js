@@ -17,6 +17,7 @@ class RecoverWalletPage extends React.Component {
 
     this.state = {
       confirmRecover: false,
+      tempSecretPhrase: ''
     }
   }
 
@@ -33,13 +34,18 @@ class RecoverWalletPage extends React.Component {
     );
   }
 
-  render() {    
+  render() {
+    console.log(this.state.tempSecretPhrase.length)
+
     return (
       <Page renderToolbar={this.renderToolbar.bind(this)}>
         <div style={{padding: '12px 12px 0 12px'}}>
           <p>
             Secret Phrase:<br/><br/>
-            <textarea className="textarea" rows="3" placeholder="secret phrase"></textarea>
+            <textarea
+              onChange={(e) => this.setState({ tempSecretPhrase: e.target.value })}
+              className="textarea" rows="3" placeholder="secret phrase. min 16 characters">
+            </textarea>
           </p>
 
           <p>
@@ -59,7 +65,7 @@ class RecoverWalletPage extends React.Component {
           </p>
                     
           <Button
-            disabled={!this.state.confirmRecover}
+            disabled={!this.state.confirmRecover || this.state.tempSecretPhrase.length < 16}
             style={{width: '100%', textAlign: 'center'}}
             >
             Recover
