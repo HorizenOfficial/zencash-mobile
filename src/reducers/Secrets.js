@@ -15,7 +15,7 @@ import {
 // Example below is just test data, steal away, if you're reading this :)
 const initialSecrets = [
   {
-    address: 'znVZqVEZbM8ryMsf4zhS4KtQ2pYdtEU8AtN',
+    address: 'znkz4JE6Y4m8xWoo4ryTnpxwBT5F7vFDgNf',//znVZqVEZbM8ryMsf4zhS4KtQ2pYdtEU8AtN',
     privateKey: 'L25wxXcLDKn7BVzGRqZ8LCxwxBsQLcZYoWv3ZP1WSxv1LZjE9prF'
   },
   {

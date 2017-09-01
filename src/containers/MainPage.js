@@ -27,6 +27,8 @@ import SettingsPage from '../components/SettingsPage'
 
 import { urlAppend } from '../utils/index'
 
+const TX_ITEM_COUNT = 10; // How many tx do we wanna get at one time
+
 class MainPage extends React.Component {
   constructor(props) {
     super(props);
@@ -36,7 +38,11 @@ class MainPage extends React.Component {
       dialogOpen: false,
       selectedAddress: '',
       selectedAddressValue: 'loading...',
-      totalZenValue: 'loading...'
+      totalZenValue: 'loading...',
+      selectedAddressTxFrom: 10,
+      selectedAddressTxTo: 0,
+      selectedAddressTxs: [],
+      selectedAddressNoTxs: false,   
     };
 
     this.hide = this.hide.bind(this)
@@ -45,6 +51,7 @@ class MainPage extends React.Component {
     this.gotoComponent = this.gotoComponent.bind(this)
     this.setAddressInfo = this.setAddressInfo.bind(this)
     this.setTotalZENValue = this.setTotalZENValue.bind(this)
+    this.setAddressTxList = this.setAddressTxList.bind(this)
   }
 
   hide() {
@@ -63,7 +70,7 @@ class MainPage extends React.Component {
     this.setState({
       dialogOpen: !this.state.dialogOpen
     })
-  }
+  }  
 
   setTotalZENValue() {
     this.setState({
@@ -85,12 +92,41 @@ class MainPage extends React.Component {
     }.bind(this))
   }
 
-  setAddressInfo(address) {    
+  // Sets information about address
+  setAddressInfo(address) {   
+    // How many zen
     const addrURL = urlAppend(this.props.settings.insightAPI, 'addr/' + address + '/')    
     axios.get(addrURL)
-    .then(function(addr_info){      
+    .then(function(resp){
+      const addr_info = resp.data
       this.setState({                
-        selectedAddressValue: addr_info.data.totalReceived
+        selectedAddressValue: addr_info.totalReceived
+      })
+    }.bind(this))
+    .catch(function(err){
+      alert(err)
+    })
+
+    // Sets information about tx
+    // When we set address info
+    // we get a new address, user isn't pulling down to refresh
+    this.setAddressTxList(address, false)
+  }
+
+  // Sets information about tx  
+  setAddressTxList(address, append=true) {
+    const txInfoURL = urlAppend(this.props.settings.insightAPI, 'addrs/' + address + '/txs?from=' + this.state.selectedAddressTxFrom + '&to=' + this.state.selectedAddressTxTo)
+
+    axios.get(txInfoURL)
+    .then(function(resp){
+      const txinfo = resp.data      
+      const curTxs = this.state.selectedAddressTxs || []
+      const newTxs = append ? curTxs.concat(txinfo.items) : txinfo.items
+      console.log(newTxs.length)
+      
+      this.setState({
+        selectedAddressTxs: newTxs,
+        selectedAddressNoTxs: newTxs.length === 0
       })
     }.bind(this))
     .catch(function(err){
@@ -109,10 +145,9 @@ class MainPage extends React.Component {
     if (this.props.secrets.length > 0){
       const address = this.props.secrets[0].address;
       this.setState({
-        selectedAddress: address,
-        selectedAddressValue: this.setAddressInfo(address)
+        selectedAddress: address        
       }, () => {
-        this.setAddressInfo(address)
+        this.setAddressInfo(address)        
         this.setTotalZENValue()
       })      
     }
@@ -138,7 +173,8 @@ class MainPage extends React.Component {
     );
   }
 
-  render() {    
+  render() {  
+    console.log('rerender')  
     return (
       <Page>
         <Splitter>
@@ -207,22 +243,54 @@ class MainPage extends React.Component {
               <hr/>             
 
               <List>
-                <ListItem tappable>
-                  <ons-row>
-                    <ons-col>+ Received</ons-col>
-                    <ons-col style={{textAlign: 'right', paddingRight: '12px'}}>
-                      10.0000000000 zen
-                    </ons-col>
-                  </ons-row>
-                </ListItem>
-                <ListItem tappable>
-                  <ons-row>
-                    <ons-col>+ Received</ons-col>
-                    <ons-col style={{textAlign: 'right', paddingRight: '12px'}}>
-                      10.0000000000 zen
-                    </ons-col>
-                  </ons-row>
-                </ListItem>    
+                {
+                  this.state.selectedAddressNoTxs ?
+                  (
+                    <ListHeader>
+                      No transaction history found
+                    </ListHeader>
+                  )
+                  :
+                  this.state.selectedAddressTxs.map(function(tx){
+                    const selectedAddress = this.state.selectedAddress
+                    const vins = tx.vin || []
+                    const vouts = tx.vout || []
+                    var ret
+
+                    // Are we receiving zen?
+                    // and whats the amount of zen we receive / sent?
+                    function getTxListItem (received, value) {
+                      return (
+                        <ListItem tappable>
+                          <ons-row>
+                            <ons-col>{ received ? '+ Received' : '- Sent' }</ons-col>
+                            <ons-col style={{textAlign: 'right', paddingRight: '12px'}}>
+                              { value } zen
+                            </ons-col>
+                          </ons-row>
+                        </ListItem>
+                      )
+                    }                    
+
+                    vins.forEach(function(vin){
+                      if (vin.addr === selectedAddress){                     
+                        ret = getTxListItem(false, vin.value)                        
+                      }
+                    })
+                    
+                    if (ret === undefined){
+                      vouts.forEach(function(vout){                      
+                        vout.scriptPubKey.addresses.forEach(function(addr){
+                          if (addr === selectedAddress){
+                            ret = getTxListItem(true, vout.value)                            
+                          }
+                        })
+                      })
+                    }
+
+                    return ret                               
+                  }.bind(this))
+                }                
               </List>
             </Page>
           </SplitterContent>
@@ -245,7 +313,7 @@ class MainPage extends React.Component {
                         selectedAddressValue: 'loading...',
                         dialogOpen: false
                       })
-                      this.setAddressInfo(e.address)
+                      this.setAddressInfo(e.address)                      
                     }.bind(this)}
                     tappable
                   >
