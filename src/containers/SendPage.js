@@ -10,8 +10,10 @@ import {
   Icon
 } from 'react-onsenui';
 
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-import ScannerPage from './ScannerPage'
+import ScannerPage from '../components/ScannerPage'
 
 
 class SendPage extends React.Component {
@@ -41,19 +43,20 @@ class SendPage extends React.Component {
   }
 
   render() {    
+    console.log(this.props.context)
     return (
       <Page renderToolbar={this.renderToolbar.bind(this)}>
         <div style={{padding: '0 12px 0 12px'}}>
           <p>
             From: <br/>
-            <Input placeholder="Your address" style={{width: '100%'}} />
+            { this.props.context.address }
           </p>
           <p>
             To: <br/>
             <Input placeholder="Receiver address" style={{width: '100%'}} />
           </p>
           <p>
-            Amount (ZEN): <br/>
+            Amount (Max: {this.props.context.value}): <br/>
             <Input placeholder="42.42" style={{width: '100%'}} />
           </p>
           <p>
@@ -69,4 +72,11 @@ class SendPage extends React.Component {
   }
 }
 
-export default SendPage;
+
+function mapStateToProps(state){  
+  return {
+    context: state.context  
+  }
+}
+
+export default connect(mapStateToProps)(SendPage);

@@ -10,9 +10,9 @@ import {
 } from 'react-onsenui';
 
 import AboutPage from './AboutPage'
-import SecretPhrasePage from './SecretPhrasePage'
+import SecretPhrasePage from '../containers/SecretPhrasePage'
 import RecoverWalletPage from './RecoverWalletPage'
-import ShowPrivateKeyPage from './ShowPrivateKeyPage'
+import ShowPrivateKeyPage from '../containers/ShowPrivateKeyPage'
 
 class SettingsPage extends React.Component {
   gotoComponent(c) {    
@@ -42,23 +42,23 @@ class SettingsPage extends React.Component {
           <ListItem 
             onClick={this.gotoComponent.bind(this, AboutPage)}
             tappable>
-            about
+            About
           </ListItem>
           <ListItem
             onClick={this.gotoComponent.bind(this, SecretPhrasePage)}
             tappable>
-            secret phrase
+            Secret Phrase
           </ListItem>
           <ListHeader></ListHeader>                    
           <ListItem
             onClick={this.gotoComponent.bind(this, ShowPrivateKeyPage)}
             tappable>
-            show private keys
+            Show Private Keys
           </ListItem>
           <ListItem
             onClick={this.gotoComponent.bind(this, RecoverWalletPage)}
             tappable style={{color: 'red'}}>
-            start/recover another wallet
+            Start/Recover Existing Wallet
           </ListItem>
         </List>
       </Page>

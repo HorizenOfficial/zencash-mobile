@@ -12,11 +12,12 @@ import {
 
 
 class RecoverWalletPage extends React.Component {
-  gotoComponent(c) {    
-    this.props.navigator.pushPage({component: c});
-    this.setState({
-      sliderOpen: false
-    })
+  constructor(props){
+    super(props)
+
+    this.state = {
+      confirmRecover: false,
+    }
   }
 
   renderToolbar() {
@@ -43,7 +44,14 @@ class RecoverWalletPage extends React.Component {
 
           <p>
             <label className="left">
-              <Input inputId='understoodCheckbox' type="checkbox" />
+              <Input 
+                onChange={(e) => {                  
+                  this.setState({
+                    confirmRecover: !this.state.confirmRecover
+                  })
+                }}
+                inputId='understoodCheckbox' type="checkbox"
+              />
             </label>
             <label htmlFor='understoodCheckbox' className="center">
               &nbsp;I understand that by recovering the existing wallet, my current wallet will be <strong>wiped</strong>.
@@ -51,6 +59,7 @@ class RecoverWalletPage extends React.Component {
           </p>
                     
           <Button
+            disabled={!this.state.confirmRecover}
             style={{width: '100%', textAlign: 'center'}}
             >
             Recover

@@ -22,7 +22,9 @@ import {
 
 import axios from 'axios'
 
-import SendPage from '../components/SendPage';
+import { setAddress, setPrivateKey, setAddressValue } from '../actions/Context'
+
+import SendPage from './SendPage';
 import SettingsPage from '../components/SettingsPage'
 
 import { urlAppend } from '../utils/index'
@@ -42,7 +44,8 @@ class MainPage extends React.Component {
       selectedAddressTxFrom: 10,
       selectedAddressTxTo: 0,
       selectedAddressTxs: [],
-      selectedAddressNoTxs: false,   
+      selectedAddressNoTxs: false,
+      selectedAddressScannedTxs: false, // Have we tried and fined the txs? (used to display loading...)
     };
 
     this.hide = this.hide.bind(this)
@@ -77,7 +80,7 @@ class MainPage extends React.Component {
       totalZenValue: 0.0
     })
 
-    this.props.secrets.map(function(s){
+    this.props.secrets.items.map(function(s){
       const addrURL = urlAppend(this.props.settings.insightAPI, 'addr/' + s.address + '/')    
       axios.get(addrURL)
       .then(function(addr_info){        
@@ -102,6 +105,7 @@ class MainPage extends React.Component {
       this.setState({                
         selectedAddressValue: addr_info.totalReceived
       })
+      this.props.setAddressValue(addr_info.totalReceived)
     }.bind(this))
     .catch(function(err){
       alert(err)
@@ -117,16 +121,20 @@ class MainPage extends React.Component {
   setAddressTxList(address, append=true) {
     const txInfoURL = urlAppend(this.props.settings.insightAPI, 'addrs/' + address + '/txs?from=' + this.state.selectedAddressTxFrom + '&to=' + this.state.selectedAddressTxTo)
 
+    this.setState({
+      selectedAddressScannedTxs: false
+    })
+
     axios.get(txInfoURL)
     .then(function(resp){
       const txinfo = resp.data      
       const curTxs = this.state.selectedAddressTxs || []
-      const newTxs = append ? curTxs.concat(txinfo.items) : txinfo.items
-      console.log(newTxs.length)
+      const newTxs = append ? curTxs.concat(txinfo.items) : txinfo.items      
       
       this.setState({
         selectedAddressTxs: newTxs,
-        selectedAddressNoTxs: newTxs.length === 0
+        selectedAddressNoTxs: newTxs.length === 0,
+        selectedAddressScannedTxs: true
       })
     }.bind(this))
     .catch(function(err){
@@ -142,13 +150,13 @@ class MainPage extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.secrets.length > 0){
-      const address = this.props.secrets[0].address;
+    if (this.props.secrets.items.length > 0){
+      const address = this.props.secrets.items[0].address;
+      this.props.setAddress(address) // for the send page
       this.setState({
         selectedAddress: address        
       }, () => {
-        this.setAddressInfo(address)        
-        this.setTotalZENValue()
+        this.setAddressInfo(address)                
       })      
     }
   }
@@ -173,8 +181,7 @@ class MainPage extends React.Component {
     );
   }
 
-  render() {  
-    console.log('rerender')  
+  render() {    
     return (
       <Page>
         <Splitter>
@@ -190,15 +197,15 @@ class MainPage extends React.Component {
               <List
                 dataSource=
                 {[{
-                    name: 'send',
+                    name: 'Send',
                     component: SendPage
                   },
                   {
-                    name: 'settings',
+                    name: 'Settings',
                     component: SettingsPage
                   }
                 ]}                
-                renderHeader={() => <ListHeader>zen</ListHeader>}
+                renderHeader={() => <ListHeader>ZEN</ListHeader>}
                 renderRow={(i) => 
                   <ListItem
                     onClick={() => this.gotoComponent(i.component)}
@@ -213,12 +220,6 @@ class MainPage extends React.Component {
 
           <SplitterContent>
             <Page renderToolbar={(e) => this.renderToolbar()}>
-              <p style={{fontSize: '15px', textAlign: 'center'}}>
-                Total ZEN: { this.state.totalZenValue }
-              </p>              
-
-              <hr/>
-
               <div style={{textAlign: 'center'}}>
                 <p>
                   <QRCode value={this.state.selectedAddress}/>                
@@ -244,6 +245,12 @@ class MainPage extends React.Component {
 
               <List>
                 {
+                  this.state.selectedAddressScannedTxs === false ?
+                  (
+                    <ListHeader>
+                      Loading...
+                    </ListHeader>
+                  ) : 
                   this.state.selectedAddressNoTxs ?
                   (
                     <ListHeader>
@@ -263,9 +270,9 @@ class MainPage extends React.Component {
                       return (
                         <ListItem tappable>
                           <ons-row>
-                            <ons-col>{ received ? '+ Received' : '- Sent' }</ons-col>
+                            <ons-col>{ received ? 'Received' : 'Sent' }</ons-col>
                             <ons-col style={{textAlign: 'right', paddingRight: '12px'}}>
-                              { value } zen
+                              { received ? '+' : '-' } { value } zen
                             </ons-col>
                           </ons-row>
                         </ListItem>
@@ -303,11 +310,13 @@ class MainPage extends React.Component {
           <List>
             <ListHeader>Choose Another Address</ListHeader>
             {
-              this.props.secrets.map(function(e){
+              this.props.secrets.items.map(function(e){
                 return (
                   <ListItem
                     style={{fontSize: '12px'}}
-                    onClick={function(){                      
+                    onClick={function(){
+                      this.props.setAddress(e.address)
+                      this.props.setPrivateKey(e.privateKey)
                       this.setState({
                         selectedAddress: e.address,
                         selectedAddressValue: 'loading...',
@@ -333,9 +342,20 @@ class MainPage extends React.Component {
 function mapStateToProps(state){  
   return {
     secrets: state.secrets,
-    settings: state.settings  
+    settings: state.settings    
   }
 }
 
+function matchDispatchToProps (dispatch) {
+  // Set context for the send page
+  return bindActionCreators(
+    {
+      setAddress,
+      setAddressValue,
+      setPrivateKey
+    },
+    dispatch
+  )
+}
 
-export default connect(mapStateToProps)(MainPage);
+export default connect(mapStateToProps, matchDispatchToProps)(MainPage);
