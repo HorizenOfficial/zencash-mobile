@@ -11,7 +11,7 @@ import {
 
 import AboutPage from './AboutPage'
 import SecretPhrasePage from '../containers/SecretPhrasePage'
-import RecoverWalletPage from './RecoverWalletPage'
+import RecoverWalletPage from '../containers/RecoverWalletPage'
 import ShowPrivateKeyPage from '../containers/ShowPrivateKeyPage'
 
 class SettingsPage extends React.Component {

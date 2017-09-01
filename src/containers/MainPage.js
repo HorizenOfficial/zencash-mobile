@@ -38,9 +38,7 @@ class MainPage extends React.Component {
 
     this.state = {
       sliderOpen: false,
-      dialogOpen: false,        
-      selectedAddress: '',
-      selectedAddressValue: null,      
+      dialogOpen: false,      
       selectedAddressTxFrom: 10,
       selectedAddressTxTo: 0,
       selectedAddressTxs: [],
@@ -84,18 +82,13 @@ class MainPage extends React.Component {
   // Sets information about address
   setAddressInfo(address) {
     // Resets
-    this.setState({      
-      selectedAddressValue: null
-    })
+    this.props.setAddressValue(null)    
 
     // How many zen
     const addrURL = urlAppend(this.props.settings.insightAPI, 'addr/' + address + '/')    
     axios.get(addrURL)
     .then(function(resp){
-      const addr_info = resp.data
-      this.setState({                
-        selectedAddressValue: addr_info.totalReceived
-      })
+      const addr_info = resp.data      
       this.props.setAddressValue(addr_info.totalReceived)
     }.bind(this))
     .catch(function(err){
@@ -144,11 +137,13 @@ class MainPage extends React.Component {
     if (this.props.secrets.items.length > 0){
       const address = this.props.secrets.items[0].address;
       this.props.setAddress(address) // for the send page
-      this.setState({
-        selectedAddress: address        
-      }, () => {
-        this.setAddressInfo(address)                
-      })      
+      this.setAddressInfo(address)      
+    }
+  }
+
+  componentWillReceiveProps(nextProps) { 
+    if (nextProps.context.address !== this.props.context.address){
+      this.setAddressInfo(nextProps.context.address)
     }
   }
 
@@ -215,17 +210,17 @@ class MainPage extends React.Component {
               </PullHook>              
               <div style={{textAlign: 'center'}}>
                 <p>
-                  <QRCode value={this.state.selectedAddress}/>                
+                  <QRCode value={ this.props.context.address || 'loading...' }/>                
                 </p>
                 <p style={{fontSize: '13px'}}>
                   Value: {
-                    this.state.selectedAddressValue === null ?
+                    this.props.context.value === null ?
                     'loading...' :
-                    this.state.selectedAddressValue + ' ZEN'
+                    this.props.context.value + ' ZEN'
                   }
                 </p>
                 <p style={{fontSize: '12px'}}>                  
-                  Address: { this.state.selectedAddress }
+                  Address: { this.props.context.address }
                 </p>
                 
                 <Button                  
@@ -254,7 +249,7 @@ class MainPage extends React.Component {
                   )
                   :
                   this.state.selectedAddressTxs.map(function(tx){
-                    const selectedAddress = this.state.selectedAddress
+                    const selectedAddress = this.props.context.address
                     const vins = tx.vin || []
                     const vouts = tx.vout || []
                     var ret
@@ -310,18 +305,11 @@ class MainPage extends React.Component {
                   <ListItem
                     style={{fontSize: '12px'}}
                     onClick={function(){
-                      // Some redundancy
-                      // TODO: set so mainpage uses
-                      // this.props.context
-                      // instead of this.state.selectedAddress..
                       this.props.setAddress(e.address)
-                      this.props.setPrivateKey(e.privateKey)
-                      this.setState({
-                        selectedAddress: e.address,
-                        selectedAddressValue: 'loading...',
+                      this.props.setPrivateKey(e.privateKey)                      
+                      this.setState({                        
                         dialogOpen: false
                       })
-                      this.setAddressInfo(e.address)                      
                     }.bind(this)}
                     tappable
                   >
@@ -341,7 +329,8 @@ class MainPage extends React.Component {
 function mapStateToProps(state){  
   return {
     secrets: state.secrets,
-    settings: state.settings    
+    settings: state.settings,
+    context: state.context
   }
 }
 

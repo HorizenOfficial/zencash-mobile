@@ -42,11 +42,9 @@ module.exports = {
       }
     ]
   },
-
   postcss: function() {
     return [autoprefixer];
   },
-
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
@@ -56,6 +54,9 @@ module.exports = {
     new webpack.DefinePlugin({
       VERSION: JSON.stringify(require("./package.json").version)
     })
-  ]
+  ],
+  node: {
+    fs: 'empty'
+  }
 };
 
