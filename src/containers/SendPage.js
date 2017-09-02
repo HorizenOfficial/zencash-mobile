@@ -19,50 +19,49 @@ class SendPage extends React.Component {
 
     this.state = {
       confirmSend: false,
-      qrScanning: false
+      qrScanning: false,
+      addressReceive: '',
     }
 
     this.handleQRScan = this.handleQRScan.bind(this)
   }
 
   handleQRScan(){    
-    // Allow camera preview
-    this.setState({
-      qrScanning: true
-    })
-
     // Prepare QR Scanner
-    QRScanner.prepare(onDone)
-    function onDone(err, status){
+    QRScanner.prepare(function(err, status){
       if (err) {
        // here we can handle errors and clean up any loose ends.
-       alert(err);
+        alert(err);         
       }
       if (status.authorized) {
-        // W00t, you have camera access and the scanner is initialized.
-        // QRscanner.show() should feel very fast.
+        this.setState({
+          qrScanning: true
+        })
       } else if (status.denied) {
-       // The video preview will remain black, and scanning is disabled. We can
-       // try to ask the user to change their mind, but we'll have to send them
-       // to their device settings with `QRScanner.openSettings()`.
+        alert('No camera permissions. You can allow camera access in your settings.')
+        QRScanner.openSettings()       
       } else {
         // we didn't get permission, but we didn't get permanently denied. (On
         // Android, a denial isn't permanent unless the user checks the "Don't
         // ask again" box.) We can ask again at the next relevant opportunity.
       }
-    }
+    }.bind(this))
 
     // Start scanning
-    QRScanner.scan(displayContents)
-
-    function displayContents(err, text){
+    QRScanner.scan(function(err, address){
       if(err){
         // an error occurred, or the scan was canceled (error code `6`)
+        alert(err)
       } else {
         // The scan completed, display the contents of the QR code:
-        alert(text);
+        this.setState({
+          addressReceive: address
+        })
       }
-    }
+      this.setState({
+        qrScanning: false
+      })
+    }.bind(this))
     
     // Show scanning preview
     QRScanner.show()
@@ -118,7 +117,12 @@ class SendPage extends React.Component {
               </p>
               <p>
                 To: <br/>
-                <Input placeholder="Receiver address" style={{width: '100%'}} />
+                <Input
+                  onChange={(e) => this.setState({ addressReceive: e.target.value })}
+                  value={this.state.addressReceive}
+                  placeholder="Receiver address"
+                  style={{width: '100%'}}
+                />
               </p>
               <p>
                 Amount (Max: {this.props.context.value}): <br/>
