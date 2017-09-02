@@ -6,7 +6,8 @@ import React from 'react';
 
 import {
   Page,
-  Icon
+  Icon,
+  Navigator
 } from 'react-onsenui';
 
 import { bindActionCreators } from 'redux';
@@ -21,7 +22,11 @@ import { phraseToSecretItems } from '../utils/wallet'
 import MainPage from './MainPage'
 import SetupPage from './SetupPage'
 
-class PreMainPage extends React.Component {
+const renderPage = (route, navigator) => (
+  <route.component key={route.key} navigator={navigator} />
+);
+
+class App extends React.Component {
   constructor(props){
     super(props)
 
@@ -32,18 +37,23 @@ class PreMainPage extends React.Component {
 
   componentDidMount(){
     readFromFile(ZENCASH_MOBILE_SAVE_PATH, function(data){
-      if (data.secretPhrase !== undefined){
+      data = JSON.parse(data)
+
+      if (data.secretPhrase !== undefined){        
         const secretPhrase = data.secretPhrase
         const secretItems = phraseToSecretItems(secretPhrase)
 
         this.props.setSecretItems(secretItems)
         this.props.setSecretPhrase(secretPhrase)
-        this.state = {
+
+        this.setState({
           hasExistingWallet: true
-        }      
+        })
       }
+
       this.props.setReadSavedFile(true)
     }.bind(this), function(err){
+
       this.props.setReadSavedFile(true)
     }.bind(this))
   }
@@ -54,10 +64,13 @@ class PreMainPage extends React.Component {
       (
         this.state.hasExistingWallet ?
         (
-          <MainPage/>
+          <Navigator
+            renderPage={renderPage}
+            initialRoute={{component: MainPage, key: 'MAIN_PAGE'}}
+          />
         ) :
         (
-          <SetupPage/>
+          <SetupPage setHasExistingWallet={(v) => this.setState({ hasExistingWallet: v})}/>
         )
       ) :
       (
@@ -79,10 +92,12 @@ function matchDispatchToProps (dispatch) {
   // Set context for the send page
   return bindActionCreators(
     {
-      setReadSavedFile
+      setReadSavedFile,
+      setSecretItems,
+      setSecretPhrase
     },
     dispatch
   )
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(PreMainPage);
+export default connect(mapStateToProps, matchDispatchToProps)(App);

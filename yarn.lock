@@ -1277,6 +1277,10 @@ cordova-android@^6.2.3:
     q "^1.4.1"
     shelljs "^0.5.3"
 
+cordova-clipboard@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/cordova-clipboard/-/cordova-clipboard-1.0.0.tgz#bee88475707ed27a767e3739592796ef352ae999"
+
 cordova-common@^2.0.1:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/cordova-common/-/cordova-common-2.0.3.tgz#2214ee04ae1c2ec012a52c7c185313e341a6fb38"
@@ -1302,6 +1306,10 @@ cordova-plugin-compat@^1.1.0:
 cordova-plugin-file@^4.3.3:
   version "4.3.3"
   resolved "https://registry.yarnpkg.com/cordova-plugin-file/-/cordova-plugin-file-4.3.3.tgz#012e97aa1afb91f84916e6341b548366d23de9b9"
+
+cordova-plugin-http@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-http/-/cordova-plugin-http-1.2.0.tgz#854aa2c6158c09aec5cc13a11ce6da85c9c4aa17"
 
 cordova-plugin-qrscanner@^2.5.0:
   version "2.5.0"
@@ -1493,6 +1501,10 @@ d@1:
   resolved "https://registry.yarnpkg.com/d/-/d-1.0.0.tgz#754bb5bfe55451da69a58b94d45f4c5b0462d58f"
   dependencies:
     es5-ext "^0.10.9"
+
+"danielsogl-cordova-plugin-clipboard@git+https://github.com/danielsogl/cordova-plugin-clipboard.git":
+  version "1.0.2"
+  resolved "git+https://github.com/danielsogl/cordova-plugin-clipboard.git#2f5c490215e007f07cbe8bed9110081b1c74d076"
 
 dashdash@^1.12.0:
   version "1.14.1"

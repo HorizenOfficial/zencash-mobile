@@ -8,7 +8,7 @@ import createLogger from 'redux-logger';
 import {AppContainer} from 'react-hot-loader';
 
 import allReducers from './reducers';
-import App from './components/App';
+import App from './containers/App';
 
 import './icons/css/weather-icons.css';
 
@@ -51,8 +51,8 @@ ons.ready(() => render(
 ));
 
 if (module.hot) {
-  module.hot.accept('./components/App', () => {
-    const NextApp = require('./components/App').default;
+  module.hot.accept('./containers/App', () => {
+    const NextApp = require('./containers/App').default;
     render(
       <AppContainer>
         <Provider store={store}>

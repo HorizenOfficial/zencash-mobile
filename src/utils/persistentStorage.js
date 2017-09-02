@@ -30,12 +30,12 @@ export function writeToFile (fileName, data) {
           fileEntry.createWriter(function (fileWriter) {
             fileWriter.onwriteend = function (e) {
               // for real-world usage, you might consider passing a success callback
-              alert('Write of file "' + fileName + '"" completed.')
+              // alert('Write of file "' + fileName + '"" completed.')
             }
 
             fileWriter.onerror = function (e) {
               // you could hook this up with our global error handler, or pass in an error callback
-              alert('Write failed: ' + e.toString())
+              // alert('Write failed: ' + e.toString())
             }
 
             var blob = new Blob([data], { type: 'text/plain' })

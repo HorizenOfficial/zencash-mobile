@@ -340,4 +340,4 @@ function matchDispatchToProps (dispatch) {
   )
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(MainPage);
+export default connect(mapStateToProps, matchDispatchToProps)(MainPage)
