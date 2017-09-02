@@ -39,6 +39,10 @@ module.exports = {
         loaders: [
           'babel?' + JSON.stringify({presets: ['stage-2', 'es2015', 'react']})
         ]
+      },
+      {
+        test: /\.(png|jpg)$/,
+        loader: 'url-loader?limit=20000'
       }
     ]
   },

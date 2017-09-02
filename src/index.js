@@ -10,8 +10,6 @@ import {AppContainer} from 'react-hot-loader';
 import allReducers from './reducers';
 import App from './containers/App';
 
-import './icons/css/weather-icons.css';
-
 import ons from 'onsenui';
 import 'onsenui/css/onsenui.css';
 import './stylus/index.styl';

@@ -54,6 +54,10 @@ module.exports = {
           'plugins': ['react-hot-loader/babel']
         },
         exclude: path.join(__dirname, 'node_modules')
+      },
+      {
+        test: /\.(png|jpg)$/,
+        loader: 'url-loader?limit=20000'
       }
     ]
   },
