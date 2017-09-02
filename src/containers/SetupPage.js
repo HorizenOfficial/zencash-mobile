@@ -17,6 +17,8 @@ import { connect } from 'react-redux';
 import { setSecretPhrase, setSecretItems } from '../actions/Secrets'
 import { phraseToSecretItems } from '../utils/wallet'
 
+import chance from 'chance'
+
 class SetupPage extends React.Component {
   constructor(props){
     super(props)
@@ -31,7 +33,16 @@ class SetupPage extends React.Component {
 
   handleNewWallet(){
     // generate random phrase
-    const randomPhrase = 'asdifjoisafajsoifdjaoidsjfoiasjfoiafjasdfa'
+    var c = new chance()
+    var randomPhrase = c.sentence({words: 12})
+
+    // want 64 max
+    if (randomPhrase.length > 64){
+      randomPhrase = randomPhrase.slice(0, 64)
+    }
+
+    // trim whitespace at the back
+    randomPhrase = randomPhrase.trim()
 
     this.handleLoadWallet(randomPhrase)
   }
