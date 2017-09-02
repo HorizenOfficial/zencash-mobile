@@ -7,6 +7,9 @@ import QRCode from 'qrcode.react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
+import { ZENCASH_MOBILE_SAVE_PATH, readFromFile, writeToFile } from '../utils/persistentStorage'
+import { phraseToSecretItems } from '../utils/wallet'
+
 class ShowPrivateKeyPage extends React.Component {
   gotoComponent (c) {
     this.props.navigator.pushPage({component: c})

@@ -5,8 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import {
-  Page,
-  PullHook,
+  Page,  
   Splitter,
   SplitterSide,
   SplitterContent,
@@ -51,8 +50,7 @@ class MainPage extends React.Component {
     this.toggleDialog = this.toggleDialog.bind(this)
     this.gotoComponent = this.gotoComponent.bind(this)
     this.setAddressInfo = this.setAddressInfo.bind(this)    
-    this.setAddressTxList = this.setAddressTxList.bind(this)    
-    this.handlePullLoad = this.handlePullLoad.bind(this)
+    this.setAddressTxList = this.setAddressTxList.bind(this)        
   }
 
   hide() {
@@ -67,12 +65,6 @@ class MainPage extends React.Component {
     });
   }
 
-  handlePullLoad(done){
-    const address = this.props.secrets.items[0].address;
-    this.setAddressInfo(address)
-    done()
-  }
-
   toggleDialog() {
     this.setState({
       dialogOpen: !this.state.dialogOpen
@@ -85,19 +77,17 @@ class MainPage extends React.Component {
     this.props.setAddressValue(null)    
 
     // How many zen
-    const addrURL = urlAppend(this.props.settings.insightAPI, 'addr/' + address + '/')    
-    axios.get(addrURL)
-    .then(function(resp){
-      const addr_info = resp.data      
-      this.props.setAddressValue(addr_info.totalReceived)
-    }.bind(this))
-    .catch(function(err){
-      alert(err)
-    })
+    const addrURL = urlAppend(this.props.settings.insightAPI, 'addr/' + address + '/')
+    cordovaHTTP.get(addrURL, {}, {},
+      function(resp){
+        const addr_info = JSON.parse(resp.data)
+        this.props.setAddressValue(addr_info.totalReceived)
+      }.bind(this), function(err){
+        alert(err)
+      })        
 
     // Sets information about tx
-    // When we set address info
-    // we get a new address, user isn't pulling down to refresh
+    // When we set address info    
     this.setAddressTxList(address, false)
   }
 
@@ -109,21 +99,20 @@ class MainPage extends React.Component {
       selectedAddressScannedTxs: false
     })
 
-    axios.get(txInfoURL)
-    .then(function(resp){
-      const txinfo = resp.data      
-      const curTxs = this.state.selectedAddressTxs || []
-      const newTxs = append ? curTxs.concat(txinfo.items) : txinfo.items      
-      
-      this.setState({
-        selectedAddressTxs: newTxs,
-        selectedAddressNoTxs: newTxs.length === 0,
-        selectedAddressScannedTxs: true
+    cordovaHTTP.get(txInfoURL, {}, {},
+      function(resp){        
+        const txinfo = JSON.parse(resp.data)
+        const curTxs = this.state.selectedAddressTxs || []        
+        const newTxs = append ? curTxs.concat(txinfo.items) : txinfo.items        
+        
+        this.setState({
+          selectedAddressTxs: newTxs,
+          selectedAddressNoTxs: newTxs.length === 0,
+          selectedAddressScannedTxs: true
+        })
+      }.bind(this), function(err){
+        alert(err)
       })
-    }.bind(this))
-    .catch(function(err){
-      alert(err)
-    })
   }
 
   gotoComponent(c) {    
@@ -133,7 +122,7 @@ class MainPage extends React.Component {
     })
   }
 
-  componentDidMount() {
+  componentDidMount() {    
     if (this.props.secrets.items.length > 0){
       const address = this.props.secrets.items[0].address;
       this.props.setAddress(address) // for the send page
@@ -159,6 +148,9 @@ class MainPage extends React.Component {
           ZENCash Wallet
         </div>
         <div className='right'>
+          <ToolbarButton onClick={() => this.setAddressInfo(this.props.context.address)}>
+            <Icon icon='ion-refresh'/>
+          </ToolbarButton>
           <ToolbarButton onClick={(e) => this.toggleDialog()}>
             <Icon icon='ion-clipboard'/>
           </ToolbarButton>
@@ -205,9 +197,7 @@ class MainPage extends React.Component {
           </SplitterSide>
 
           <SplitterContent>
-            <Page renderToolbar={(e) => this.renderToolbar()}>
-              <PullHook onChange={this.handlePullChange} onLoad={this.handlePullLoad}>                
-              </PullHook>              
+            <Page renderToolbar={(e) => this.renderToolbar()}>                  
               <div style={{textAlign: 'center'}}>
                 <p>
                   <QRCode value={ this.props.context.address || 'loading...' }/>                
@@ -223,7 +213,11 @@ class MainPage extends React.Component {
                   Address: { this.props.context.address }
                 </p>
                 
-                <Button                  
+                <Button
+                  onClick={() => {
+                    cordova.plugins.clipboard.copy(this.props.context.address)
+                    alert('Address copied to clipboard')
+                  }}
                   style={{fontSize: '12px', marginBottom: '10px', width: '90%'}}>                  
                   Copy address to clipboard
                 </Button>                
@@ -303,7 +297,7 @@ class MainPage extends React.Component {
               this.props.secrets.items.map(function(e){
                 return (
                   <ListItem
-                    style={{fontSize: '12px'}}
+                    style={{fontSize: '14px'}}
                     onClick={function(){
                       this.props.setAddress(e.address)
                       this.props.setPrivateKey(e.privateKey)                      

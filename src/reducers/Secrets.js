@@ -12,6 +12,12 @@ import {
  *    }
  * ]
  */
+
+// const initialSecrets = {
+//   secretPhrase: null,  
+//   items: []
+// }
+
 // Should be reading from file
 // Example below is just test data, steal away, if you're reading this :)
 const initialSecrets = {

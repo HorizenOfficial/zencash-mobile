@@ -4,8 +4,7 @@ import {
   Navigator
 } from 'react-onsenui';
 
-import MainPage from '../containers//MainPage';
-import SetupPage from './SetupPage'
+import PreMainPage from '../containers/PreMainPage'
 
 const renderPage = (route, navigator) => (
   <route.component key={route.key} navigator={navigator} />
@@ -14,7 +13,7 @@ const renderPage = (route, navigator) => (
 const App = () => (
   <Navigator
     renderPage={renderPage}
-    initialRoute={{component: MainPage, key: 'MAIN_PAGE'}}
+    initialRoute={{component: PreMainPage, key: 'PRE_MAIN_PAGE'}}
   />
 );
 

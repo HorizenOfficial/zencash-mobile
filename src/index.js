@@ -16,6 +16,8 @@ import ons from 'onsenui';
 import 'onsenui/css/onsenui.css';
 import './stylus/index.styl';
 
+import { ZENCASH_MOBILE_SAVE_PATH, readFromFile, writeToFile } from './utils/persistentStorage'
+
 const logger = createLogger();
 
 const store = createStore(allReducers,
@@ -24,6 +26,18 @@ const store = createStore(allReducers,
     ? applyMiddleware(thunk)
     : applyMiddleware(thunk, logger)
 );
+
+// Save file, etc
+store.subscribe(() => {
+  const state = store.getState()
+
+  if (state.secrets.secretPhrase !== null){
+    // Write to file woot woot
+    writeToFile(ZENCASH_MOBILE_SAVE_PATH, {
+      secretPhrase: state.secrets.secretPhrase
+    })
+  }
+})
 
 const rootElement = document.getElementById('root');
 
