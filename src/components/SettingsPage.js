@@ -58,7 +58,7 @@ class SettingsPage extends React.Component {
           <ListItem
             onClick={this.gotoComponent.bind(this, RecoverWalletPage)}
             tappable style={{color: 'red'}}>
-            Start/Recover Existing Wallet
+            Recover Existing Wallet
           </ListItem>
         </List>
       </Page>

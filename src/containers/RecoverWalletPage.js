@@ -25,6 +25,7 @@ class RecoverWalletPage extends React.Component {
     this.state = {
       confirmRecover: false,
       dialogOpen: false,
+      recovering: false,
       tempSecretPhrase: ''
     }
 
@@ -34,7 +35,8 @@ class RecoverWalletPage extends React.Component {
   newSecrets() {
     try{
       this.setState({
-        tempSecretPhrase: '',        
+        tempSecretPhrase: '',
+        recovering: true,
         dialogOpen: true
       })
 
@@ -47,6 +49,9 @@ class RecoverWalletPage extends React.Component {
       this.props.setAddress(secretItems[0].address)
       this.props.setPrivateKey(secretItems[0].privateKey)            
     } catch (err) {
+      this.setState({
+        recovering: false
+      })
       alert(err)
     }
   }
@@ -92,14 +97,21 @@ class RecoverWalletPage extends React.Component {
               &nbsp;I understand that by recovering the existing wallet, my current wallet will be <strong>wiped</strong>.
             </label>
           </p>
-                    
-          <Button
-            onClick={() => this.newSecrets()}
-            disabled={!this.state.confirmRecover || this.state.tempSecretPhrase.length < 16}
-            style={{width: '100%', textAlign: 'center'}}
-            >
-            Recover
-          </Button>          
+
+          {
+            this.state.recovering ?
+            <Icon icon='spinner' spin/>
+            :
+            (
+              <Button
+                onClick={() => this.newSecrets()}
+                disabled={!this.state.confirmRecover || this.state.tempSecretPhrase.length < 16}
+                style={{width: '100%', textAlign: 'center'}}
+                >
+                Recover
+              </Button>
+            )
+          }    
         </div>
 
         <Dialog

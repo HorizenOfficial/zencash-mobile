@@ -7,11 +7,16 @@ import {
   BackButton,
   Button,
   Input,
-  Icon
+  Icon,
+  ProgressBar
 } from 'react-onsenui';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+
+import { urlAppend } from '../utils/index'
+
+import zencashjs from 'zencashjs'
 
 class SendPage extends React.Component {
   constructor(props){
@@ -21,9 +26,21 @@ class SendPage extends React.Component {
       confirmSend: false,
       qrScanning: false,
       addressReceive: '',
+      sendValue: '',
+      sendFee: '',
+      progressValue: 0,
+      sendTxid: ''
     }
 
     this.handleQRScan = this.handleQRScan.bind(this)
+    this.handleSendZEN = this.handleSendZEN.bind(this)
+    this.setProgressValue = this.setProgressValue.bind(this)
+  }
+
+  setProgressValue(v){
+    this.setState({
+      progressValue: v
+    })
   }
 
   handleQRScan(){    
@@ -65,6 +82,141 @@ class SendPage extends React.Component {
     
     // Show scanning preview
     QRScanner.show()
+  }
+
+  handleSendZEN(){
+    const value = this.state.sendValue
+    const fee = this.state.sendFee
+    const recipientAddress = this.state.addressReceive
+    const senderAddress = this.props.context.address
+    
+    // Convert how much we wanna send
+    // to satoshis
+    const satoshisToSend = Math.round(value * 100000000)
+    const satoshisfeesToSend = Math.round(fee * 100000000)
+
+    // Reset zen send progress
+    this.setProgressValue(1)
+
+    // Reset zen send progress
+    // Alert messages too
+    var errString = ''
+
+    if (recipientAddress.length != 35){
+      errString += 'Invalid `To Address` Only transparent addresses are supported at this point in time.\n\n'
+    }
+
+    if (typeof parseInt(value) !== 'number' || value === ''){
+      errString += 'Invalid `Amount`.\n\n'
+    }
+
+    // Can't send 0 satoshis
+    if (satoshisToSend <= 0){
+      errString += 'Amount must be greater than 0.\n\n'
+    }
+
+    if (typeof parseInt(fee) !== 'number' || fee === ''){
+      errString += 'Invalid fee.\n\n'
+    }
+
+    // Alert errors
+    if (errString !== ''){    
+      alert(errString)  
+      this.setProgressValue(0)
+      return
+    }
+
+    // Private key
+    const senderPrivateKey = this.props.context.privateKey
+
+    // Get previous transactions
+    const prevTxURL = urlAppend(this.props.settings.insightAPI, 'addr/') + senderAddress + '/utxo'
+    const infoURL = urlAppend(this.props.settings.insightAPI, 'status?q=getInfo')
+    const sendRawTxURL = urlAppend(this.props.settings.insightAPI, 'tx/send')
+
+    // Building our transaction TXOBJ
+    // How many satoshis do we have so far
+    var satoshisSoFar = 0
+    var history = []
+    var recipients = [{address: recipientAddress, satoshis: satoshisToSend}]
+
+    // Get previous unspent transactions
+    cordovaHTTP.get(prevTxURL, {}, {}, function(tx_resp){
+      this.setProgressValue(25)
+
+      const tx_data = JSON.parse(tx_resp.data)
+
+      // Get blockheight and hash
+      cordovaHTTP.get(infoURL, {}, {}, function(info_resp){
+        this.setProgressValue(50)
+        const info_data = JSON.parse(info_resp.data)
+
+        const blockHeight = info_data.info.blocks - 300
+        const blockHashURL = urlAppend(this.props.settings.insightAPI, 'block-index/') + blockHeight
+
+        // Get block hash
+        cordovaHTTP.get(blockHashURL, {}, {}, function(response_bhash){
+          this.setProgressValue(75)
+
+          const blockHash = JSON.parse(response_bhash.data).blockHash
+
+          // Iterate through each utxo
+          // append it to history
+          for (var i = 0; i < tx_data.length; i++){
+            if (tx_data[i].confirmations === 0) { 
+              continue;
+            }
+
+            history = history.concat({
+              txid: tx_data[i].txid,
+              vout: tx_data[i].vout,
+              scriptPubKey: tx_data[i].scriptPubKey,            
+            });
+
+            // How many satoshis do we have so far
+            satoshisSoFar = satoshisSoFar + tx_data[i].satoshis;
+            if (satoshisSoFar >= satoshisToSend + satoshisfeesToSend){
+              break;
+            }
+          }
+
+          // If we don't have enough address
+          // fail and tell user
+          if (satoshisSoFar < satoshisToSend + satoshisfeesToSend){            
+            alert('Not enough confirmed ZEN in account to perform transaction')
+            this.setProgressValue(0)
+          }
+
+          // If we don't have exact amount
+          // Refund remaining to current address
+          if (satoshisSoFar !== satoshisToSend + satoshisfeesToSend){
+            var refundSatoshis = satoshisSoFar - satoshisToSend - satoshisfeesToSend
+            recipients = recipients.concat({address: senderAddress, satoshis: refundSatoshis})
+          }
+
+          // Create transaction
+          var txObj = zencashjs.transaction.createRawTx(history, recipients, blockHeight, blockHash)
+          
+          // Sign each history transcation          
+          for (var i = 0; i < history.length; i ++){
+            txObj = zencashjs.transaction.signTx(txObj, i, senderPrivateKey, this.props.settings.compressPubKey)
+          }
+
+          // Convert it to hex string
+          const txHexString = zencashjs.transaction.serializeTx(txObj)
+
+          // Post it to the api
+          cordovaHTTP.post(sendRawTxURL, {rawtx: txHexString}, {}, function(sendtx_resp){
+            const tx_resp_data = JSON.parse(sendtx_resp.data)
+
+            this.setState({
+              progressValue: 100,
+              sendTxid: tx_resp_data.txid
+            })
+          }.bind(this), (err) => { alert(err); this.setProgressValue(0) })
+        }.bind(this), (err) => { alert(err); this.setProgressValue(0) })
+      }.bind(this), (err) => { alert(err); this.setProgressValue(0) })
+    }.bind(this), (err) => { alert(err); this.setProgressValue(0) })
   }
 
   renderToolbar() {
@@ -115,22 +267,28 @@ class SendPage extends React.Component {
                 From: <br/>
                 { this.props.context.address }
               </p>
-              <p>
-                To: <br/>
+              <p>                
                 <Input
                   onChange={(e) => this.setState({ addressReceive: e.target.value })}
                   value={this.state.addressReceive}
-                  placeholder="Receiver address"
+                  placeholder="To Address"
                   style={{width: '100%'}}
                 />
               </p>
-              <p>
-                Amount (Max: {this.props.context.value}): <br/>
-                <Input placeholder="42.42" style={{width: '100%'}} />
+              <p>                
+                <Input                  
+                  placeholder={"Amount (Max: " + this.props.context.value + ")"}
+                  onChange={(e) => this.setState({ sendValue: e.target.value })}
+                  value={this.state.sendValue}                  
+                  style={{width: '100%'}}
+                />
               </p>
-              <p>
-                Fees: <br/>
-                <Input style={{width: '100%'}} value='0'/>
+              <p>                
+                <Input 
+                  placeholder={'Fees'}
+                  style={{width: '100%'}}
+                  onChange={(e) => this.setState({ sendFee: e.target.value })}
+                  value={this.state.sendFee}/>
               </p>
 
               <p>
@@ -151,8 +309,28 @@ class SendPage extends React.Component {
 
               <p>
                 <Button
+                  onClick={() => this.handleSendZEN()}
                   disabled={!this.state.confirmSend}
                   style={{width: '100%'}}>Send</Button>
+              </p>
+
+              <p>
+                <ProgressBar
+                  style={{width: ' 100%', height: '20px'}}
+                  value={this.state.progressValue}
+                />
+              </p>
+
+              <p>
+                {
+                  this.state.progressValue === 100 ?
+                  (
+                    <a
+                      href={urlAppend(this.props.settings.explorerURL, 'tx/') + this.state.sendTxid}
+                    >Click here to see your transaction</a>
+                  ) :
+                  null
+                }
               </p>
             </div>
           )
@@ -165,7 +343,8 @@ class SendPage extends React.Component {
 
 function mapStateToProps(state){  
   return {
-    context: state.context  
+    context: state.context,
+    settings: state.settings
   }
 }
 
