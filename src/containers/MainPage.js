@@ -125,7 +125,10 @@ class MainPage extends React.Component {
   componentDidMount() {    
     if (this.props.secrets.items.length > 0){
       const address = this.props.secrets.items[0].address;
+      const privateKey = this.props.secrets.items[0].privateKey;
+
       this.props.setAddress(address) // for the send page
+      this.props.setPrivateKey(privateKey)
       this.setAddressInfo(address)      
     }
   }
@@ -215,8 +218,7 @@ class MainPage extends React.Component {
                 
                 <Button
                   onClick={() => {
-                    cordova.plugins.clipboard.copy(this.props.context.address)
-                    alert('Address copied to clipboard')
+                    cordova.plugins.clipboard.copy(this.props.context.address)                    
                   }}
                   style={{fontSize: '12px', marginBottom: '10px', width: '90%'}}>                  
                   Copy address to clipboard

@@ -22,6 +22,8 @@ import { phraseToSecretItems } from '../utils/wallet'
 import MainPage from './MainPage'
 import SetupPage from './SetupPage'
 
+import ZENCASH_IMG from '../assets/img/zencash.png'
+
 const renderPage = (route, navigator) => (
   <route.component key={route.key} navigator={navigator} />
 );
@@ -58,7 +60,7 @@ class App extends React.Component {
     }.bind(this))
   }
 
-  render() {    
+  render() {
     return (      
       this.props.context.readSavedFile ?
       (
@@ -73,9 +75,12 @@ class App extends React.Component {
           <SetupPage setHasExistingWallet={(v) => this.setState({ hasExistingWallet: v})}/>
         )
       ) :
-      (
-        <Page>
-          Loading...
+      (        
+        <Page>          
+          <div style={{marginTop: '40%', textAlign: 'center'}}>
+            <img src={ZENCASH_IMG} style={{width: '40%'}}/>
+            <h1> Loading ... </h1>
+          </div>
         </Page>    
       )
     )

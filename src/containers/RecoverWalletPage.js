@@ -77,7 +77,15 @@ class RecoverWalletPage extends React.Component {
             Secret Phrase:<br/><br/>
             <textarea
               value={this.state.tempSecretPhrase}
-              onChange={(e) => this.setState({ tempSecretPhrase: e.target.value })}
+              onChange={(e) => {
+                var str = e.target.value
+
+                if (str.length > 64){
+                  str = str.slice(0, 64)
+                }
+                
+                this.setState({ tempSecretPhrase: e.target.value })
+              }}
               className="textarea" rows="3" placeholder="secret phrase. min 16 characters">
             </textarea>
           </p>

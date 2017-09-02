@@ -8,7 +8,8 @@ import {
   Button,
   Input,
   Icon,
-  ProgressBar
+  ProgressBar,
+  Checkbox  
 } from 'react-onsenui';
 
 import { bindActionCreators } from 'redux';
@@ -158,7 +159,7 @@ class SendPage extends React.Component {
         cordovaHTTP.get(blockHashURL, {}, {}, function(response_bhash){
           this.setProgressValue(75)
 
-          const blockHash = JSON.parse(response_bhash.data).blockHash
+          const blockHash = JSON.parse(response_bhash.data).blockHash          
 
           // Iterate through each utxo
           // append it to history
@@ -178,14 +179,15 @@ class SendPage extends React.Component {
             if (satoshisSoFar >= satoshisToSend + satoshisfeesToSend){
               break;
             }
-          }
+          }                  
 
           // If we don't have enough address
           // fail and tell user
           if (satoshisSoFar < satoshisToSend + satoshisfeesToSend){            
             alert('Not enough confirmed ZEN in account to perform transaction')
             this.setProgressValue(0)
-          }
+            return
+          }          
 
           // If we don't have exact amount
           // Refund remaining to current address
@@ -196,14 +198,20 @@ class SendPage extends React.Component {
 
           // Create transaction
           var txObj = zencashjs.transaction.createRawTx(history, recipients, blockHeight, blockHash)
-          
+                    
           // Sign each history transcation          
-          for (var i = 0; i < history.length; i ++){
-            txObj = zencashjs.transaction.signTx(txObj, i, senderPrivateKey, this.props.settings.compressPubKey)
-          }
+          for (var i = 0; i < history.length; i ++){            
+            try{
+              txObj = zencashjs.transaction.signTx(txObj, i, senderPrivateKey, true)
+            } catch (err) {
+              alert(err)
+            }
+            alert('signed txobj')
+          }          
 
           // Convert it to hex string
           const txHexString = zencashjs.transaction.serializeTx(txObj)
+          alert('made hex string')
 
           // Post it to the api
           cordovaHTTP.post(sendRawTxURL, {rawtx: txHexString}, {}, function(sendtx_resp){
@@ -213,10 +221,10 @@ class SendPage extends React.Component {
               progressValue: 100,
               sendTxid: tx_resp_data.txid
             })
-          }.bind(this), (err) => { alert(err); this.setProgressValue(0) })
-        }.bind(this), (err) => { alert(err); this.setProgressValue(0) })
-      }.bind(this), (err) => { alert(err); this.setProgressValue(0) })
-    }.bind(this), (err) => { alert(err); this.setProgressValue(0) })
+          }.bind(this), (err) => { alert(JSON.stringify(err)); this.setProgressValue(0) })
+        }.bind(this), (err) => { alert(JSON.stringify(err)); this.setProgressValue(0) })
+      }.bind(this), (err) => { alert(JSON.stringify(err)); this.setProgressValue(0) })
+    }.bind(this), (err) => { alert(JSON.stringify(err)); this.setProgressValue(0) })
   }
 
   renderToolbar() {
@@ -294,11 +302,12 @@ class SendPage extends React.Component {
               <p>
                 <label className="left">
                   <Input 
-                    onChange={(e) => {                  
+                    onChange={(e) => {                               
                       this.setState({
                         confirmSend: !this.state.confirmSend                    
                       })
                     }}
+                    value={this.state.confirmSend}
                     inputId='understoodCheckbox' type="checkbox"
                   />
                 </label>

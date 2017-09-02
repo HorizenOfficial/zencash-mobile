@@ -20,7 +20,7 @@ class RecoverWalletPage extends React.Component {
         </div>
         <div className='center'>
           About
-        </div>        
+        </div>
       </Toolbar>
     );
   }
@@ -33,6 +33,7 @@ class RecoverWalletPage extends React.Component {
           <br/>
           <p>Author: Kendrick Tan</p>
           <p>Made for zensystem.io</p>
+          <p>Found a bug? File it here <a href="https://github.com/zencashofficial/zencash-mobile/issues">here</a></p>
         </div>
       </Page>
     );

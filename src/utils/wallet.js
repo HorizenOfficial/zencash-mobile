@@ -27,7 +27,7 @@ function phraseToSecretItems(phraseStr) {
     const privKey = zencashjs.address.WIFToPrivKey(pkWIF)
 
     // Public key
-    const pubKey = zencashjs.address.privKeyToPubKey(privKey)
+    const pubKey = zencashjs.address.privKeyToPubKey(privKey, true)
 
     // Address
     const address = zencashjs.address.pubKeyToAddr(pubKey)

@@ -40,27 +40,29 @@ class ShowPrivateKeyPage extends React.Component {
         {
           this.props.secrets.items.map(function(i){
             return (
-              <ons-row style={{textAlign: 'center'}}>
-                <ons-col>
-                  <p>
-                    <QRCode value={i.privateKey} />
-                  </p>
-                  <p style={{fontSize: '12px'}}>
-                    Key:&nbsp;
-                    {i.privateKey}
-                  </p>
-                </ons-col>
-                <ons-col>
-                  <p>
-                    <QRCode value={i.address} />
-                  </p> 
-                  <p style={{fontSize: '12px'}}>
-                    Address:&nbsp;
-                    {i.address}
-                  </p>
-                  <hr/>          
-                </ons-col>
-              </ons-row>               
+              <div>
+                <ons-row style={{textAlign: 'center'}}>
+                  <ons-col>
+                    <p>
+                      Private Key<br/>
+                      <QRCode value={i.privateKey} />
+                    </p>
+                    <p style={{fontSize: '12px'}}>                      
+                      <textarea disabled value={i.privateKey}></textarea>
+                    </p>
+                  </ons-col>
+                  <ons-col>
+                    <p>
+                      Address<br/>
+                      <QRCode value={i.address} />
+                    </p> 
+                    <p style={{fontSize: '12px'}}>                    
+                      <textarea disabled value={i.address}></textarea>                    
+                    </p>                         
+                  </ons-col>                
+                </ons-row>
+                <hr/>
+              </div>            
             )
           })
         }        
