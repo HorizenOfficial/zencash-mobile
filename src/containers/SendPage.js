@@ -122,13 +122,13 @@ class SendPage extends React.Component {
 
     // Alert errors
     if (errString !== ''){    
-      alert(errString)  
+      alert(errString)
       this.setProgressValue(0)
       return
     }
 
     // Private key
-    const senderPrivateKey = this.props.context.privateKey
+    const senderPrivateKey = zencashjs.address.WIFToPrivKey(this.props.context.privateKey)
 
     // Get previous transactions
     const prevTxURL = urlAppend(this.props.settings.insightAPI, 'addr/') + senderAddress + '/utxo'
@@ -200,18 +200,12 @@ class SendPage extends React.Component {
           var txObj = zencashjs.transaction.createRawTx(history, recipients, blockHeight, blockHash)
                     
           // Sign each history transcation          
-          for (var i = 0; i < history.length; i ++){            
-            try{
-              txObj = zencashjs.transaction.signTx(txObj, i, senderPrivateKey, true)
-            } catch (err) {
-              alert(err)
-            }
-            alert('signed txobj')
+          for (var i = 0; i < history.length; i ++){                                      
+            txObj = zencashjs.transaction.signTx(txObj, i, senderPrivateKey, true)        
           }          
 
           // Convert it to hex string
-          const txHexString = zencashjs.transaction.serializeTx(txObj)
-          alert('made hex string')
+          const txHexString = zencashjs.transaction.serializeTx(txObj)          
 
           // Post it to the api
           cordovaHTTP.post(sendRawTxURL, {rawtx: txHexString}, {}, function(sendtx_resp){
@@ -221,10 +215,10 @@ class SendPage extends React.Component {
               progressValue: 100,
               sendTxid: tx_resp_data.txid
             })
-          }.bind(this), (err) => { alert(JSON.stringify(err)); this.setProgressValue(0) })
-        }.bind(this), (err) => { alert(JSON.stringify(err)); this.setProgressValue(0) })
-      }.bind(this), (err) => { alert(JSON.stringify(err)); this.setProgressValue(0) })
-    }.bind(this), (err) => { alert(JSON.stringify(err)); this.setProgressValue(0) })
+          }.bind(this), (err) => { alert('ERROR: ' + JSON.stringify(err)); this.setProgressValue(0) })
+        }.bind(this), (err) => { alert('ERROR: ' + JSON.stringify(err)); this.setProgressValue(0) })
+      }.bind(this), (err) => { alert('ERROR: ' + JSON.stringify(err)); this.setProgressValue(0) })
+    }.bind(this), (err) => { alert('ERROR: ' + JSON.stringify(err)); this.setProgressValue(0) })
   }
 
   renderToolbar() {
@@ -319,7 +313,7 @@ class SendPage extends React.Component {
               <p>
                 <Button
                   onClick={() => this.handleSendZEN()}
-                  disabled={!this.state.confirmSend}
+                  disabled={!this.state.confirmSend || (this.state.progressValue > 0 && this.state.progressValue < 100)}
                   style={{width: '100%'}}>Send</Button>
               </p>
 
@@ -334,9 +328,12 @@ class SendPage extends React.Component {
                 {
                   this.state.progressValue === 100 ?
                   (
-                    <a
-                      href={urlAppend(this.props.settings.explorerURL, 'tx/') + this.state.sendTxid}
-                    >Click here to see your transaction</a>
+                    <div style={{textAlign: 'center'}}>
+                      <a
+                        href='#'
+                        onClick={() => window.open(urlAppend(this.props.settings.explorerURL, 'tx/') + this.state.sendTxid, '_system')}
+                      >Transcation successful! Click here to see your transaction</a>
+                    </div>
                   ) :
                   null
                 }

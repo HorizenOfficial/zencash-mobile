@@ -78,8 +78,8 @@ class App extends React.Component {
       (        
         <Page>          
           <div style={{marginTop: '40%', textAlign: 'center'}}>
-            <img src={ZENCASH_IMG} style={{width: '40%'}}/>
-            <h1> Loading ... </h1>
+            <img src={ZENCASH_IMG} style={{width: '30%'}}/>
+            <h2> Loading ... </h2>
           </div>
         </Page>    
       )

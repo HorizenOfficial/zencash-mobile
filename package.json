@@ -68,16 +68,18 @@
         "cordova-plugin-compat": "^1.1.0",
         "cordova-plugin-file": "^4.3.3",
         "cordova-plugin-http": "^1.2.0",
+        "cordova-plugin-inappbrowser": "^1.7.1",
         "cordova-plugin-qrscanner": "^2.5.0",
         "danielsogl-cordova-plugin-clipboard": "git+https://github.com/danielsogl/cordova-plugin-clipboard.git",
-        "zencashjs": "^1.1.5-a"
+        "zencashjs": "^1.1.6-a"
     },
     "cordova": {
         "plugins": {
             "cordova-plugin-qrscanner": {},
             "cordova-plugin-file": {},
             "cordova-plugin-http": {},
-            "cordova-clipboard": {}
+            "cordova-clipboard": {},
+            "cordova-plugin-inappbrowser": {}
         }
     }
 }

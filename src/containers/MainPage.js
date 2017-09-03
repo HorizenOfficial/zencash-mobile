@@ -38,8 +38,8 @@ class MainPage extends React.Component {
     this.state = {
       sliderOpen: false,
       dialogOpen: false,      
-      selectedAddressTxFrom: 10,
-      selectedAddressTxTo: 0,
+      selectedAddressTxFrom: 0,
+      selectedAddressTxTo: 50,
       selectedAddressTxs: [],
       selectedAddressNoTxs: false,
       selectedAddressScannedTxs: false, // Have we tried and fined the txs? (used to display loading...)
@@ -81,19 +81,19 @@ class MainPage extends React.Component {
     cordovaHTTP.get(addrURL, {}, {},
       function(resp){
         const addr_info = JSON.parse(resp.data)
-        this.props.setAddressValue(addr_info.totalReceived)
+        this.props.setAddressValue(addr_info.balance)
       }.bind(this), function(err){
         alert(err)
       })        
 
     // Sets information about tx
-    // When we set address info    
+    // When we set address info
     this.setAddressTxList(address, false)
   }
 
   // Sets information about tx  
   setAddressTxList(address, append=true) {
-    const txInfoURL = urlAppend(this.props.settings.insightAPI, 'addrs/' + address + '/txs?from=' + this.state.selectedAddressTxFrom + '&to=' + this.state.selectedAddressTxTo)
+    const txInfoURL = urlAppend(this.props.settings.insightAPI, 'addrs/' + address + '/txs?from=' + this.state.selectedAddressTxFrom + '&to=' + this.state.selectedAddressTxTo)    
 
     this.setState({
       selectedAddressScannedTxs: false
@@ -240,7 +240,7 @@ class MainPage extends React.Component {
                   this.state.selectedAddressNoTxs ?
                   (
                     <ListHeader>
-                      No transaction history found
+                      No transaction history found (takes a while for explorer to sync)
                     </ListHeader>
                   )
                   :
@@ -258,7 +258,7 @@ class MainPage extends React.Component {
                           <ons-row>
                             <ons-col>{ received ? 'Received' : 'Sent' }</ons-col>
                             <ons-col style={{textAlign: 'right', paddingRight: '12px'}}>
-                              { received ? '+' : '-' } { value } zen
+                              { received ? '+' : '-' } { parseFloat(value) } zen
                             </ons-col>
                           </ons-row>
                         </ListItem>

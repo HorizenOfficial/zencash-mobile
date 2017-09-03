@@ -2,19 +2,13 @@
 
 ZENCash mobile app built using Onsen UI, Redux, React and Webpack.
 
-## How to run it
-
-You need to install two cordova plugins:
+## Setup instructions
 
 ```
-cordova plugin add cordova-plugin-qrscanner
-```
-
-To run it simply do:
-
-```bash
-npm install
-npm start
+yarn install
+cordova plugin install
+cordova platform add [android | ios]
+cordova run [android | ios]
 ```
 
 The app will run at [http://localhost:9000](http://localhost:9000).
