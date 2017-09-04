@@ -1,56 +1,56 @@
 export const RUSSIAN_TRANSLATION = {
   General: {
-    loading: 'russian loading...',
-    address: 'russian Address',
-    privateKey: 'russian Private Key'
+    loading: 'загрузка...',
+    address: 'Адрес',
+    privateKey: 'Приватный ключ'
   },
   MainPage: {
-    title: 'russian ZEN Wallet',
-    value: 'russian Value',    
-    copyToClipboard: 'russian Copy Address To Clipboard',
-    send: 'russian Send',
-    received: 'russian Received',
-    sent: 'russian Sent',
-    settings: 'russian Settings',
-    noTxFound: 'russian No transaction history found.'
+    title: 'ZENCash кошелек',
+    value: 'На счету',    
+    copyToClipboard: 'Скопировать адрес',
+    send: 'Отправить',
+    received: 'Получено',
+    sent: 'Отправлено',
+    settings: 'Настройки',
+    noTxFound: 'Не найдена история транзакций.'
   },
   SendPage: {
-    title: 'russian Send ZEN',
-    from: 'russian From',
-    toAddress: 'russian To Address',
-    amount: 'russian Amount',
-    max: 'russian Max',
-    fees: 'russian Fees',
-    send: 'russian Send',
-    txSuccessful: 'russian Transcation successful! Click here to see your transaction.',
-    confirmSend: 'russian I want to send these ZEN',
-    invalidAddress: 'russian Invalid `To Address` Only transparent addresses are supported at this point in time.',
-    invalidAmount: 'russian Invalid `Amount`.',
-    invalidFee: 'russian Invalid `Fees`.',
-    zeroAmount: 'russian Amount must be greater than 0.',
-    notEnoughZEN: 'russian Not enough confirmed ZEN in account to perform transaction',
-    noCameraPermissions: 'russian No camera permissions. You can allow camera access in your settings.'
+    title: 'Отправить ZENCash',
+    from: 'С адреса',
+    toAddress: 'На адрес',
+    amount: 'Количество',
+    max: 'Макс.',
+    fees: 'Коммисия',
+    send: 'Отправить',
+    txSuccessful: 'Транзакция успешна! Кликните сюда чтобы просмотреть транзакцию.',
+    confirmSend: 'Да, Я хочу отправить ZEN',
+    invalidAddress: 'Неверный адрес. Пока поддерживаются только прозрачные адреса.',
+    invalidAmount: 'Неверная сумма.',
+    invalidFee: 'Неверная коммисия. Попробуйте 0. :)',
+    zeroAmount: 'Количество ZEN должно быть больше 0.',
+    notEnoughZEN: 'На аккаунте недостаточно подтвержденного ZEN для транзакции',
+    noCameraPermissions: 'Камера не разрешена. Вы можете разрешить доступ к камере в настройках.'
   },
   SettingsPage: {
-    title: 'russian Settings',
-    about: 'russian About',
-    language: 'russian Language',
-    secretPhrase: 'russian Secret Phrase',
-    showPrivateKeys: 'russian Show Private Keys',
-    recoverExistingWallet: 'russian Recover Existing Wallet',
-    current: 'russian Current'
+    title: 'Настройки',
+    about: 'О программе',
+    language: 'Язык',
+    secretPhrase: 'Секретная фраза',
+    showPrivateKeys: 'Показать приватные ключи',
+    recoverExistingWallet: 'Восстановить существующий кошелек',
+    current: 'Сейчас'
   },
   SecretPhrasePage: {
-    title: 'russian Secret Phrase'
+    title: 'Секретная фраза'
   },
   ShowPrivateKeyPage: {
-    title: 'russian Private Keys'
+    title: 'Приватные ключи'
   },
   RecoverExistingWalletPage: {
-    title: 'russian Recover Existing Wallet',
-    secretPhrase: 'russian Secret Phrase',
-    textareaPlaceholder: 'russian secret phrase. min 16 characters',
-    confirmUnderstand: 'russian I understand that by recovering the existing wallet, my current wallet will be wiped.',
-    recover: 'russian Recover'
+    title: 'Восстановить существующий кошелек',
+    secretPhrase: 'Секретная фраза',
+    textareaPlaceholder: 'секретная фраза. мин. 16 символов',
+    confirmUnderstand: 'Я понимаю что при восстановлении кошелька мой текущий кошелек будет стёрт',
+    recover: 'Восстановить'
   }
 }
