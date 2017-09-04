@@ -17,7 +17,8 @@ import {
   Icon,
   List,
   ListItem,
-  ListHeader
+  ListHeader,
+  Fab
 } from 'react-onsenui';
 
 import axios from 'axios'
@@ -137,6 +138,16 @@ class MainPage extends React.Component {
     }
   }
 
+  renderFixed() {
+    return (
+      <Fab
+        onClick={() => this.gotoComponent(SendPage)}
+        position='bottom right'>
+        <Icon icon='ion-paper-airplane' />
+      </Fab>
+    );
+  }
+
   renderToolbar() {
     // toolbar title in X language
     const CUR_LANG = this.props.settings.language
@@ -191,10 +202,7 @@ class MainPage extends React.Component {
             <Page>
               <List
                 dataSource=
-                {[{
-                    name: sendLang,
-                    component: SendPage
-                  },
+                {[
                   {
                     name: settingsLang,
                     component: SettingsPage
@@ -214,7 +222,7 @@ class MainPage extends React.Component {
           </SplitterSide>
 
           <SplitterContent>
-            <Page renderToolbar={(e) => this.renderToolbar()}>                  
+            <Page renderToolbar={(e) => this.renderToolbar()} renderFixed={(e) => this.renderFixed()}>                  
               <div style={{textAlign: 'center'}}>
                 <p>
                   <QRCode value={ this.props.context.address || loadingLang }/>                
