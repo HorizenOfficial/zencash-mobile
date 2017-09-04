@@ -85,6 +85,14 @@ class SendPage extends React.Component {
     QRScanner.show()
   }
 
+  componentWillUnmount(){
+    // Destroy QR scanner if user goes back
+    // while scanning
+    if (this.state.qrScanning){
+      QRScanner.destroy()
+    }
+  }
+
   handleSendZEN(){
     const value = this.state.sendValue
     const fee = this.state.sendFee

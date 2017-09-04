@@ -1315,6 +1315,10 @@ cordova-plugin-http@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/cordova-plugin-http/-/cordova-plugin-http-1.2.0.tgz#854aa2c6158c09aec5cc13a11ce6da85c9c4aa17"
 
+cordova-plugin-inappbrowser@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-inappbrowser/-/cordova-plugin-inappbrowser-1.7.1.tgz#435b43f591fe7bfa95ea98dbe0004841fe59ba51"
+
 cordova-plugin-qrscanner@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/cordova-plugin-qrscanner/-/cordova-plugin-qrscanner-2.5.0.tgz#6d6ba13d0bb49e370daa4958d77c8aa76d8ca356"
