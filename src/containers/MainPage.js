@@ -148,7 +148,7 @@ class MainPage extends React.Component {
           </ToolbarButton>
         </div>
         <div className='center'>
-          ZENCash Wallet
+          ZEN Wallet
         </div>
         <div className='right'>
           <ToolbarButton onClick={() => this.setAddressInfo(this.props.context.address)}>
@@ -240,7 +240,7 @@ class MainPage extends React.Component {
                   this.state.selectedAddressNoTxs ?
                   (
                     <ListHeader>
-                      No transaction history found (takes a while for explorer to sync)
+                      No transaction history found.
                     </ListHeader>
                   )
                   :

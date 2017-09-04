@@ -62,7 +62,7 @@ class SetupPage extends React.Component {
     return (
       <Toolbar>
         <div className='center'>
-          ZENCash Wallet Setup
+          ZEN Wallet Setup
         </div>  
       </Toolbar>
     );
