@@ -18,6 +18,8 @@ import { phraseToSecretItems } from '../utils/wallet'
 import { setSecretItems, setSecretPhrase } from '../actions/Secrets'
 import { setAddress, setPrivateKey, setAddressValue } from '../actions/Context'
 
+import TRANSLATIONS from '../translations'
+
 class RecoverWalletPage extends React.Component {
   constructor(props){
     super(props)
@@ -57,24 +59,33 @@ class RecoverWalletPage extends React.Component {
   }
 
   renderToolbar() {
+    const CUR_LANG = this.props.settings.language
+
     return (
       <Toolbar>
         <div className='left'>
           <BackButton onClick={() => this.props.navigator.popPage()}>Back</BackButton>
         </div>
         <div className='center'>
-          Recover Existing Wallet
+          { TRANSLATIONS[CUR_LANG].RecoverExistingWalletPage.title }
         </div>        
       </Toolbar>
     );
   }
 
   render() {
+    // translation
+    const CUR_LANG = this.props.settings.language
+    const secretPhraseLang = TRANSLATIONS[CUR_LANG].RecoverExistingWalletPage.secretPhrase
+    const textareaPlaceholderLang = TRANSLATIONS[CUR_LANG].RecoverExistingWalletPage.textareaPlaceholder
+    const confirmUnderstandLang = TRANSLATIONS[CUR_LANG].RecoverExistingWalletPage.confirmUnderstand
+    const recoverLang = TRANSLATIONS[CUR_LANG].RecoverExistingWalletPage.recover
+
     return (
       <Page renderToolbar={this.renderToolbar.bind(this)}>
         <div style={{padding: '12px 12px 0 12px'}}>
           <p>
-            Secret Phrase:<br/><br/>
+            {secretPhraseLang}:<br/><br/>
             <textarea
               value={this.state.tempSecretPhrase}
               onChange={(e) => {
@@ -86,7 +97,7 @@ class RecoverWalletPage extends React.Component {
                 
                 this.setState({ tempSecretPhrase: e.target.value })
               }}
-              className="textarea" rows="3" placeholder="secret phrase. min 16 characters">
+              className="textarea" rows="3" placeholder={textareaPlaceholderLang}>
             </textarea>
           </p>
 
@@ -102,7 +113,7 @@ class RecoverWalletPage extends React.Component {
               />
             </label>
             <label htmlFor='understoodCheckbox' className="center">
-              &nbsp;I understand that by recovering the existing wallet, my current wallet will be <strong>wiped</strong>.
+              &nbsp;{ confirmUnderstandLang }
             </label>
           </p>
 
@@ -116,7 +127,7 @@ class RecoverWalletPage extends React.Component {
                 disabled={!this.state.confirmRecover || this.state.tempSecretPhrase.length < 16}
                 style={{width: '100%', textAlign: 'center'}}
                 >
-                Recover
+                { recoverLang }
               </Button>
             )
           }    
@@ -148,7 +159,8 @@ class RecoverWalletPage extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    secrets: state.secrets
+    secrets: state.secrets,
+    settings: state.settings
   }
 }
 

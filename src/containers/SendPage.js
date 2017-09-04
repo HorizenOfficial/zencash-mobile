@@ -19,6 +19,8 @@ import { urlAppend } from '../utils/index'
 
 import zencashjs from 'zencashjs'
 
+import TRANSLATIONS from '../translations'
+
 class SendPage extends React.Component {
   constructor(props){
     super(props)
@@ -56,7 +58,7 @@ class SendPage extends React.Component {
           qrScanning: true
         })
       } else if (status.denied) {
-        alert('No camera permissions. You can allow camera access in your settings.')
+        alert(TRANSLATIONS[CUR_LANG].SendPage.noCameraPermissions)
         QRScanner.openSettings()       
       } else {
         // we didn't get permission, but we didn't get permanently denied. (On
@@ -94,6 +96,9 @@ class SendPage extends React.Component {
   }
 
   handleSendZEN(){
+    // Language stuff
+    const CUR_LANG = this.props.settings.language
+    
     const value = this.state.sendValue
     const fee = this.state.sendFee
     const recipientAddress = this.state.addressReceive
@@ -112,20 +117,24 @@ class SendPage extends React.Component {
     var errString = ''
 
     if (recipientAddress.length != 35){
-      errString += 'Invalid `To Address` Only transparent addresses are supported at this point in time.\n\n'
+      errString += TRANSLATIONS[CUR_LANG].SendPage.invalidAddress
+      errString += '\n\n'      
     }
 
     if (typeof parseInt(value) !== 'number' || value === ''){
-      errString += 'Invalid `Amount`.\n\n'
+      errString += TRANSLATIONS[CUR_LANG].SendPage.invalidAmount
+      errString += '\n\n'      
     }
 
     // Can't send 0 satoshis
     if (satoshisToSend <= 0){
-      errString += 'Amount must be greater than 0.\n\n'
+      errString += TRANSLATIONS[CUR_LANG].SendPage.zeroAmount
+      errString += '\n\n'
     }
 
     if (typeof parseInt(fee) !== 'number' || fee === ''){
-      errString += 'Invalid fee.\n\n'
+      errString += TRANSLATIONS[CUR_LANG].SendPage.invalidFee
+      errString += '\n\n'
     }
 
     // Alert errors
@@ -191,8 +200,8 @@ class SendPage extends React.Component {
 
           // If we don't have enough address
           // fail and tell user
-          if (satoshisSoFar < satoshisToSend + satoshisfeesToSend){            
-            alert('Not enough confirmed ZEN in account to perform transaction')
+          if (satoshisSoFar < satoshisToSend + satoshisfeesToSend){              
+            alert(TRANSLATIONS[CUR_LANG].SendPage.notEnoughZEN)
             this.setProgressValue(0)
             return
           }          
@@ -230,13 +239,16 @@ class SendPage extends React.Component {
   }
 
   renderToolbar() {
+    // Language stuff
+    const CUR_LANG = this.props.settings.language
+
     return (
       <Toolbar>
         <div className='left'>
           <BackButton onClick={() => this.props.navigator.popPage()}>Back</BackButton>
         </div>
         <div className='center'>
-          Send ZENCash
+          { TRANSLATIONS[CUR_LANG].SendPage.title }
         </div>
         <div className='right'>
           <ToolbarButton onClick={() => this.handleQRScan()}>
@@ -248,7 +260,20 @@ class SendPage extends React.Component {
   }
 
   render() {
+    // For qr scanning
     const opacity = this.state.qrScanning ? '0.4' : '1.0'
+
+    // Translation stuff
+    const CUR_LANG = this.props.settings.language
+    const fromLang = TRANSLATIONS[CUR_LANG].SendPage.from
+    const toAddressLang = TRANSLATIONS[CUR_LANG].SendPage.toAddress
+    const amountLang = TRANSLATIONS[CUR_LANG].SendPage.amount
+    const maxLang = TRANSLATIONS[CUR_LANG].SendPage.max
+    const sendLang = TRANSLATIONS[CUR_LANG].SendPage.send
+    const feesLang = TRANSLATIONS[CUR_LANG].SendPage.fees
+    const sendZENLang = TRANSLATIONS[CUR_LANG].SendPage.sendZEN
+    const txSuccessfulLang = TRANSLATIONS[CUR_LANG].SendPage.txSuccessful
+    const confirmSendLang = TRANSLATIONS[CUR_LANG].SendPage.confirmSend
 
     return (      
       <Page renderToolbar={this.renderToolbar.bind(this)} style={{opacity: opacity}}>
@@ -274,28 +299,28 @@ class SendPage extends React.Component {
           (
             <div style={{padding: '0 12px 0 12px' }}>
               <p>
-                From: <br/>
+                { fromLang }: <br/>
                 { this.props.context.address }
               </p>
               <p>                
                 <Input
                   onChange={(e) => this.setState({ addressReceive: e.target.value })}
                   value={this.state.addressReceive}
-                  placeholder="To Address"
+                  placeholder={toAddressLang}
                   style={{width: '100%'}}
                 />
               </p>
               <p>                
                 <Input                  
-                  placeholder={"Amount (Max: " + this.props.context.value + ")"}
+                  placeholder={amountLang + "(" + maxLang + ": " + this.props.context.value + ")"}
                   onChange={(e) => this.setState({ sendValue: e.target.value })}
-                  value={this.state.sendValue}                  
+                  value={this.state.sendValue}                
                   style={{width: '100%'}}
                 />
               </p>
               <p>                
                 <Input 
-                  placeholder={'Fees'}
+                  placeholder={feesLang}
                   style={{width: '100%'}}
                   onChange={(e) => this.setState({ sendFee: e.target.value })}
                   value={this.state.sendFee}/>
@@ -314,7 +339,7 @@ class SendPage extends React.Component {
                   />
                 </label>
                 <label htmlFor='understoodCheckbox' className="center">
-                  &nbsp;I want to send these ZEN
+                  &nbsp;{confirmSendLang}
                 </label>
               </p>
 
@@ -322,7 +347,7 @@ class SendPage extends React.Component {
                 <Button
                   onClick={() => this.handleSendZEN()}
                   disabled={!this.state.confirmSend || (this.state.progressValue > 0 && this.state.progressValue < 100)}
-                  style={{width: '100%'}}>Send</Button>
+                  style={{width: '100%'}}>{sendLang}</Button>
               </p>
 
               <p>
@@ -340,7 +365,7 @@ class SendPage extends React.Component {
                       <a
                         href='#'
                         onClick={() => window.open(urlAppend(this.props.settings.explorerURL, 'tx/') + this.state.sendTxid, '_system')}
-                      >Transcation successful! Click here to see your transaction</a>
+                      >{txSuccessfulLang}</a>
                     </div>
                   ) :
                   null

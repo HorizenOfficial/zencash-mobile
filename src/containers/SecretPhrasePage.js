@@ -13,6 +13,8 @@ import {
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
+import TRANSLATIONS from '../translations'
+
 class SecretPhrasePage extends React.Component {
   gotoComponent(c) {    
     this.props.navigator.pushPage({component: c});
@@ -22,13 +24,15 @@ class SecretPhrasePage extends React.Component {
   }
 
   renderToolbar() {
+    const CUR_LANG = this.props.settings.language
+
     return (
       <Toolbar>
         <div className='left'>
           <BackButton onClick={() => this.props.navigator.popPage()}>Back</BackButton>
         </div>
         <div className='center'>
-          Secret Phrase
+          { TRANSLATIONS[CUR_LANG].SecretPhrasePage.title }
         </div>        
       </Toolbar>
     );
@@ -52,7 +56,8 @@ class SecretPhrasePage extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    secrets: state.secrets
+    secrets: state.secrets,
+    settings: state.settings
   }
 }
 

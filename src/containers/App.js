@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 
 import { setReadSavedFile } from '../actions/Context'
 import { setSecretPhrase, setSecretItems } from '../actions/Secrets'
+import { setLanguage } from '../actions/Settings'
 
 import { ZENCASH_MOBILE_SAVE_PATH, readFromFile, writeToFile } from '../utils/persistentStorage'
 import { phraseToSecretItems } from '../utils/wallet'
@@ -41,6 +42,7 @@ class App extends React.Component {
     readFromFile(ZENCASH_MOBILE_SAVE_PATH, function(data){
       data = JSON.parse(data)
 
+      // Get secret phrase
       if (data.secretPhrase !== undefined){        
         const secretPhrase = data.secretPhrase
         const secretItems = phraseToSecretItems(secretPhrase)
@@ -52,10 +54,18 @@ class App extends React.Component {
           hasExistingWallet: true
         })
       }
+      
+      // Get language settings
+      // Future: add insight, explorer settings      
+      if (data.settings !== undefined){               
+        if (data.settings.language !== undefined){
+          const settingsLanguage = data.settings.language            
+          this.props.setLanguage(settingsLanguage)
+        }
+      }  
 
       this.props.setReadSavedFile(true)
     }.bind(this), function(err){
-
       this.props.setReadSavedFile(true)
     }.bind(this))
   }
@@ -78,8 +88,8 @@ class App extends React.Component {
       (        
         <Page>          
           <div style={{marginTop: '40%', textAlign: 'center'}}>
-            <img src={ZENCASH_IMG} style={{width: '30%'}}/>
-            <h2> Loading ... </h2>
+            <img src={ZENCASH_IMG} style={{width: '30%'}}/><br/>
+            <Icon icon='spinner' spin/>
           </div>
         </Page>    
       )
@@ -99,7 +109,8 @@ function matchDispatchToProps (dispatch) {
     {
       setReadSavedFile,
       setSecretItems,
-      setSecretPhrase
+      setSecretPhrase,
+      setLanguage
     },
     dispatch
   )

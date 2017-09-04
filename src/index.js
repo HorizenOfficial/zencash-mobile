@@ -32,7 +32,8 @@ store.subscribe(() => {
   if (state.secrets.secretPhrase !== null){
     // Write to file woot woot
     writeToFile(ZENCASH_MOBILE_SAVE_PATH, {
-      secretPhrase: state.secrets.secretPhrase
+      secretPhrase: state.secrets.secretPhrase,
+      settings: state.settings
     })
   }
 })

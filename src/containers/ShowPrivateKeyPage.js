@@ -10,6 +10,8 @@ import { connect } from 'react-redux'
 import { ZENCASH_MOBILE_SAVE_PATH, readFromFile, writeToFile } from '../utils/persistentStorage'
 import { phraseToSecretItems } from '../utils/wallet'
 
+import TRANSLATIONS from '../translations'
+
 class ShowPrivateKeyPage extends React.Component {
   gotoComponent (c) {
     this.props.navigator.pushPage({component: c})
@@ -19,6 +21,8 @@ class ShowPrivateKeyPage extends React.Component {
   }
 
   renderToolbar () {
+    const CUR_LANG = this.props.settings.language
+
     return (
       <Toolbar>
         <div className='left'>
@@ -27,13 +31,15 @@ class ShowPrivateKeyPage extends React.Component {
           </BackButton>
         </div>
         <div className='center'>
-          Private Keys
+          { TRANSLATIONS[CUR_LANG].ShowPrivateKeyPage.title }
         </div>
       </Toolbar>
     )
   }
 
   render () {
+    const CUR_LANG = this.props.settings.language
+
     return (
       <Page renderToolbar={this.renderToolbar.bind(this)}>
         <hr/>
@@ -44,7 +50,7 @@ class ShowPrivateKeyPage extends React.Component {
                 <ons-row style={{textAlign: 'center'}}>
                   <ons-col>
                     <p>
-                      Private Key<br/>
+                      { TRANSLATIONS[CUR_LANG].General.privateKey }<br/>
                       <QRCode value={i.privateKey} />
                     </p>
                     <p style={{fontSize: '12px'}}>                      
@@ -53,7 +59,7 @@ class ShowPrivateKeyPage extends React.Component {
                   </ons-col>
                   <ons-col>
                     <p>
-                      Address<br/>
+                    { TRANSLATIONS[CUR_LANG].General.address }<br/>
                       <QRCode value={i.address} />
                     </p> 
                     <p style={{fontSize: '12px'}}>                    
@@ -73,7 +79,8 @@ class ShowPrivateKeyPage extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    secrets: state.secrets
+    secrets: state.secrets,
+    settings: state.settings
   }
 }
 

@@ -25,9 +25,11 @@ import axios from 'axios'
 import { setAddress, setPrivateKey, setAddressValue } from '../actions/Context'
 
 import SendPage from './SendPage';
-import SettingsPage from '../components/SettingsPage'
+import SettingsPage from './SettingsPage'
 
 import { urlAppend } from '../utils/index'
+
+import TRANSLATIONS from '../translations'
 
 const TX_ITEM_COUNT = 10; // How many tx do we wanna get at one time
 
@@ -82,9 +84,7 @@ class MainPage extends React.Component {
       function(resp){
         const addr_info = JSON.parse(resp.data)
         this.props.setAddressValue(addr_info.balance)
-      }.bind(this), function(err){
-        alert(err)
-      })        
+      }.bind(this), (err) => alert(JSON.stringify(err)))        
 
     // Sets information about tx
     // When we set address info
@@ -110,9 +110,7 @@ class MainPage extends React.Component {
           selectedAddressNoTxs: newTxs.length === 0,
           selectedAddressScannedTxs: true
         })
-      }.bind(this), function(err){
-        alert(err)
-      })
+      }.bind(this), (err) => alert(JSON.stringify(err)))
   }
 
   gotoComponent(c) {    
@@ -140,6 +138,10 @@ class MainPage extends React.Component {
   }
 
   renderToolbar() {
+    // toolbar title in X language
+    const CUR_LANG = this.props.settings.language
+    const titleLang = TRANSLATIONS[CUR_LANG].MainPage.title
+
     return (
       <Toolbar>
         <div className='left'>
@@ -148,7 +150,7 @@ class MainPage extends React.Component {
           </ToolbarButton>
         </div>
         <div className='center'>
-          ZEN Wallet
+          { titleLang }
         </div>
         <div className='right'>
           <ToolbarButton onClick={() => this.setAddressInfo(this.props.context.address)}>
@@ -163,6 +165,18 @@ class MainPage extends React.Component {
   }
 
   render() {
+    // Language translations
+    const CUR_LANG = this.props.settings.language
+    const valueLang = TRANSLATIONS[CUR_LANG].MainPage.value
+    const addressLang = TRANSLATIONS[CUR_LANG].General.address
+    const copyToClipboardLang = TRANSLATIONS[CUR_LANG].MainPage.copyToClipboard
+    const sendLang = TRANSLATIONS[CUR_LANG].MainPage.send
+    const sentLang = TRANSLATIONS[CUR_LANG].MainPage.sent
+    const receivedLang = TRANSLATIONS[CUR_LANG].MainPage.received
+    const settingsLang = TRANSLATIONS[CUR_LANG].MainPage.settings
+    const noTxFoundLang = TRANSLATIONS[CUR_LANG].MainPage.noTxFound
+    const loadingLang = TRANSLATIONS[CUR_LANG].General.loading    
+
     return (
       <Page>        
         <Splitter>
@@ -178,11 +192,11 @@ class MainPage extends React.Component {
               <List
                 dataSource=
                 {[{
-                    name: 'Send',
+                    name: sendLang,
                     component: SendPage
                   },
                   {
-                    name: 'Settings',
+                    name: settingsLang,
                     component: SettingsPage
                   }
                 ]}                
@@ -203,17 +217,17 @@ class MainPage extends React.Component {
             <Page renderToolbar={(e) => this.renderToolbar()}>                  
               <div style={{textAlign: 'center'}}>
                 <p>
-                  <QRCode value={ this.props.context.address || 'loading...' }/>                
+                  <QRCode value={ this.props.context.address || loadingLang }/>                
                 </p>
                 <p style={{fontSize: '13px'}}>
-                  Value: {
+                  { valueLang }: {
                     this.props.context.value === null ?
-                    'loading...' :
+                    loadingLang :
                     this.props.context.value + ' ZEN'
                   }
                 </p>
                 <p style={{fontSize: '12px'}}>                  
-                  Address: { this.props.context.address }
+                  { addressLang }: { this.props.context.address }
                 </p>
                 
                 <Button
@@ -221,7 +235,7 @@ class MainPage extends React.Component {
                     cordova.plugins.clipboard.copy(this.props.context.address)                    
                   }}
                   style={{fontSize: '12px', marginBottom: '10px', width: '90%'}}>                  
-                  Copy address to clipboard
+                  { copyToClipboardLang }
                 </Button>                
               </div>
 
@@ -240,7 +254,7 @@ class MainPage extends React.Component {
                   this.state.selectedAddressNoTxs ?
                   (
                     <ListHeader>
-                      No transaction history found.
+                      { noTxFoundLang }
                     </ListHeader>
                   )
                   :
@@ -256,7 +270,7 @@ class MainPage extends React.Component {
                       return (
                         <ListItem tappable>
                           <ons-row>
-                            <ons-col>{ received ? 'Received' : 'Sent' }</ons-col>
+                            <ons-col>{ received ? receivedLang : sentLang }</ons-col>
                             <ons-col style={{textAlign: 'right', paddingRight: '12px'}}>
                               { received ? '+' : '-' } { parseFloat(value) } zen
                             </ons-col>
@@ -294,7 +308,7 @@ class MainPage extends React.Component {
           onCancel={this.toggleDialog}
           cancelable>
           <List>
-            <ListHeader>Choose Another Address</ListHeader>
+            <ListHeader>{ addressLang }</ListHeader>
             {
               this.props.secrets.items.map(function(e){
                 return (
