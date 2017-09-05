@@ -52,5 +52,8 @@ export const RUSSIAN_TRANSLATION = {
     textareaPlaceholder: 'секретная фраза. мин. 16 символов',
     confirmUnderstand: 'Я понимаю что при восстановлении кошелька мой текущий кошелек будет стёрт',
     recover: 'Восстановить'
+  },
+  AboutPage: {
+    title: 'О программе',
   }
 }

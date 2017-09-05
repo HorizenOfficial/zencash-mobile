@@ -26,7 +26,7 @@ export const ENGLISH_TRANSLATION = {
     confirmSend: 'I want to send these ZEN',
     invalidAddress: 'Invalid `To Address` Only transparent addresses are supported at this point in time.',
     invalidAmount: 'Invalid `Amount`.',
-    invalidFee: 'Invalid `Fees`.',
+    invalidFee: 'Invalid `Fees`. Try 0 :)',
     zeroAmount: 'Amount must be greater than 0.',
     notEnoughZEN: 'Not enough confirmed ZEN in account to perform transaction',
     noCameraPermissions: 'No camera permissions. You can allow camera access in your settings.'
@@ -52,5 +52,8 @@ export const ENGLISH_TRANSLATION = {
     textareaPlaceholder: 'Secret phrase. min 16 characters',
     confirmUnderstand: 'I understand that by recovering the existing wallet, my current wallet will be wiped.',
     recover: 'Recover'
+  },
+  AboutPage: {
+    title: 'About',
   }
 }

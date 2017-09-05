@@ -38,8 +38,7 @@ class MainPage extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      sliderOpen: false,
+    this.state = {      
       dialogOpen: false,      
       selectedAddressTxFrom: 0,
       selectedAddressTxTo: 50,
@@ -47,25 +46,11 @@ class MainPage extends React.Component {
       selectedAddressNoTxs: false,
       selectedAddressScannedTxs: false, // Have we tried and fined the txs? (used to display loading...)
     };
-
-    this.hide = this.hide.bind(this)
-    this.show = this.show.bind(this)
+    
     this.toggleDialog = this.toggleDialog.bind(this)
     this.gotoComponent = this.gotoComponent.bind(this)
     this.setAddressInfo = this.setAddressInfo.bind(this)    
     this.setAddressTxList = this.setAddressTxList.bind(this)        
-  }
-
-  hide() {
-    this.setState({
-      sliderOpen: false
-    });
-  }
-
-  show() {
-    this.setState({
-      sliderOpen: true
-    });
   }
 
   toggleDialog() {
@@ -115,10 +100,7 @@ class MainPage extends React.Component {
   }
 
   gotoComponent(c) {    
-    this.props.navigator.pushPage({component: c});
-    this.setState({
-      sliderOpen: false
-    })
+    this.props.navigator.pushPage({component: c});  
   }
 
   componentDidMount() {    
@@ -155,15 +137,13 @@ class MainPage extends React.Component {
 
     return (
       <Toolbar>
-        <div className='left'>
-          <ToolbarButton onClick={(e) => this.show()}>
-            <Icon icon='ion-navicon, material:md-menu' />
-          </ToolbarButton>
-        </div>
         <div className='center'>
           { titleLang }
         </div>
         <div className='right'>
+          <ToolbarButton onClick={() => this.gotoComponent(SettingsPage)}>
+            <Icon icon='ion-wrench'/>
+          </ToolbarButton>
           <ToolbarButton onClick={() => this.setAddressInfo(this.props.context.address)}>
             <Icon icon='ion-refresh'/>
           </ToolbarButton>
@@ -188,128 +168,92 @@ class MainPage extends React.Component {
     const noTxFoundLang = TRANSLATIONS[CUR_LANG].MainPage.noTxFound
     const loadingLang = TRANSLATIONS[CUR_LANG].General.loading    
 
-    return (
-      <Page>        
-        <Splitter>
-          <SplitterSide
-            side='left'
-            isOpen={this.state.sliderOpen}
-            onClose={(e) => this.hide()}
-            onOpen={(e) => this.show()}
-            collapse={true}
-            width={240}
-            isSwipeable={true}>
-            <Page>
-              <List
-                dataSource=
-                {[
-                  {
-                    name: settingsLang,
-                    component: SettingsPage
-                  }
-                ]}                
-                renderHeader={() => <ListHeader>ZEN</ListHeader>}
-                renderRow={(i) => 
-                  <ListItem
-                    onClick={() => this.gotoComponent(i.component)}
-                    modifier='longdivider'
-                    tappable>
-                    {i.name}
+    return (      
+      <Page renderToolbar={(e) => this.renderToolbar()} renderFixed={(e) => this.renderFixed()}>                  
+        <div style={{textAlign: 'center'}}>
+          <p>
+            <QRCode value={ this.props.context.address || loadingLang }/>                
+          </p>
+          <p style={{fontSize: '13px'}}>
+            { valueLang }: {
+              this.props.context.value === null ?
+              loadingLang :
+              this.props.context.value + ' ZEN'
+            }
+          </p>
+          <p style={{fontSize: '12px'}}>                  
+            { addressLang }: { this.props.context.address }
+          </p>
+          
+          <Button
+            onClick={() => {
+              cordova.plugins.clipboard.copy(this.props.context.address)                    
+            }}
+            style={{fontSize: '12px', marginBottom: '10px', width: '90%'}}>                  
+            { copyToClipboardLang }
+          </Button>                
+        </div>
+
+        <hr/>             
+
+        <List>
+          {
+            this.state.selectedAddressScannedTxs === false ?
+            (
+              <ListHeader>
+                <div style={{textAlign: 'center'}}>
+                  <Icon icon='spinner' spin/>
+                </div>
+              </ListHeader>
+            ) : 
+            this.state.selectedAddressNoTxs ?
+            (
+              <ListHeader>
+                { noTxFoundLang }
+              </ListHeader>
+            )
+            :
+            this.state.selectedAddressTxs.map(function(tx){
+              const selectedAddress = this.props.context.address
+              const vins = tx.vin || []
+              const vouts = tx.vout || []
+              var ret
+
+              // Are we receiving zen?
+              // and whats the amount of zen we receive / sent?
+              function getTxListItem (received, value) {
+                return (
+                  <ListItem tappable>
+                    <ons-row>
+                      <ons-col>{ received ? receivedLang : sentLang }</ons-col>
+                      <ons-col style={{textAlign: 'right', paddingRight: '12px'}}>
+                        { received ? '+' : '-' } { parseFloat(value) } zen
+                      </ons-col>
+                    </ons-row>
                   </ListItem>
+                )
+              }                    
+
+              vins.forEach(function(vin){
+                if (vin.addr === selectedAddress){                     
+                  ret = getTxListItem(false, vin.value)                        
                 }
-              />
-            </Page>
-          </SplitterSide>
-
-          <SplitterContent>
-            <Page renderToolbar={(e) => this.renderToolbar()} renderFixed={(e) => this.renderFixed()}>                  
-              <div style={{textAlign: 'center'}}>
-                <p>
-                  <QRCode value={ this.props.context.address || loadingLang }/>                
-                </p>
-                <p style={{fontSize: '13px'}}>
-                  { valueLang }: {
-                    this.props.context.value === null ?
-                    loadingLang :
-                    this.props.context.value + ' ZEN'
-                  }
-                </p>
-                <p style={{fontSize: '12px'}}>                  
-                  { addressLang }: { this.props.context.address }
-                </p>
-                
-                <Button
-                  onClick={() => {
-                    cordova.plugins.clipboard.copy(this.props.context.address)                    
-                  }}
-                  style={{fontSize: '12px', marginBottom: '10px', width: '90%'}}>                  
-                  { copyToClipboardLang }
-                </Button>                
-              </div>
-
-              <hr/>             
-
-              <List>
-                {
-                  this.state.selectedAddressScannedTxs === false ?
-                  (
-                    <ListHeader>
-                      <div style={{textAlign: 'center'}}>
-                        <Icon icon='spinner' spin/>
-                      </div>
-                    </ListHeader>
-                  ) : 
-                  this.state.selectedAddressNoTxs ?
-                  (
-                    <ListHeader>
-                      { noTxFoundLang }
-                    </ListHeader>
-                  )
-                  :
-                  this.state.selectedAddressTxs.map(function(tx){
-                    const selectedAddress = this.props.context.address
-                    const vins = tx.vin || []
-                    const vouts = tx.vout || []
-                    var ret
-
-                    // Are we receiving zen?
-                    // and whats the amount of zen we receive / sent?
-                    function getTxListItem (received, value) {
-                      return (
-                        <ListItem tappable>
-                          <ons-row>
-                            <ons-col>{ received ? receivedLang : sentLang }</ons-col>
-                            <ons-col style={{textAlign: 'right', paddingRight: '12px'}}>
-                              { received ? '+' : '-' } { parseFloat(value) } zen
-                            </ons-col>
-                          </ons-row>
-                        </ListItem>
-                      )
-                    }                    
-
-                    vins.forEach(function(vin){
-                      if (vin.addr === selectedAddress){                     
-                        ret = getTxListItem(false, vin.value)                        
-                      }
-                    })
-                    
-                    if (ret === undefined){
-                      vouts.forEach(function(vout){                      
-                        vout.scriptPubKey.addresses.forEach(function(addr){
-                          if (addr === selectedAddress){
-                            ret = getTxListItem(true, vout.value)                            
-                          }
-                        })
-                      })
+              })
+              
+              if (ret === undefined){
+                vouts.forEach(function(vout){                      
+                  vout.scriptPubKey.addresses.forEach(function(addr){
+                    if (addr === selectedAddress){
+                      ret = getTxListItem(true, vout.value)                            
                     }
+                  })
+                })
+              }
 
-                    return ret                               
-                  }.bind(this))
-                }                
-              </List>        
-            </Page>
-          </SplitterContent>
-        </Splitter>        
+              return ret                               
+            }.bind(this))
+          }                
+        </List>     
 
         <Dialog
           isOpen={this.state.dialogOpen}

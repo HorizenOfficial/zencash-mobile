@@ -58,6 +58,7 @@ class SendPage extends React.Component {
           qrScanning: true
         })
       } else if (status.denied) {
+        const CUR_LANG = this.props.settings.language
         alert(TRANSLATIONS[CUR_LANG].SendPage.noCameraPermissions)
         QRScanner.openSettings()       
       } else {

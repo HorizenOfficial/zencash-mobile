@@ -13,16 +13,19 @@ import {
   Icon
 } from 'react-onsenui';
 
+import TRANSLATIONS from '../translations'
 
-class RecoverWalletPage extends React.Component {
+class RecoverWalletPage extends React.Component {  
   renderToolbar() {
+    const CUR_LANG = this.props.settings.language
+
     return (
       <Toolbar>
         <div className='left'>
           <BackButton onClick={() => this.props.navigator.popPage()}>Back</BackButton>
         </div>
         <div className='center'>
-          About
+          { TRANSLATIONS[CUR_LANG].AboutPage.title }
         </div>
       </Toolbar>
     );
@@ -54,4 +57,4 @@ function mapStateToProps(state){
   }
 }
 
-export default RecoverWalletPage;
+export default connect(mapStateToProps)(RecoverWalletPage);
