@@ -69,7 +69,7 @@ class App extends React.Component {
           this.props.setLanguage(settingsLanguage)
         }
 
-        if (data.settings.currency !== undefined){
+        if (data.settings.currency !== undefined && data.settings.currency !== null){
           const settingsCurrency = data.settings.currency
           this.props.setCurrency(settingsCurrency)
         }

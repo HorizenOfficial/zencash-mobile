@@ -29,6 +29,7 @@ export const CURRENCY_SGD = 'SGD'
 export const CURRENCY_THB = 'THB'
 export const CURRENCY_TRY = 'TRY'
 export const CURRENCY_TWD = 'TWD'
+export const CURRENCY_USD = 'USD'
 export const CURRENCY_ZAR = 'ZAR'
 
 export const CURRENCIES = [
@@ -62,6 +63,7 @@ export const CURRENCIES = [
   CURRENCY_THB,
   CURRENCY_TRY,
   CURRENCY_TWD,
+  CURRENCY_USD,
   CURRENCY_ZAR
 ]
 
