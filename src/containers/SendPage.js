@@ -313,7 +313,7 @@ class SendPage extends React.Component {
               </p>
               <p>                
                 <Input                  
-                  placeholder={amountLang + "(" + maxLang + ": " + this.props.context.value + ")"}
+                  placeholder={amountLang + " (" + maxLang + ": " + this.props.context.value + ")"}
                   onChange={(e) => this.setState({ sendValue: e.target.value })}
                   value={this.state.sendValue}                
                   style={{width: '100%'}}

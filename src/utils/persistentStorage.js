@@ -35,11 +35,11 @@ export function writeToFile (fileName, data) {
 
             fileWriter.onerror = function (e) {
               // you could hook this up with our global error handler, or pass in an error callback
-              // alert('Write failed: ' + e.toString())
+              alert('WARNING. YOUR SECRET PHRASE COULD NOT BE SAVED. WRITING TO FILE FAILED.')
             }
 
-            var blob = new Blob([data], { type: 'text/plain' })
-            fileWriter.write(blob)
+            var blob = new Blob([data], { type: 'text/plain' })            
+            fileWriter.write(blob)            
           }, errorHandler.bind(null, fileName))
         },
         errorHandler.bind(null, fileName)

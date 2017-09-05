@@ -5,7 +5,7 @@ export const RUSSIAN_TRANSLATION = {
     privateKey: 'Приватный ключ'
   },
   MainPage: {
-    title: 'ZENCash кошелек',
+    title: 'ZEN кошелек',
     value: 'На счету',    
     copyToClipboard: 'Скопировать адрес',
     send: 'Отправить',
@@ -15,11 +15,11 @@ export const RUSSIAN_TRANSLATION = {
     noTxFound: 'Не найдена история транзакций.'
   },
   SendPage: {
-    title: 'Отправить ZENCash',
+    title: 'Отправить ZEN',
     from: 'С адреса',
     toAddress: 'На адрес',
     amount: 'Количество',
-    max: 'Макс.',
+    max: 'Макс',
     fees: 'Коммисия',
     send: 'Отправить',
     txSuccessful: 'Транзакция успешна! Кликните сюда чтобы просмотреть транзакцию.',

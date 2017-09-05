@@ -27,10 +27,10 @@ const store = createStore(allReducers,
 
 // Save file, etc
 store.subscribe(() => {
-  const state = store.getState()
+  const state = store.getState()  
 
   if (state.secrets.secretPhrase !== null){
-    // Write to file woot woot
+    // Write to file woot woot    
     writeToFile(ZENCASH_MOBILE_SAVE_PATH, {
       secretPhrase: state.secrets.secretPhrase,
       settings: state.settings

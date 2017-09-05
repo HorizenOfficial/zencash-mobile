@@ -35,7 +35,7 @@ class RecoverWalletPage extends React.Component {
     return (
       <Page renderToolbar={this.renderToolbar.bind(this)}>
         <div style={{padding: '12px 12px 0 12px', textAlign: 'center'}}>
-          <p>ZENCash Wallet v{VERSION}</p>
+          <p>ZEN Wallet v{VERSION}</p>
           <br/>
           <p>Author: Kendrick Tan</p>
           <p>Made for zensystem.io</p>

@@ -40,10 +40,16 @@ class App extends React.Component {
 
   componentDidMount(){
     readFromFile(ZENCASH_MOBILE_SAVE_PATH, function(data){
-      data = JSON.parse(data)
+      // If errors while we're reading the JSOn
+      // then just assume its empty
+      try{
+        data = JSON.parse(data)
+      } catch (err) {
+        data = {}
+      }
 
       // Get secret phrase
-      if (data.secretPhrase !== undefined){        
+      if (data.secretPhrase !== undefined){     
         const secretPhrase = data.secretPhrase
         const secretItems = phraseToSecretItems(secretPhrase)
 
@@ -57,16 +63,23 @@ class App extends React.Component {
       
       // Get language settings
       // Future: add insight, explorer settings      
-      if (data.settings !== undefined){               
+      if (data.settings !== undefined){             
         if (data.settings.language !== undefined){
           const settingsLanguage = data.settings.language            
           this.props.setLanguage(settingsLanguage)
         }
-      }  
+      }
 
       this.props.setReadSavedFile(true)
+
     }.bind(this), function(err){
-      this.props.setReadSavedFile(true)
+      // Cordova plugin might not work for
+      // All api versions. in the event...
+      try{
+        this.props.setReadSavedFile(true)
+      } catch(err) {
+        alert(err)
+      }   
     }.bind(this))
   }
 

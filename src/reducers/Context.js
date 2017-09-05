@@ -1,3 +1,7 @@
+// Object.assign({}) doesn't work on all versions of android
+// Need to include polyfill
+import 'babel-polyfill'
+
 import {
   SET_ADDRESS,
   SET_PRIVATE_KEY,
