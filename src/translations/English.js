@@ -6,13 +6,15 @@ export const ENGLISH_TRANSLATION = {
   },
   MainPage: {
     title: 'ZEN Wallet',
-    value: 'Value',    
-    copyToClipboard: 'Copy Address To Clipboard',
+    value: 'Value',        
     send: 'Send',
     received: 'Received',
     sent: 'Sent',
     settings: 'Settings',
     noTxFound: 'No transaction history found.'
+  },
+  AddressInfoPage: {
+    copyToClipboard: 'Copy Address To Clipboard',
   },
   SendPage: {
     title: 'Send ZEN',
@@ -35,6 +37,7 @@ export const ENGLISH_TRANSLATION = {
     title: 'Settings',
     about: 'About',
     language: 'Language',
+    currency: 'Currency',
     secretPhrase: 'Secret Phrase',
     showPrivateKeys: 'Show Private Keys',
     recoverExistingWallet: 'Recover Existing Wallet',

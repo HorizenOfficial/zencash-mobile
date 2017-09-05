@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 
 import { setReadSavedFile } from '../actions/Context'
 import { setSecretPhrase, setSecretItems } from '../actions/Secrets'
-import { setLanguage } from '../actions/Settings'
+import { setLanguage, setCurrency } from '../actions/Settings'
 
 import { ZENCASH_MOBILE_SAVE_PATH, readFromFile, writeToFile } from '../utils/persistentStorage'
 import { phraseToSecretItems } from '../utils/wallet'
@@ -61,12 +61,17 @@ class App extends React.Component {
         })
       }
       
-      // Get language settings
+      // Get settings
       // Future: add insight, explorer settings      
       if (data.settings !== undefined){             
         if (data.settings.language !== undefined){
           const settingsLanguage = data.settings.language            
           this.props.setLanguage(settingsLanguage)
+        }
+
+        if (data.settings.currency !== undefined){
+          const settingsCurrency = data.settings.currency
+          this.props.setCurrency(settingsCurrency)
         }
       }
 
@@ -123,7 +128,8 @@ function matchDispatchToProps (dispatch) {
       setReadSavedFile,
       setSecretItems,
       setSecretPhrase,
-      setLanguage
+      setLanguage,
+      setCurrency
     },
     dispatch
   )

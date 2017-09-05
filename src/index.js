@@ -13,6 +13,7 @@ import App from './containers/App';
 import ons from 'onsenui';
 import 'onsenui/css/onsenui.css';
 import 'onsenui/css/onsen-css-components.css'
+import './assets/css/index.css'
 
 import { ZENCASH_MOBILE_SAVE_PATH, readFromFile, writeToFile } from './utils/persistentStorage'
 

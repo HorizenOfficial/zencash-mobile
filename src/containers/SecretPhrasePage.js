@@ -41,14 +41,17 @@ class SecretPhrasePage extends React.Component {
   render() {    
     return (
       <Page renderToolbar={this.renderToolbar.bind(this)}>
-        <div style={{padding: '12px 12px 0 12px', textAlign: 'center'}}>          
-          <textarea            
-            className="textarea" rows="3"
-            maxLength={64}
-            value={ this.props.secrets.secretPhrase }
-            >            
-          </textarea>
-        </div>
+        <ons-row>          
+          <div style={{padding: '12px 12px 0 12px', textAlign: 'center', width: '100%'}}>          
+            <textarea
+              style={{width: '100%'}}
+              className="textarea" rows="3"
+              maxLength={64}
+              value={ this.props.secrets.secretPhrase }
+              >            
+            </textarea>
+          </div>
+        </ons-row>
       </Page>
     );
   }

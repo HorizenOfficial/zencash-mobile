@@ -7,12 +7,14 @@ export const RUSSIAN_TRANSLATION = {
   MainPage: {
     title: 'ZEN кошелек',
     value: 'На счету',    
-    copyToClipboard: 'Скопировать адрес',
     send: 'Отправить',
     received: 'Получено',
     sent: 'Отправлено',
     settings: 'Настройки',
     noTxFound: 'Не найдена история транзакций.'
+  },
+  AddressInfoPage: {
+    copyToClipboard: 'Скопировать адрес',
   },
   SendPage: {
     title: 'Отправить ZEN',
@@ -35,6 +37,7 @@ export const RUSSIAN_TRANSLATION = {
     title: 'Настройки',
     about: 'О программе',
     language: 'Язык',
+    currency: 'валюта',
     secretPhrase: 'Секретная фраза',
     showPrivateKeys: 'Показать приватные ключи',
     recoverExistingWallet: 'Восстановить существующий кошелек',

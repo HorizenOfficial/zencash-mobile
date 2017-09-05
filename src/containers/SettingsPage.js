@@ -3,7 +3,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { LANGUAGES, setLanguage } from '../actions/Settings'
+import { LANGUAGES, CURRENCIES, setLanguage, setCurrency } from '../actions/Settings'
 
 import {
   Page,  
@@ -12,25 +12,19 @@ import {
   List,
   ListHeader,
   ListItem,
-  Dialog
+  Dialog  
 } from 'react-onsenui';
 
 import AboutPage from './AboutPage'
 import SecretPhrasePage from './SecretPhrasePage'
 import RecoverWalletPage from './RecoverWalletPage'
 import ShowPrivateKeyPage from './ShowPrivateKeyPage'
+import SelectCurrencyPage from './SelectCurrencyPage'
+import SelectLanguagePage from './SelectLanguagePage'
 
 import TRANSLATIONS from '../translations'
 
 class SettingsPage extends React.Component {
-  constructor(props){
-    super(props)
-
-    this.state = {
-      languageDialogOpen: false
-    }
-  }
-
   gotoComponent(c) {    
     this.props.navigator.pushPage({component: c})    
   }
@@ -50,13 +44,14 @@ class SettingsPage extends React.Component {
         </div>  
       </Toolbar>
     );
-  }
+  }  
 
   render() {
     // Translation stuff
     const CUR_LANG = this.props.settings.language
     const aboutLang = TRANSLATIONS[CUR_LANG].SettingsPage.about
     const currentLang = TRANSLATIONS[CUR_LANG].SettingsPage.current
+    const currencyLang = TRANSLATIONS[CUR_LANG].SettingsPage.currency
     const languageLang = TRANSLATIONS[CUR_LANG].SettingsPage.language
     const secretPhraseLang = TRANSLATIONS[CUR_LANG].SettingsPage.secretPhrase
     const showPrivateKeysLang = TRANSLATIONS[CUR_LANG].SettingsPage.showPrivateKeys
@@ -71,9 +66,14 @@ class SettingsPage extends React.Component {
             { aboutLang }
           </ListItem>
           <ListItem 
-            onClick={() => this.setState({ languageDialogOpen: true })}
+            onClick={this.gotoComponent.bind(this, SelectLanguagePage)}
             tappable>
             { languageLang }
+          </ListItem>
+          <ListItem 
+            onClick={this.gotoComponent.bind(this, SelectCurrencyPage)}
+            tappable>
+            { currencyLang }
           </ListItem>
           <ListHeader></ListHeader>
           <ListItem
@@ -91,33 +91,7 @@ class SettingsPage extends React.Component {
             tappable style={{color: 'red'}}>
             { recoverExistingWalletLang }
           </ListItem>
-        </List>
-
-        <Dialog
-          isOpen={this.state.languageDialogOpen}
-          onCancel={() => this.setState({ languageDialogOpen: false })}
-          cancelable>
-          <List>
-            <ListHeader>{currentLang}: {this.props.settings.language}</ListHeader>
-            {
-              LANGUAGES.map(function(l){
-                return (
-                  <ListItem                    
-                    onClick={function(){
-                      this.props.setLanguage(l)                      
-                      this.setState({                     
-                        languageDialogOpen: false
-                      })
-                    }.bind(this)}
-                    tappable
-                  >
-                  { l }
-                  </ListItem>
-                )
-              }.bind(this))
-            }            
-          </List>
-        </Dialog>
+        </List>  
       </Page>
     );
   }
@@ -133,7 +107,8 @@ function matchDispatchToProps (dispatch) {
   // Set context for the send page
   return bindActionCreators(
     {
-      setLanguage
+      setLanguage,
+      setCurrency
     },
     dispatch
   )

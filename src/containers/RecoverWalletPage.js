@@ -8,7 +8,8 @@ import {
   Button,
   Input,
   Icon,
-  Dialog
+  Dialog,
+  Checkbox
 } from 'react-onsenui';
 
 import { bindActionCreators } from 'redux'
@@ -87,6 +88,7 @@ class RecoverWalletPage extends React.Component {
           <p>
             {secretPhraseLang}:<br/><br/>
             <textarea
+              style={{width: '100%'}}
               value={this.state.tempSecretPhrase}
               onChange={(e) => {
                 var str = e.target.value
@@ -103,13 +105,13 @@ class RecoverWalletPage extends React.Component {
 
           <p>
             <label className="left">
-              <Input                
+              <Checkbox                
                 onChange={(e) => {                  
                   this.setState({
                     confirmRecover: !this.state.confirmRecover
                   })
                 }}
-                inputId='understoodCheckbox' type="checkbox"
+                inputId='understoodCheckbox'
               />
             </label>
             <label htmlFor='understoodCheckbox' className="center">

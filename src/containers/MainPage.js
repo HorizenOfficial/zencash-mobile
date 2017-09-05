@@ -5,10 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import {
-  Page,  
-  Splitter,
-  SplitterSide,
-  SplitterContent,
+  Page,
   Dialog,
   Toolbar,
   ToolbarButton,
@@ -23,25 +20,34 @@ import {
   SpeedDialItem
 } from 'react-onsenui';
 
-import axios from 'axios'
 
-import { setAddress, setPrivateKey, setAddressValue } from '../actions/Context'
+import { 
+  setAddress,
+  setPrivateKey,
+  setAddressValue,
+  setZenInBtcValue,
+  setZenInCurrencyValue
+} from '../actions/Context'
+import { urlAppend } from '../utils/index'
 
+import AddressInfoPage from './AddressInfoPage'
 import SendPage from './SendPage';
 import SettingsPage from './SettingsPage'
 
-import { urlAppend } from '../utils/index'
-
 import TRANSLATIONS from '../translations'
 
-const TX_ITEM_COUNT = 10; // How many tx do we wanna get at one time
+// Helper function to format prices to decimal places
+// of 5 by default
+function prettyFormatPrices (v, decimalPlaces=5) {
+  return parseFloat(v).toFixed(decimalPlaces)
+}
 
 class MainPage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {      
-      dialogOpen: false,      
+      dialogSelectAddressOpen: false,      
       selectedAddressTxFrom: 0,
       selectedAddressTxTo: 50,
       selectedAddressTxs: [],
@@ -49,34 +55,59 @@ class MainPage extends React.Component {
       selectedAddressScannedTxs: false, // Have we tried and fined the txs? (used to display loading...)
     };
     
-    this.toggleDialog = this.toggleDialog.bind(this)
+    this.toggleSelectAddressDialog = this.toggleSelectAddressDialog.bind(this)
     this.gotoComponent = this.gotoComponent.bind(this)
     this.setAddressInfo = this.setAddressInfo.bind(this)    
     this.setAddressTxList = this.setAddressTxList.bind(this)        
   }
 
-  toggleDialog() {
+  toggleSelectAddressDialog() {
     this.setState({
-      dialogOpen: !this.state.dialogOpen
+      dialogSelectAddressOpen: !this.state.dialogSelectAddressOpen
     })
-  }  
+  }
 
   // Sets information about address
   setAddressInfo(address) {
     // Resets
-    this.props.setAddressValue(null)    
+    this.props.setAddressValue(null)
+    this.props.setZenInBtcValue(null)    
+    this.props.setZenInCurrencyValue(null)
 
     // How many zen
     const addrURL = urlAppend(this.props.settings.insightAPI, 'addr/' + address + '/')
     cordovaHTTP.get(addrURL, {}, {},
       function(resp){
         const addr_info = JSON.parse(resp.data)
-        this.props.setAddressValue(addr_info.balance)
-      }.bind(this), (err) => alert(JSON.stringify(err)))        
+        const addr_balance = parseFloat(addr_info.balance)
+        this.props.setAddressValue(prettyFormatPrices(addr_balance))
+
+        // Get btc value and get local currency
+        // via coinmarketcap
+        const curCurrency = this.props.settings.currency
+        const cmcZenInfoURL = 'https://api.coinmarketcap.com/v1/ticker/zencash/?convert=' + curCurrency
+        cordovaHTTP.get(cmcZenInfoURL, {}, {},
+          function(resp){
+            try{
+              const coinmarketcap_data = JSON.parse(resp.data)              
+              const price_btc = addr_balance * parseFloat(coinmarketcap_data[0].price_btc)
+              const price_currency = addr_balance * parseFloat(coinmarketcap_data[0]['price_' + curCurrency.toLowerCase()])
+              
+              this.props.setZenInBtcValue(prettyFormatPrices(price_btc))
+              this.props.setZenInCurrencyValue(prettyFormatPrices(price_currency))
+            } catch(err){
+              alert(err)
+            }            
+          }.bind(this)
+        ), (err) => alert(JSON.stringify(err))
+      }.bind(this), (err) => alert(JSON.stringify(err))
+    )    
 
     // Sets information about tx
     // When we set address info
     this.setAddressTxList(address, false)
+
+    // Convert the amount of zen we have to BTC
   }
 
   // Sets information about tx  
@@ -117,18 +148,30 @@ class MainPage extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) { 
+    // Update component if either the address or the currency is updated
     if (nextProps.context.address !== this.props.context.address){
+      this.setAddressInfo(nextProps.context.address)
+    }
+
+    else if (nextProps.settings.currency !== this.props.settings.currency){
       this.setAddressInfo(nextProps.context.address)
     }
   }
 
   renderFixed() {
     return (
-      <Fab
-        onClick={() => this.gotoComponent(SendPage)}
-        position='bottom right'>
-        <Icon icon='ion-paper-airplane' />
-      </Fab>
+      <SpeedDial position='bottom right'>
+        <Fab>          
+          <Icon icon='md-plus' />          
+        </Fab>
+
+        <SpeedDialItem onClick={() => this.gotoComponent(SendPage)}>
+          <Icon icon='ion-paper-airplane' />
+        </SpeedDialItem>
+        <SpeedDialItem onClick={() => this.gotoComponent(AddressInfoPage)}>
+          <Icon icon='ion-qr-scanner' />
+        </SpeedDialItem>   
+      </SpeedDial>
     );
   }
 
@@ -149,7 +192,7 @@ class MainPage extends React.Component {
           <ToolbarButton onClick={() => this.setAddressInfo(this.props.context.address)}>
             <Icon icon='ion-refresh'/>
           </ToolbarButton>
-          <ToolbarButton onClick={(e) => this.toggleDialog()}>
+          <ToolbarButton onClick={(e) => this.toggleSelectAddressDialog()}>
             <Icon icon='ion-clipboard'/>
           </ToolbarButton>
         </div>        
@@ -168,33 +211,57 @@ class MainPage extends React.Component {
     const receivedLang = TRANSLATIONS[CUR_LANG].MainPage.received
     const settingsLang = TRANSLATIONS[CUR_LANG].MainPage.settings
     const noTxFoundLang = TRANSLATIONS[CUR_LANG].MainPage.noTxFound
-    const loadingLang = TRANSLATIONS[CUR_LANG].General.loading    
+    const loadingLang = TRANSLATIONS[CUR_LANG].General.loading  
+
+    // For qr scanning
+    const pageOpacity = this.props.context.qrScanning ? '0.0' : '1.0'
 
     return (      
-      <Page renderToolbar={(e) => this.renderToolbar()} renderFixed={(e) => this.renderFixed()}>                  
-        <div style={{textAlign: 'center'}}>
-          <p>
-            <QRCode value={ this.props.context.address || loadingLang }/>                
-          </p>
-          <p style={{fontSize: '13px'}}>
-            { valueLang }: {
+      <Page 
+        style={{ opacity: pageOpacity }}
+        renderToolbar={(e) => this.renderToolbar()}
+        renderFixed={(e) => this.renderFixed()}>        
+
+        <ons-row style={{marginTop: '25px', marginBottom: '25px', overflowWrap: 'break-word'}}>
+          <ons-col width={'47%'}>
+          <h1 style={{marginLeft: '12px'}}>
+            {
               this.props.context.value === null ?
               loadingLang :
-              this.props.context.value + ' ZEN'
-            }
-          </p>
-          <p style={{fontSize: '12px'}}>                  
-            { addressLang }: { this.props.context.address }
-          </p>
-          
-          <Button
-            onClick={() => {
-              cordova.plugins.clipboard.copy(this.props.context.address)                    
-            }}
-            style={{fontSize: '12px', marginBottom: '10px', width: '90%'}}>                  
-            { copyToClipboardLang }
-          </Button>                
-        </div>
+              this.props.context.value
+            }&nbsp;
+            {
+              this.props.context.value === null ?
+              null :
+              <span style={{fontSize: '16px'}}>ZEN</span>
+            }     
+          </h1>
+          </ons-col>          
+          <ons-col>
+            <ons-row>
+              <ons-col>
+                <h5 style={{marginLeft: '12px'}}>
+                  BTC<br/>
+                  {
+                    this.props.context.BTCValue === null ?
+                    loadingLang :
+                    this.props.context.BTCValue
+                  }
+                </h5>
+              </ons-col>
+              <ons-col>
+                <h5 style={{marginLeft: '12px'}}>
+                  { this.props.settings.currency }<br/>
+                  {
+                    this.props.context.currencyValue === null ?
+                    loadingLang :
+                    this.props.context.currencyValue
+                  }
+                </h5>
+              </ons-col>
+            </ons-row>            
+          </ons-col>
+        </ons-row>
 
         <hr/>             
 
@@ -255,11 +322,14 @@ class MainPage extends React.Component {
               return ret                               
             }.bind(this))
           }                
-        </List>     
+        </List>
 
         <Dialog
-          isOpen={this.state.dialogOpen}
-          onCancel={this.toggleDialog}
+          isOpen={this.state.dialogSelectAddressOpen}
+          onCancel={this.toggleSelectAddressDialog}
+          animationOptions={
+            {duration: 0.1, delay: 0.2}
+          }
           cancelable>
           <List>
             <ListHeader>{ addressLang }</ListHeader>
@@ -272,7 +342,7 @@ class MainPage extends React.Component {
                       this.props.setAddress(e.address)
                       this.props.setPrivateKey(e.privateKey)                      
                       this.setState({                        
-                        dialogOpen: false
+                        dialogSelectAddressOpen: false
                       })
                     }.bind(this)}
                     tappable
@@ -304,7 +374,9 @@ function matchDispatchToProps (dispatch) {
     {
       setAddress,
       setAddressValue,
-      setPrivateKey
+      setPrivateKey,
+      setZenInBtcValue,
+      setZenInCurrencyValue
     },
     dispatch
   )

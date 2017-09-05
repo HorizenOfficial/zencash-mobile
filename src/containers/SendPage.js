@@ -9,16 +9,17 @@ import {
   Input,
   Icon,
   ProgressBar,
-  Checkbox  
+  Checkbox
 } from 'react-onsenui';
+
+import zencashjs from 'zencashjs'
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import { setQrScanning } from '../actions/Context'
+
 import { urlAppend } from '../utils/index'
-
-import zencashjs from 'zencashjs'
-
 import TRANSLATIONS from '../translations'
 
 class SendPage extends React.Component {
@@ -26,8 +27,7 @@ class SendPage extends React.Component {
     super(props)
 
     this.state = {
-      confirmSend: false,
-      qrScanning: false,
+      confirmSend: false,      
       addressReceive: '',
       sendValue: '',
       sendFee: '',
@@ -38,6 +38,7 @@ class SendPage extends React.Component {
     this.handleQRScan = this.handleQRScan.bind(this)
     this.handleSendZEN = this.handleSendZEN.bind(this)
     this.setProgressValue = this.setProgressValue.bind(this)
+    this.safeReleaseCamera = this.safeReleaseCamera.bind(this)
   }
 
   setProgressValue(v){
@@ -53,15 +54,15 @@ class SendPage extends React.Component {
        // here we can handle errors and clean up any loose ends.
         alert(err);         
       }
-      if (status.authorized) {
-        this.setState({
-          qrScanning: true
-        })
-      } else if (status.denied) {
+      if (status.authorized) {        
+        this.props.setQrScanning(true)        
+      }
+      else if (status.denied) {
         const CUR_LANG = this.props.settings.language
         alert(TRANSLATIONS[CUR_LANG].SendPage.noCameraPermissions)
         QRScanner.openSettings()       
-      } else {
+      }
+      else {
         // we didn't get permission, but we didn't get permanently denied. (On
         // Android, a denial isn't permanent unless the user checks the "Don't
         // ask again" box.) We can ask again at the next relevant opportunity.
@@ -79,21 +80,24 @@ class SendPage extends React.Component {
           addressReceive: address
         })
       }
-      this.setState({
-        qrScanning: false
-      })
+      this.props.setQrScanning(false)
     }.bind(this))
     
     // Show scanning preview
     QRScanner.show()
   }
 
-  componentWillUnmount(){
+  safeReleaseCamera() {
     // Destroy QR scanner if user goes back
     // while scanning
-    if (this.state.qrScanning){
+    if (this.props.context.qrScanning){
       QRScanner.destroy()
+      this.props.setQrScanning(false)
     }
+  }
+
+  componentWillUnmount(){
+    this.safeReleaseCamera()
   }
 
   handleSendZEN(){
@@ -246,7 +250,11 @@ class SendPage extends React.Component {
     return (
       <Toolbar>
         <div className='left'>
-          <BackButton onClick={() => this.props.navigator.popPage()}>Back</BackButton>
+          <BackButton onClick={
+            () => {
+              this.safeReleaseCamera()
+              this.props.navigator.popPage()              
+            }}>Back</BackButton>
         </div>
         <div className='center'>
           { TRANSLATIONS[CUR_LANG].SendPage.title }
@@ -262,7 +270,7 @@ class SendPage extends React.Component {
 
   render() {
     // For qr scanning
-    const opacity = this.state.qrScanning ? '0.4' : '1.0'
+    const pageOpacity = this.props.context.qrScanning === true ? '0.4' : '1.0'
 
     // Translation stuff
     const CUR_LANG = this.props.settings.language
@@ -277,10 +285,12 @@ class SendPage extends React.Component {
     const confirmSendLang = TRANSLATIONS[CUR_LANG].SendPage.confirmSend
 
     return (      
-      <Page renderToolbar={this.renderToolbar.bind(this)} style={{opacity: opacity}}>
+      <Page
+        style={{opacity: pageOpacity}}
+        renderToolbar={this.renderToolbar.bind(this)} >
         {
           // Show qr capture area
-          this.state.qrScanning ?
+          this.props.context.qrScanning ?
           (
             <div style={{height: '100%', opacity: '0.4'}}>
               <ons-row style={{height: '30%'}}>
@@ -329,7 +339,7 @@ class SendPage extends React.Component {
 
               <p>
                 <label className="left">
-                  <Input 
+                  <Checkbox
                     onChange={(e) => {                               
                       this.setState({
                         confirmSend: !this.state.confirmSend                    
@@ -388,4 +398,14 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps)(SendPage);
+function matchDispatchToProps (dispatch) {
+  // Set context for the send page
+  return bindActionCreators(
+    {
+      setQrScanning
+    },
+    dispatch
+  )
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(SendPage);
