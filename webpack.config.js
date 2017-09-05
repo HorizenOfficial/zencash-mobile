@@ -36,22 +36,18 @@ module.exports = {
       },
       {
         test: /\.json$/,
-        loader: 'json'
+        loader: 'json-loader'
       },
-      {
+      { 
         test: /\.css$/,
-        loader: 'style!css!postcss'
-      },
-      {
-        test: /\.styl$/,
-        loader: 'style!css!postcss!stylus?paths=node_modules'
+        use: [ 'style-loader', 'css-loader' ]
       },
       {
         test: /\.js$/,
-        loader: 'babel',
+        loader: 'babel-loader',
         query: {
           'presets': ['es2015', 'stage-2', 'react'],
-          'plugins': ['react-hot-loader/babel']
+          'plugins': ['react-hot-loader/babel-loader']
         },
         exclude: path.join(__dirname, 'node_modules')
       },
@@ -60,10 +56,7 @@ module.exports = {
         loader: 'url-loader?limit=20000'
       }
     ]
-  },
-  postcss: function() {
-    return [autoprefixer];
-  },
+  },  
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({

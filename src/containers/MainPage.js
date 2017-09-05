@@ -18,7 +18,9 @@ import {
   List,
   ListItem,
   ListHeader,
-  Fab
+  Fab,
+  SpeedDial,
+  SpeedDialItem
 } from 'react-onsenui';
 
 import axios from 'axios'

@@ -24,20 +24,16 @@ module.exports = {
       },
       {
         test: /\.json$/,
-        loader: 'json'
+        loader: 'json-loader'
       },
-      {
+      { 
         test: /\.css$/,
-        loader: 'style!css!postcss'
-      },
-      {
-        test: /\.styl$/,
-        loader: 'style!css!postcss!stylus?paths=node_modules'
+        use: [ 'style-loader', 'css-loader' ]
       },
       { test: /\.js$|\.jsx$/,
         exclude: [/node_modules/],
         loaders: [
-          'babel?' + JSON.stringify({presets: ['stage-2', 'es2015', 'react']})
+          'babel-loader?' + JSON.stringify({presets: ['stage-2', 'es2015', 'react']})
         ]
       },
       {
@@ -45,10 +41,7 @@ module.exports = {
         loader: 'url-loader?limit=20000'
       }
     ]
-  },
-  postcss: function() {
-    return [autoprefixer];
-  },
+  },  
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
