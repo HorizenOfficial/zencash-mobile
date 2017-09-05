@@ -1,6 +1,6 @@
 {
     "name": "zencash-mobile",
-    "version": "0.0.2a",
+    "version": "0.0.3a",
     "description": "Mobile Wallet for ZENCash",
     "main": "index.js",
     "scripts": {
