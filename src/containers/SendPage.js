@@ -9,7 +9,8 @@ import {
   Input,
   Icon,
   ProgressBar,
-  Checkbox
+  Checkbox,
+  Range
 } from 'react-onsenui';
 
 import zencashjs from 'zencashjs'
@@ -19,7 +20,7 @@ import { connect } from 'react-redux';
 
 import { setQrScanning } from '../actions/Context'
 
-import { urlAppend } from '../utils/index'
+import { urlAppend, checkDec, prettyFormatPrices } from '../utils/index'
 import TRANSLATIONS from '../translations'
 
 class SendPage extends React.Component {
@@ -29,22 +30,75 @@ class SendPage extends React.Component {
     this.state = {
       confirmSend: false,      
       addressReceive: '',
-      sendValue: '',
-      sendFee: '',
+      sendValue: 1,      
+      sendFee: 500,
       progressValue: 0,
-      sendTxid: ''
+      sendTxid: '',      
+      sendCurrencyValue: props.context.currencyValue,
     }
 
     this.handleQRScan = this.handleQRScan.bind(this)
     this.handleSendZEN = this.handleSendZEN.bind(this)
+    this.handleSendValueChange = this.handleSendValueChange.bind(this)
+    this.handleSendCurrencyValueChange = this.handleSendCurrencyValueChange.bind(this)
     this.setProgressValue = this.setProgressValue.bind(this)
     this.safeReleaseCamera = this.safeReleaseCamera.bind(this)
+  }
+  
+  // Handles conversion between
+  // zen and fiat and sets sendValue
+  handleSendValueChange(e) {
+    const str = e.target.value
+    const sendVal = parseFloat(str)
+
+    if (!isNaN(sendVal) && str[str.length - 1] !== '.'){
+      // Jesus fuck Javascript
+      this.setState({
+        sendValue: str,
+        sendCurrencyValue: prettyFormatPrices((this.props.context.currencyValue * sendVal), 6),
+      })
+    }
+    else{
+      this.setState({
+        sendValue: str
+      })
+    }
+  }
+
+  handleSendCurrencyValueChange(e){
+    const str = e.target.value
+    const sendCurrencyVal = parseFloat(str)
+    
+    if (!isNaN(sendCurrencyVal) && str[str.length - 1] !== '.'){
+      this.setState({
+        sendValue: prettyFormatPrices((sendCurrencyVal / this.props.context.currencyValue), 6),
+        sendCurrencyValue: str
+      })
+    }
+    else{
+      this.setState({
+        sendCurrencyValue: e.target.value
+      })
+    }
   }
 
   setProgressValue(v){
     this.setState({
       progressValue: v
     })
+  }
+
+  safeReleaseCamera() {
+    // Destroy QR scanner if user goes back
+    // while scanning
+    if (this.props.context.qrScanning){
+      QRScanner.destroy()
+      this.props.setQrScanning(false)
+    }
+  }
+
+  componentWillUnmount(){
+    this.safeReleaseCamera()
   }
 
   handleQRScan(){    
@@ -85,20 +139,7 @@ class SendPage extends React.Component {
     
     // Show scanning preview
     QRScanner.show()
-  }
-
-  safeReleaseCamera() {
-    // Destroy QR scanner if user goes back
-    // while scanning
-    if (this.props.context.qrScanning){
-      QRScanner.destroy()
-      this.props.setQrScanning(false)
-    }
-  }
-
-  componentWillUnmount(){
-    this.safeReleaseCamera()
-  }
+  }  
 
   handleSendZEN(){
     // Language stuff
@@ -112,7 +153,7 @@ class SendPage extends React.Component {
     // Convert how much we wanna send
     // to satoshis
     const satoshisToSend = Math.round(value * 100000000)
-    const satoshisfeesToSend = Math.round(fee * 100000000)
+    const satoshisfeesToSend = Math.round(fee) // fees already in satoshis
 
     // Reset zen send progress
     this.setProgressValue(1)
@@ -260,7 +301,13 @@ class SendPage extends React.Component {
           { TRANSLATIONS[CUR_LANG].SendPage.title }
         </div>
         <div className='right'>
-          <ToolbarButton onClick={() => this.handleQRScan()}>
+          <ToolbarButton onClick={() => {
+            try{
+              this.handleQRScan()
+            } catch (err) {
+              alert(JSON.stringify(err))
+            }
+          }}>
             <Icon icon='ion-camera'/>
           </ToolbarButton>
         </div>
@@ -272,8 +319,9 @@ class SendPage extends React.Component {
     // For qr scanning
     const pageOpacity = this.props.context.qrScanning === true ? '0.4' : '1.0'
 
-    // Translation stuff
+    // Translation stuff    
     const CUR_LANG = this.props.settings.language
+    const addressLang = TRANSLATIONS[CUR_LANG].General.address
     const fromLang = TRANSLATIONS[CUR_LANG].SendPage.from
     const toAddressLang = TRANSLATIONS[CUR_LANG].SendPage.toAddress
     const amountLang = TRANSLATIONS[CUR_LANG].SendPage.amount
@@ -308,36 +356,74 @@ class SendPage extends React.Component {
             </div>
           ) :
           (
-            <div style={{padding: '0 12px 0 12px' }}>
-              <p>
-                { fromLang }: <br/>
-                { this.props.context.address }
-              </p>
-              <p>                
+            <div style={{padding: '12px 12px 0 12px'}}>
+
+              <div>             
+                <h3>Pay To</h3>         
                 <Input
                   onChange={(e) => this.setState({ addressReceive: e.target.value })}
                   value={this.state.addressReceive}
-                  placeholder={toAddressLang}
+                  placeholder={addressLang}
                   style={{width: '100%'}}
+                  float={true}
                 />
-              </p>
-              <p>                
-                <Input                  
-                  placeholder={amountLang + " (" + maxLang + ": " + this.props.context.value + ")"}
-                  onChange={(e) => this.setState({ sendValue: e.target.value })}
-                  value={this.state.sendValue}                
-                  style={{width: '100%'}}
-                />
-              </p>
-              <p>                
-                <Input 
-                  placeholder={feesLang}
-                  style={{width: '100%'}}
-                  onChange={(e) => this.setState({ sendFee: e.target.value })}
-                  value={this.state.sendFee}/>
-              </p>
+              </div>
 
-              <p>
+              <br/>
+
+              <h3>Amount To Pay</h3>
+              <ons-row width={'45%'} style={{textAlign: 'center'}}>
+                <ons-col>
+                  <Input
+                    onChange={this.handleSendValueChange}
+                    value={this.state.sendValue}
+                    placeholder={amountLang}
+                    style={{width: '100%'}}
+                  /><br/>
+                  ZEN
+                </ons-col>
+                <ons-col width={'10%'}>
+                  <Icon icon='ion-arrow-swap'/>
+                </ons-col>
+                <ons-col width={'45%'}>
+                  <Input
+                    onChange={this.handleSendCurrencyValueChange}
+                    value={this.state.sendCurrencyValue}
+                    placeholder={amountLang}
+                    style={{width: '100%'}}                      
+                  /><br/>
+                  {this.props.settings.currency}
+                </ons-col>
+              </ons-row>
+
+              <br/>
+
+              <h3>Network Fee</h3>
+              <ons-row style={{textAlign: 'center'}}>                
+                <ons-col width={'20%'}>
+                  Slow Tx
+                </ons-col>
+
+                <ons-col width={'60%'}>
+                  <Range
+                    style={{width: '100%'}}
+                    onChange={(e) => this.setState({ sendFee: e.target.value })}
+                    value={this.state.sendFee}
+                    min={0}
+                    max={10000}                  
+                  />
+                  <br/>
+                  Fee: {parseFloat(this.state.sendFee / 100000000).toString()} ZEN
+                </ons-col>
+
+                <ons-col width={'20%'}>
+                  Fast Tx
+                </ons-col>
+              </ons-row>
+
+              <br/>
+
+              <div>
                 <label className="left">
                   <Checkbox
                     onChange={(e) => {                               
@@ -345,21 +431,31 @@ class SendPage extends React.Component {
                         confirmSend: !this.state.confirmSend                    
                       })
                     }}
-                    value={this.state.confirmSend}
+                    checked={this.state.confirmSend}
                     inputId='understoodCheckbox' type="checkbox"
                   />
                 </label>
                 <label htmlFor='understoodCheckbox' className="center">
                   &nbsp;{confirmSendLang}
                 </label>
-              </p>
+              </div>
 
-              <p>
-                <Button
-                  onClick={() => this.handleSendZEN()}
-                  disabled={!this.state.confirmSend || (this.state.progressValue > 0 && this.state.progressValue < 100)}
-                  style={{width: '100%'}}>{sendLang}</Button>
-              </p>
+              <br/>
+
+              <ons-row style={{textAlign: 'center'}}>
+                <ons-col width={'47.5%'}>
+                  <Button
+                    onClick={() => this.props.navigator.popPage()}                    
+                    style={{width: '100%', height: '50px', paddingTop: '7px'}}>Cancel</Button>
+                </ons-col>
+                <ons-col width={'5%'}></ons-col>
+                <ons-col width={'47.5%'}>
+                  <Button
+                    onClick={() => this.handleSendZEN()}
+                    disabled={!this.state.confirmSend || (this.state.progressValue > 0 && this.state.progressValue < 100)}
+                    style={{width: '100%', height: '50px', paddingTop: '7px'}}>{sendLang}</Button>
+                </ons-col>
+              </ons-row>
 
               <p>
                 <ProgressBar

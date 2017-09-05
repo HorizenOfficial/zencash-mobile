@@ -28,7 +28,7 @@ import {
   setZenInBtcValue,
   setZenInCurrencyValue
 } from '../actions/Context'
-import { urlAppend } from '../utils/index'
+import { urlAppend, prettyFormatPrices } from '../utils/index'
 
 import AddressInfoPage from './AddressInfoPage'
 import SendPage from './SendPage';
@@ -36,11 +36,6 @@ import SettingsPage from './SettingsPage'
 
 import TRANSLATIONS from '../translations'
 
-// Helper function to format prices to decimal places
-// of 5 by default
-function prettyFormatPrices (v, decimalPlaces=5) {
-  return parseFloat(v).toFixed(decimalPlaces)
-}
 
 class MainPage extends React.Component {
   constructor(props) {
@@ -78,9 +73,13 @@ class MainPage extends React.Component {
     const addrURL = urlAppend(this.props.settings.insightAPI, 'addr/' + address + '/')
     cordovaHTTP.get(addrURL, {}, {},
       function(resp){
-        const addr_info = JSON.parse(resp.data)
-        const addr_balance = parseFloat(addr_info.balance)
-        this.props.setAddressValue(prettyFormatPrices(addr_balance))
+        try{
+          const addr_info = JSON.parse(resp.data)
+          const addr_balance = parseFloat(addr_info.balance)
+          this.props.setAddressValue(addr_balance)
+        } catch (err) {
+          alert(err)
+        }
 
         // Get btc value and get local currency
         // via coinmarketcap
@@ -90,11 +89,11 @@ class MainPage extends React.Component {
           function(resp){
             try{
               const coinmarketcap_data = JSON.parse(resp.data)              
-              const price_btc = addr_balance * parseFloat(coinmarketcap_data[0].price_btc)
-              const price_currency = addr_balance * parseFloat(coinmarketcap_data[0]['price_' + curCurrency.toLowerCase()])
+              const price_btc = parseFloat(coinmarketcap_data[0].price_btc)
+              const price_currency = parseFloat(coinmarketcap_data[0]['price_' + curCurrency.toLowerCase()])
               
-              this.props.setZenInBtcValue(prettyFormatPrices(price_btc))
-              this.props.setZenInCurrencyValue(prettyFormatPrices(price_currency))
+              this.props.setZenInBtcValue(price_btc)
+              this.props.setZenInCurrencyValue(price_currency)
             } catch(err){
               alert(err)
             }            
@@ -228,7 +227,7 @@ class MainPage extends React.Component {
             {
               this.props.context.value === null ?
               loadingLang :
-              this.props.context.value
+              prettyFormatPrices(this.props.context.value)
             }&nbsp;
             {
               this.props.context.value === null ?
@@ -243,9 +242,9 @@ class MainPage extends React.Component {
                 <h5 style={{marginLeft: '12px'}}>
                   BTC<br/>
                   {
-                    this.props.context.BTCValue === null ?
+                    this.props.context.BTCValue === null && this.props.context.value === null ?
                     loadingLang :
-                    this.props.context.BTCValue
+                    prettyFormatPrices(this.props.context.value * this.props.context.BTCValue)
                   }
                 </h5>
               </ons-col>
@@ -253,9 +252,9 @@ class MainPage extends React.Component {
                 <h5 style={{marginLeft: '12px'}}>
                   { this.props.settings.currency }<br/>
                   {
-                    this.props.context.currencyValue === null ?
+                    this.props.context.currencyValue === null && this.props.context.value === null ?
                     loadingLang :
-                    this.props.context.currencyValue
+                    prettyFormatPrices(this.props.context.value * this.props.context.currencyValue, 2)
                   }
                 </h5>
               </ons-col>

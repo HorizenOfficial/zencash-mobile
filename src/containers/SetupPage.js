@@ -74,6 +74,7 @@ class SetupPage extends React.Component {
         <div style={{padding: '12px 12px 0 12px'}}>                            
           <p>
             <textarea
+              style={{width: '100%'}}
               onChange={(e) => this.setState({ tempSecretPhrase: e.target.value })}
               className="textarea" rows="3" placeholder="secret phrase"
               maxLength={64}
