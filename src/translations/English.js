@@ -21,6 +21,7 @@ export const ENGLISH_TRANSLATION = {
     title: 'Send ZEN',
     payTo: 'Pay To',
     amountToPay: 'Amount To Pay',
+    balance: 'Balance',
     networkFee: 'Network Fee',
     slowTx: 'Slow Tx',
     fastTx: 'Fast Tx',    
@@ -44,7 +45,7 @@ export const ENGLISH_TRANSLATION = {
     about: 'About',
     language: 'Language',
     currency: 'Currency',
-    secretPhrase: 'Secret Phrase',
+    secretPhrase: 'Show Secret Phrase',
     showPrivateKeys: 'Show Private Keys',
     recoverExistingWallet: 'Recover Existing Wallet',
     current: 'Current'

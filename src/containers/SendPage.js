@@ -334,6 +334,7 @@ class SendPage extends React.Component {
 
     const payToLang = TRANSLATIONS[CUR_LANG].SendPage.payTo
     const amountToPayLang = TRANSLATIONS[CUR_LANG].SendPage.amountToPay
+    const balanceLang = TRANSLATIONS[CUR_LANG].SendPage.balance
     const networkFeeLang = TRANSLATIONS[CUR_LANG].SendPage.networkFee
     const slowTxLang = TRANSLATIONS[CUR_LANG].SendPage.slowTx
     const fastTxLang = TRANSLATIONS[CUR_LANG].SendPage.fastTx    
@@ -372,7 +373,6 @@ class SendPage extends React.Component {
           ) :
           (
             <div style={{padding: '12px 12px 0 12px'}}>
-
               <div>             
                 <h3>{ payToLang }</h3>         
                 <Input
@@ -387,8 +387,13 @@ class SendPage extends React.Component {
               <br/>
 
               <h3>{amountToPayLang}&nbsp;&nbsp;<Button modifier='quiet' onClick={() => this.handleSendValueChange({target: {value: this.props.context.value}})}>{maxLang}</Button></h3>
-              <ons-row width={'45%'} style={{textAlign: 'center'}}>
+              <ons-row width={'45%'} style={{textAlign: 'center'}}>                
                 <ons-col>
+                  <span style={{fontSize: '12px', color: '#7f8c8d'}}>
+                    {balanceLang}:&nbsp;
+                    {prettyFormatPrices(this.props.context.value)}&nbsp;
+                    ZEN
+                  </span>
                   <Input
                     onChange={this.handleSendValueChange}
                     value={this.state.sendValue}
@@ -398,9 +403,16 @@ class SendPage extends React.Component {
                   ZEN
                 </ons-col>
                 <ons-col width={'10%'}>
+                  <br/>
                   <Icon icon='ion-arrow-swap'/>
+                  <br/>
                 </ons-col>
                 <ons-col width={'45%'}>
+                  <span style={{fontSize: '12px', color: '#7f8c8d'}}>
+                    {balanceLang}:&nbsp;
+                    {prettyFormatPrices(this.props.context.value * this.props.context.currencyValue)}&nbsp;
+                    {this.props.settings.currency}
+                  </span>
                   <Input
                     onChange={this.handleSendCurrencyValueChange}
                     value={this.state.sendCurrencyValue}
