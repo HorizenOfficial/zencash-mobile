@@ -3,7 +3,7 @@ export const RUSSIAN_TRANSLATION = {
     loading: 'загрузка...',
     address: 'Адрес',
     privateKey: 'Приватный ключ',
-    cancel: 'Cancel', // TODO
+    cancel: 'Отменить', 
   },
   MainPage: {
     title: 'ZEN кошелек',
@@ -19,11 +19,11 @@ export const RUSSIAN_TRANSLATION = {
   },
   SendPage: {
     title: 'Отправить ZEN',
-    payTo: 'Pay To', // TODO
-    amountToPay: 'Amount To Pay', // TODO
-    networkFee: 'Network Fee', // TODO
-    slowTx: 'Slow Tx', // TODO
-    fastTx: 'Fast Tx', // TODO
+    payTo: 'Заплатить на',
+    amountToPay: 'Сумма к оплате',
+    networkFee: 'Комиссия сети',
+    slowTx: 'Медленный Tx',
+    fastTx: 'Быстрый Tx',
     from: 'С адреса',
     toAddress: 'На адрес',
     amount: 'Количество',
