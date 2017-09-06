@@ -22,8 +22,8 @@ export const RUSSIAN_TRANSLATION = {
     payTo: 'Заплатить на',
     amountToPay: 'Сумма к оплате',
     networkFee: 'Комиссия сети',
-    slowTx: 'Медленный Tx',
-    fastTx: 'Быстрый Tx',
+    slowTx: 'Медленно',
+    fastTx: 'Быстро',
     from: 'С адреса',
     toAddress: 'На адрес',
     amount: 'Количество',
@@ -34,7 +34,7 @@ export const RUSSIAN_TRANSLATION = {
     confirmSend: 'Да, Я хочу отправить ZEN',
     invalidAddress: 'Неверный адрес. Пока поддерживаются только прозрачные адреса.',
     invalidAmount: 'Неверная сумма.',
-    invalidFee: 'Неверная комиссия. Попробуйте 0. :)',
+    invalidFee: 'Неверная комиссия.',
     zeroAmount: 'Количество ZEN должно быть больше 0.',
     notEnoughZEN: 'На аккаунте недостаточно подтвержденного ZEN для транзакции',
     noCameraPermissions: 'Камера не разрешена. Вы можете разрешить доступ к камере в настройках.'
@@ -44,7 +44,7 @@ export const RUSSIAN_TRANSLATION = {
     about: 'О программе',
     language: 'Язык',
     currency: 'Валюта',
-    secretPhrase: 'Секретная фраза',
+    secretPhrase: 'Показать секретную фразу',
     showPrivateKeys: 'Показать приватные ключи',
     recoverExistingWallet: 'Восстановить существующий кошелек',
     current: 'Сейчас'
