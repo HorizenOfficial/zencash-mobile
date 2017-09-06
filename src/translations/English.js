@@ -2,7 +2,8 @@ export const ENGLISH_TRANSLATION = {
   General: {
     loading: 'loading...',
     address: 'Address',
-    privateKey: 'Private Key'
+    privateKey: 'Private Key',
+    cancel: 'Cancel',
   },
   MainPage: {
     title: 'ZEN Wallet',
@@ -18,9 +19,14 @@ export const ENGLISH_TRANSLATION = {
   },
   SendPage: {
     title: 'Send ZEN',
+    payTo: 'Pay To',
+    amountToPay: 'Amount To Pay',
+    networkFee: 'Network Fee',
+    slowTx: 'Slow Tx',
+    fastTx: 'Fast Tx',    
     from: 'From',
     toAddress: 'To Address',
-    amount: 'Amount',
+    amount: 'Amount',    
     max: 'Max',
     fees: 'Fees',
     send: 'Send',

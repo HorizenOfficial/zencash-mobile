@@ -2,7 +2,8 @@ export const RUSSIAN_TRANSLATION = {
   General: {
     loading: 'загрузка...',
     address: 'Адрес',
-    privateKey: 'Приватный ключ'
+    privateKey: 'Приватный ключ',
+    cancel: 'Cancel', // TODO
   },
   MainPage: {
     title: 'ZEN кошелек',
@@ -18,6 +19,11 @@ export const RUSSIAN_TRANSLATION = {
   },
   SendPage: {
     title: 'Отправить ZEN',
+    payTo: 'Pay To', // TODO
+    amountToPay: 'Amount To Pay', // TODO
+    networkFee: 'Network Fee', // TODO
+    slowTx: 'Slow Tx', // TODO
+    fastTx: 'Fast Tx', // TODO
     from: 'С адреса',
     toAddress: 'На адрес',
     amount: 'Количество',
@@ -28,7 +34,7 @@ export const RUSSIAN_TRANSLATION = {
     confirmSend: 'Да, Я хочу отправить ZEN',
     invalidAddress: 'Неверный адрес. Пока поддерживаются только прозрачные адреса.',
     invalidAmount: 'Неверная сумма.',
-    invalidFee: 'Неверная коммисия. Попробуйте 0. :)',
+    invalidFee: 'Неверная комиссия. Попробуйте 0. :)',
     zeroAmount: 'Количество ZEN должно быть больше 0.',
     notEnoughZEN: 'На аккаунте недостаточно подтвержденного ZEN для транзакции',
     noCameraPermissions: 'Камера не разрешена. Вы можете разрешить доступ к камере в настройках.'
@@ -53,7 +59,7 @@ export const RUSSIAN_TRANSLATION = {
     title: 'Восстановить существующий кошелек',
     secretPhrase: 'Секретная фраза',
     textareaPlaceholder: 'секретная фраза. мин. 16 символов',
-    confirmUnderstand: 'Я понимаю что при восстановлении кошелька мой текущий кошелек будет стёрт',
+    confirmUnderstand: 'Я понимаю, что при восстановлении кошелька, текущий кошелек будет уничтожен',
     recover: 'Восстановить'
   },
   AboutPage: {

@@ -327,8 +327,16 @@ class SendPage extends React.Component {
     const pageOpacity = this.props.context.qrScanning === true ? '0.4' : '1.0'
 
     // Translation stuff    
-    const CUR_LANG = this.props.settings.language
+    const CUR_LANG = this.props.settings.language     
+
     const addressLang = TRANSLATIONS[CUR_LANG].General.address
+    const cancelLang = TRANSLATIONS[CUR_LANG].General.cancel
+
+    const payToLang = TRANSLATIONS[CUR_LANG].SendPage.payTo
+    const amountToPayLang = TRANSLATIONS[CUR_LANG].SendPage.amountToPay
+    const networkFeeLang = TRANSLATIONS[CUR_LANG].SendPage.networkFee
+    const slowTxLang = TRANSLATIONS[CUR_LANG].SendPage.slowTx
+    const fastTxLang = TRANSLATIONS[CUR_LANG].SendPage.fastTx    
     const fromLang = TRANSLATIONS[CUR_LANG].SendPage.from
     const toAddressLang = TRANSLATIONS[CUR_LANG].SendPage.toAddress
     const amountLang = TRANSLATIONS[CUR_LANG].SendPage.amount
@@ -337,7 +345,7 @@ class SendPage extends React.Component {
     const feesLang = TRANSLATIONS[CUR_LANG].SendPage.fees
     const sendZENLang = TRANSLATIONS[CUR_LANG].SendPage.sendZEN
     const txSuccessfulLang = TRANSLATIONS[CUR_LANG].SendPage.txSuccessful
-    const confirmSendLang = TRANSLATIONS[CUR_LANG].SendPage.confirmSend
+    const confirmSendLang = TRANSLATIONS[CUR_LANG].SendPage.confirmSend    
 
     return (      
       <Page
@@ -366,7 +374,7 @@ class SendPage extends React.Component {
             <div style={{padding: '12px 12px 0 12px'}}>
 
               <div>             
-                <h3>Pay To</h3>         
+                <h3>{ payToLang }</h3>         
                 <Input
                   onChange={(e) => this.setState({ addressReceive: e.target.value })}
                   value={this.state.addressReceive}
@@ -378,7 +386,7 @@ class SendPage extends React.Component {
 
               <br/>
 
-              <h3>Amount To Pay</h3>
+              <h3>{amountToPayLang} ({maxLang}: {this.props.context.value})</h3>
               <ons-row width={'45%'} style={{textAlign: 'center'}}>
                 <ons-col>
                   <Input
@@ -405,10 +413,10 @@ class SendPage extends React.Component {
 
               <br/>
 
-              <h3>Network Fee</h3>
+              <h3>{networkFeeLang}</h3>
               <ons-row style={{textAlign: 'center'}}>                
                 <ons-col width={'20%'}>
-                  Slow Tx
+                  {slowTxLang}
                 </ons-col>
 
                 <ons-col width={'60%'}>
@@ -420,11 +428,11 @@ class SendPage extends React.Component {
                     max={10000}                  
                   />
                   <br/>
-                  Fee: {parseFloat(this.state.sendFee / 100000000).toString()} ZEN
+                  {feesLang}: {parseFloat(this.state.sendFee / 100000000).toString()} ZEN
                 </ons-col>
 
                 <ons-col width={'20%'}>
-                  Fast Tx
+                  {fastTxLang}
                 </ons-col>
               </ons-row>
 
@@ -453,7 +461,7 @@ class SendPage extends React.Component {
                 <ons-col width={'47.5%'}>
                   <Button
                     onClick={() => this.props.navigator.popPage()}                    
-                    style={{width: '100%', height: '50px', paddingTop: '7px'}}>Cancel</Button>
+                    style={{width: '100%', height: '50px', paddingTop: '7px'}}>{cancelLang}</Button>
                 </ons-col>
                 <ons-col width={'5%'}></ons-col>
                 <ons-col width={'47.5%'}>
