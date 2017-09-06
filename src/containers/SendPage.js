@@ -386,7 +386,7 @@ class SendPage extends React.Component {
 
               <br/>
 
-              <h3>{amountToPayLang} ({maxLang}: {this.props.context.value})</h3>
+              <h3>{amountToPayLang}&nbsp;&nbsp;<Button modifier='quiet' onClick={() => this.handleSendValueChange({target: {value: this.props.context.value}})}>{maxLang}</Button></h3>
               <ons-row width={'45%'} style={{textAlign: 'center'}}>
                 <ons-col>
                   <Input
@@ -415,11 +415,11 @@ class SendPage extends React.Component {
 
               <h3>{networkFeeLang}</h3>
               <ons-row style={{textAlign: 'center'}}>                
-                <ons-col width={'20%'}>
+                <ons-col width={'25%'}>
                   {slowTxLang}
                 </ons-col>
 
-                <ons-col width={'60%'}>
+                <ons-col width={'50%'}>
                   <Range
                     style={{width: '100%'}}
                     onChange={(e) => this.setState({ sendFee: e.target.value })}
@@ -431,7 +431,7 @@ class SendPage extends React.Component {
                   {feesLang}: {parseFloat(this.state.sendFee / 100000000).toString()} ZEN
                 </ons-col>
 
-                <ons-col width={'20%'}>
+                <ons-col width={'25%'}>
                   {fastTxLang}
                 </ons-col>
               </ons-row>

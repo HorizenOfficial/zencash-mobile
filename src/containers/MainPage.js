@@ -1,5 +1,6 @@
 import React from 'react';
 import QRCode from 'qrcode.react'
+import moment from 'moment'
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -105,8 +106,6 @@ class MainPage extends React.Component {
     // Sets information about tx
     // When we set address info
     this.setAddressTxList(address, false)
-
-    // Convert the amount of zen we have to BTC
   }
 
   // Sets information about tx  
@@ -285,6 +284,7 @@ class MainPage extends React.Component {
               const selectedAddress = this.props.context.address
               const vins = tx.vin || []
               const vouts = tx.vout || []
+              var txTime = moment.unix(tx.time).local().format('lll')
               var ret
 
               // Are we receiving zen?
@@ -293,7 +293,10 @@ class MainPage extends React.Component {
                 return (
                   <ListItem tappable>
                     <ons-row>
-                      <ons-col>{ received ? receivedLang : sentLang }</ons-col>
+                      <ons-col>
+                        { received ? receivedLang : sentLang } <br/>
+                        <span style={{color: '#7f8c8d'}}>{ txTime }</span>
+                      </ons-col>
                       <ons-col style={{textAlign: 'right', paddingRight: '12px'}}>
                         { received ? '+' : '-' } { parseFloat(value) } zen
                       </ons-col>
