@@ -101,15 +101,39 @@ class SendPage extends React.Component {
     this.safeReleaseCamera()
   }
 
-  handleQRScan(){    
+  handleQRScan(){ 
     // Prepare QR Scanner
     QRScanner.prepare(function(err, status){
-      if (err) {
-       // here we can handle errors and clean up any loose ends.
-        alert(err);         
+      // Oh no!
+      if (err) {       
+       alert(JSON.stringify(err))
       }
+
+      // If we are authorized to scan, then only do we invoke
+      // the scan method
       if (status.authorized) {        
-        this.props.setQrScanning(true)        
+        this.props.setQrScanning(true)
+        // Start scanning
+        QRScanner.scan(function(err, address){
+
+          // an error occurred, or the scan was canceled (error code `6`)
+          if(err){            
+            alert(JSON.stringify(err))
+          } 
+
+          // The scan completed, display the contents of the QR code:
+          else {            
+            this.setState({
+              addressReceive: address
+            })
+          }
+
+          // Set finished scanning
+          this.props.setQrScanning(false)
+        }.bind(this))
+        
+        // Show scanning preview
+        QRScanner.show()      
       }
       else if (status.denied) {
         const CUR_LANG = this.props.settings.language
@@ -121,24 +145,7 @@ class SendPage extends React.Component {
         // Android, a denial isn't permanent unless the user checks the "Don't
         // ask again" box.) We can ask again at the next relevant opportunity.
       }
-    }.bind(this))
-
-    // Start scanning
-    QRScanner.scan(function(err, address){
-      if(err){
-        // an error occurred, or the scan was canceled (error code `6`)
-        alert(err)
-      } else {
-        // The scan completed, display the contents of the QR code:
-        this.setState({
-          addressReceive: address
-        })
-      }
-      this.props.setQrScanning(false)
-    }.bind(this))
-    
-    // Show scanning preview
-    QRScanner.show()
+    }.bind(this))    
   }  
 
   handleSendZEN(){
