@@ -479,7 +479,7 @@ class SendPage extends React.Component {
                 <ons-col width={'47.5%'}>
                   <Button
                     onClick={() => this.handleSendZEN()}
-                    disabled={!this.state.confirmSend || (this.state.progressValue > 0 && this.state.progressValue < 100)}
+                    disabled={!this.state.confirmSend || (this.state.progressValue > 0)}
                     style={{width: '100%', height: '50px', paddingTop: '7px'}}>{sendLang}</Button>
                 </ons-col>
               </ons-row>

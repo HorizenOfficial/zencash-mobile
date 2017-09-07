@@ -38,12 +38,90 @@ import SettingsPage from './SettingsPage'
 import TRANSLATIONS from '../translations'
 
 
+const getTxDetailPage = (tx) => {
+  const txPage = ({navigator}) => (
+    <Page renderToolbar={() => (
+        <Toolbar>
+          <div className='left'>
+            <BackButton onClick={() => navigator.popPage()}>Back</BackButton>
+          </div>     
+        </Toolbar>
+      )}>
+      <List style={{wordBreak: 'break-word'}}>
+        <ListItem tappable>
+          <ons-row><strong>txid</strong></ons-row>
+          <ons-row>{tx.txid}</ons-row>
+        </ListItem>
+        <ListItem tappable>
+          <ons-row><strong>blockhash</strong></ons-row>
+          <ons-row>{tx.blockhash}</ons-row>          
+        </ListItem>
+        <ListItem tappable>
+        <ons-row><strong>version</strong></ons-row>
+          <ons-row>{tx.version}</ons-row>          
+        </ListItem>
+        <ListItem tappable>
+        <ons-row><strong>blockheight</strong></ons-row>
+          <ons-row>{tx.blockheight}</ons-row>          
+        </ListItem>
+        <ListItem tappable>
+          <ons-row><strong>confirmations</strong></ons-row>
+          <ons-row>{tx.confirmations}</ons-row>
+        </ListItem>
+        <ListItem tappable>
+          <ons-row><strong>fees</strong></ons-row>
+          <ons-row>{tx.fees}</ons-row>   
+        </ListItem>
+        <ListItem tappable>
+          <ons-row><strong>in ({tx.valueIn} ZEN)</strong></ons-row>          
+          {
+            tx.vin.map(function(vin){
+              return (
+                <ons-row style={{marginTop: '10px'}}>
+                  <ons-col width={'90%'}>                    
+                    { vin.addr }<br/>                    
+                    <span style={{color: '#7f8c8d'}}>({ vin.value } ZEN)</span>                    
+                  </ons-col>
+
+                  <ons-col width={'10%'}>
+                    <Icon icon='ion-arrow-right-c'/>
+                  </ons-col>                  
+                </ons-row>                
+              )
+            })
+          }                       
+        </ListItem>
+        <ListItem tappable>
+          <ons-row><strong>out ({tx.valueOut} ZEN)</strong></ons-row>          
+          {
+            tx.vout.map(function(vout){
+              return (
+                <ons-row style={{marginTop: '10px'}}>        
+                  <ons-col width={'90%'}>                    
+                    { vout.scriptPubKey.addresses[0] }<br/>                    
+                    <span style={{color: '#7f8c8d'}}>({ vout.value } ZEN)</span>                     
+                  </ons-col>
+
+                  <ons-col width={'10%'}>
+                    <Icon icon='ion-arrow-left-c'/>
+                  </ons-col>
+                </ons-row>  
+              )
+            })
+          }                       
+        </ListItem>
+      </List>      
+    </Page>
+  )
+  return txPage
+}
+
 class MainPage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {      
-      dialogSelectAddressOpen: false,      
+      dialogSelectAddressOpen: false,  
       selectedAddressTxFrom: 0,
       selectedAddressTxTo: 50,
       selectedAddressTxs: [],
@@ -289,9 +367,14 @@ class MainPage extends React.Component {
 
               // Are we receiving zen?
               // and whats the amount of zen we receive / sent?
-              function getTxListItem (received, value) {
+              const txPage = getTxDetailPage(tx)
+              const handleTxClick = () => this.gotoComponent(txPage)
+
+              function getTxListItem (received, value) {                
                 return (
-                  <ListItem tappable>
+                  <ListItem
+                    onClick={handleTxClick}
+                    tappable>
                     <ons-row>
                       <ons-col>
                         { received ? receivedLang : sentLang } <br/>
@@ -303,11 +386,11 @@ class MainPage extends React.Component {
                     </ons-row>
                   </ListItem>
                 )
-              }                    
+              }
 
               vins.forEach(function(vin){
                 if (vin.addr === selectedAddress){                     
-                  ret = getTxListItem(false, vin.value)                        
+                  ret = getTxListItem(false, vin.value)
                 }
               })
               
@@ -315,7 +398,7 @@ class MainPage extends React.Component {
                 vouts.forEach(function(vout){                      
                   vout.scriptPubKey.addresses.forEach(function(addr){
                     if (addr === selectedAddress){
-                      ret = getTxListItem(true, vout.value)                            
+                      ret = getTxListItem(true, vout.value)
                     }
                   })
                 })
