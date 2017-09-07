@@ -13,7 +13,6 @@ import {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { setReadSavedFile } from '../actions/Context'
 import { setSecretPhrase, setSecretItems } from '../actions/Secrets'
 import { setLanguage, setCurrency } from '../actions/Settings'
 
@@ -34,7 +33,8 @@ class App extends React.Component {
     super(props)
 
     this.state = {
-      hasExistingWallet: false
+      hasExistingWallet: false,
+      readSavedFile: false,
     }
   }
 
@@ -75,13 +75,17 @@ class App extends React.Component {
         }
       }
 
-      this.props.setReadSavedFile(true)
+      this.setState({
+        readSavedFile: true
+      })
 
     }.bind(this), function(err){
       // Cordova plugin might not work for
       // All api versions. in the event...
       try{
-        this.props.setReadSavedFile(true)
+        this.setState({
+          readSavedFile: true
+        })
       } catch(err) {
         alert(err)
       }   
@@ -90,7 +94,7 @@ class App extends React.Component {
 
   render() {
     return (      
-      this.props.context.readSavedFile ?
+      this.state.readSavedFile ?
       (
         this.state.hasExistingWallet ?
         (
@@ -124,8 +128,7 @@ function mapStateToProps(state){
 function matchDispatchToProps (dispatch) {
   // Set context for the send page
   return bindActionCreators(
-    {
-      setReadSavedFile,
+    {      
       setSecretItems,
       setSecretPhrase,
       setLanguage,

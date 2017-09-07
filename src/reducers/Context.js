@@ -5,8 +5,7 @@ import 'babel-polyfill'
 import {
   SET_ADDRESS,
   SET_PRIVATE_KEY,
-  SET_ADDRESS_VALUE,
-  SET_READ_SAVED_FILE,
+  SET_ADDRESS_VALUE,  
   SET_QR_SCANNING,
   SET_ZEN_IN_BTC_VALUE,
   SET_ZEN_IN_CURRENCY_VALUE,
@@ -61,11 +60,6 @@ export default function ContextReducer(state=initialContext, action){
         value: action.value
       })
 
-    case SET_READ_SAVED_FILE:
-      return Object.assign({}, state, {
-        readSavedFile: action.readSavedFile
-      })
-    
     default:
       return state
   }

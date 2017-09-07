@@ -1,20 +1,10 @@
 export const SET_ADDRESS = 'SET_CURRENT_ADDRESS'
 export const SET_PRIVATE_KEY = 'SET_CURRENT_PRIVATE_KEY'
 export const SET_ADDRESS_VALUE = 'SET_CURRENT_ADDRESS_VALUE'
-export const SET_READ_SAVED_FILE = 'SET_READ_SAVED_FILE'
 export const SET_QR_SCANNING = 'SET_QR_SCANNING'
 export const SET_ZEN_IN_BTC_VALUE = 'SET_ZEN_IN_BTC_VALUE'
 export const SET_ZEN_IN_CURRENCY_VALUE = 'SET_ZEN_IN_CURRENCY_VALUE'
-export const SET_HAS_INPUT_PIN = 'SET_HAS_INPUT_PIN'
 
-
-// Has the user Input pin?
-export function setHasInputPin (b) {
-  return {
-    type: SET_HAS_INPUT_PIN,
-    setHasInputPin: b
-  }
-}
 
 export function setZenInBtcValue (BTCValue) {
   return {
@@ -55,12 +45,5 @@ export function setAddressValue (value) {
   return {
     type: SET_ADDRESS_VALUE,
     value
-  }
-}
-
-export function setReadSavedFile (b) {
-  return {
-    type: SET_READ_SAVED_FILE,
-    readSavedFile: b
   }
 }

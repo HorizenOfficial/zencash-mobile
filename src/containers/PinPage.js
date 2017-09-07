@@ -15,7 +15,6 @@ import {
 
 import TRANSLATIONS from '../translations'
 
-import { setHasInputPin } from '../actions/Context'
 import { setWalletPin } from '../actions/Settings'
 
 class PinPage extends React.Component {
@@ -38,8 +37,7 @@ function mapStateToProps(state){
 function matchDispatchToProps (dispatch) {
   // Set context for the send page
   return bindActionCreators(
-    {
-      setHasInputPin,
+    {      
       setWalletPin
     },
     dispatch
