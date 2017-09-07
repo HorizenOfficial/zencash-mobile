@@ -23,7 +23,7 @@ import { phraseToSecretItems } from '../utils/wallet'
 import MainPage from './MainPage'
 import SetupPage from './SetupPage'
 
-import ZENCASH_IMG from '../assets/img/zencash.png'
+import ZENCASH_IMG from '../../assets/img/zencash.png'
 
 const renderPage = (route, navigator) => (
   <route.component key={route.key} navigator={navigator} />

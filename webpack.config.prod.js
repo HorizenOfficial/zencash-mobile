@@ -6,7 +6,7 @@ module.exports = {
   devtool: 'source-map',
   context: __dirname,
   entry: [
-    './src/index.js'
+    './lib/index.js'
   ],
   output: {
     path: path.join(__dirname, 'www'),

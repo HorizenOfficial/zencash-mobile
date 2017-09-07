@@ -24,8 +24,8 @@
     </platform>
     <preference name="iosPersistentFileLocation" value="Compatibility" />
     <preference name="AndroidPersistentFileLocation" value="Internal" />
-    <hook src="./src/scripts/build.sh" type="before_prepare" />
-    <icon src="src/assets/img/zencash.png" />
+    <hook src="./scripts/build.sh" type="before_prepare" />
+    <icon src="./assets/img/zencash.png" />
     <plugin name="cordova-clipboard" spec="^1.0.0" />
     <plugin name="cordova-plugin-file" spec="^4.3.3" />
     <plugin name="cordova-plugin-http" spec="^1.2.0" />
