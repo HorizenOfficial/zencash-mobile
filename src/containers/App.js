@@ -3,6 +3,7 @@
 // of the async nature of JS
 
 import React from 'react';
+import ReactCodeInput from 'react-code-input'
 
 import {
   Page,
@@ -14,7 +15,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { setSecretPhrase, setSecretItems } from '../actions/Secrets'
-import { setLanguage, setCurrency } from '../actions/Settings'
+import { setLanguage, setCurrency, setWalletPin } from '../actions/Settings'
 
 import { ZENCASH_MOBILE_SAVE_PATH, readFromFile, writeToFile } from '../utils/persistentStorage'
 import { phraseToSecretItems } from '../utils/wallet'
@@ -33,7 +34,10 @@ class App extends React.Component {
     super(props)
 
     this.state = {
+      tempPin: '',
       hasExistingWallet: false,
+      hasExistingPin: false,
+      hasInputPin: false,
       readSavedFile: false,
     }
   }
@@ -73,7 +77,16 @@ class App extends React.Component {
           const settingsCurrency = data.settings.currency
           this.props.setCurrency(settingsCurrency)
         }
-      }
+
+        if (data.settings.pin !== undefined && data.settings.pin !== null){
+          const settingsPin = data.settings.pin
+          this.props.setWalletPin(settingsPin)
+
+          this.setState({
+            hasExistingPin: true
+          })
+        }
+      }      
 
       this.setState({
         readSavedFile: true
@@ -81,40 +94,57 @@ class App extends React.Component {
 
     }.bind(this), function(err){
       // Cordova plugin might not work for
-      // All api versions. in the event...
-      try{
-        this.setState({
-          readSavedFile: true
-        })
-      } catch(err) {
-        alert(err)
-      }   
+      // All api versions. in the event...      
+      alert(JSON.stringify(err))
     }.bind(this))
   }
 
   render() {
     return (      
       this.state.readSavedFile ?
-      (
-        this.state.hasExistingWallet ?
+      (      
+        this.state.hasExistingPin ?
         (
-          <Navigator
-            renderPage={renderPage}
-            initialRoute={{component: MainPage, key: 'MAIN_PAGE'}}
-          />
-        ) :
+          this.state.hasInputPin ?
+          (
+            this.state.hasExistingWallet ?
+            (
+              <Navigator
+                renderPage={renderPage}
+                initialRoute={{component: MainPage, key: 'MAIN_PAGE'}}
+              />
+            ) :
+            (
+              <SetupPage setHasExistingWallet={(v) => this.setState({ hasExistingWallet: v})}/>
+            )
+          ) : 
+          (
+            // Haven't input pin
+            // Ask em to input pin
+            <div>input your pin pls</div>
+          )          
+        ) : 
         (
-          <SetupPage setHasExistingWallet={(v) => this.setState({ hasExistingWallet: v})}/>
+          // Ask them to set pin
+          <ons-row>
+            <div style={{textAlign: 'center', paddingTop: '25px'}}>
+              Please enter your pin<br/>
+              <ReactCodeInput type='number' fields={4} onChange={(e) => this.setState({ tempPin: e })}/><br/>
+              { this.state.tempPin }
+            </div>
+          </ons-row>          
         )
-      ) :
-      (        
-        <Page>          
-          <div style={{marginTop: '40%', textAlign: 'center'}}>
-            <img src={ZENCASH_IMG} style={{width: '30%'}}/><br/>
-            <Icon icon='spinner' spin/>
-          </div>
-        </Page>    
-      )
+    ) :
+    (
+      // If we haven't read the file yet
+      // display a spinning animation   
+      <Page>          
+        <div style={{marginTop: '40%', textAlign: 'center'}}>
+          <img src={ZENCASH_IMG} style={{width: '30%'}}/><br/>
+          <Icon icon='spinner' spin/>
+        </div>
+      </Page>    
+    )      
     )
   }
 }
@@ -132,7 +162,8 @@ function matchDispatchToProps (dispatch) {
       setSecretItems,
       setSecretPhrase,
       setLanguage,
-      setCurrency
+      setCurrency,
+      setWalletPin
     },
     dispatch
   )

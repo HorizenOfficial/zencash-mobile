@@ -52,6 +52,7 @@
         "promise": "^8.0.1",
         "qrcode.react": "^0.7.1",
         "react": "^15.3.1",
+        "react-code-input": "^1.1.5",
         "react-dom": "^15.3.1",
         "react-fontawesome": "^1.6.1",
         "react-hot-loader": "^3.0.0-beta.6",
