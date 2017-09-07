@@ -5,6 +5,16 @@ export const SET_READ_SAVED_FILE = 'SET_READ_SAVED_FILE'
 export const SET_QR_SCANNING = 'SET_QR_SCANNING'
 export const SET_ZEN_IN_BTC_VALUE = 'SET_ZEN_IN_BTC_VALUE'
 export const SET_ZEN_IN_CURRENCY_VALUE = 'SET_ZEN_IN_CURRENCY_VALUE'
+export const SET_HAS_INPUT_PIN = 'SET_HAS_INPUT_PIN'
+
+
+// Has the user Input pin?
+export function setHasInputPin (b) {
+  return {
+    type: SET_HAS_INPUT_PIN,
+    setHasInputPin: b
+  }
+}
 
 export function setZenInBtcValue (BTCValue) {
   return {

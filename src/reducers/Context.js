@@ -9,7 +9,8 @@ import {
   SET_READ_SAVED_FILE,
   SET_QR_SCANNING,
   SET_ZEN_IN_BTC_VALUE,
-  SET_ZEN_IN_CURRENCY_VALUE
+  SET_ZEN_IN_CURRENCY_VALUE,
+  SET_HAS_INPUT_PIN
 } from '../actions/Context'
 
 const initialContext = {
@@ -19,11 +20,17 @@ const initialContext = {
   BTCValue: null,
   currencyValue: null,
   qrScanning: false, // we currently using QR Scanner? To preview it we need to make web view transparent
-  readSavedFile: false // We haven't read the file by default (curse you async JS)
+  readSavedFile: false, // We haven't read the file by default (curse you async JS)
+  hasInputPin: false, // By default the user hasn't inputted his pin
 }
 
 export default function ContextReducer(state=initialContext, action){
   switch(action.type){
+    case SET_HAS_INPUT_PIN:
+      return Object.assign({}, state, {
+        hasInputPin: action.hasInputPin
+      })
+    
     case SET_ZEN_IN_BTC_VALUE:
       return Object.assign({}, state, {
         BTCValue: action.BTCValue
