@@ -5,9 +5,9 @@ export const RUSSIAN_TRANSLATION = {
     privateKey: 'Приватный ключ',
     cancel: 'Отменить',    
     fees: 'Комиссия',
-    version: 'Version', // TODO
-    in: 'In', // TODO
-    out: 'Out' // TODO
+    version: 'Версия',
+    in: 'В', // to check
+    out: 'Из' // to check
   },
   MainPage: {
     title: 'ZEN кошелек',
@@ -44,10 +44,10 @@ export const RUSSIAN_TRANSLATION = {
     noCameraPermissions: 'Камера не разрешена. Вы можете разрешить доступ к камере в настройках.'
   },
   TxDetailPage:{
-    txid: 'Transaction Id', // TODO
-    blockhash: 'Block Hash', // TODO
-    blockheight: 'Block Height', // TODO
-    confirmations: 'Confirmations', // TODO
+    txid: 'Номер транзакции',
+    blockhash: 'Хэш блока', // !
+    blockheight: 'Высота блока', // !
+    confirmations: 'Подтверждения',
   },
   SettingsPage: {
     title: 'Настройки',
