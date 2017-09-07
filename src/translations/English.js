@@ -3,7 +3,11 @@ export const ENGLISH_TRANSLATION = {
     loading: 'loading...',
     address: 'Address',
     privateKey: 'Private Key',
-    cancel: 'Cancel',
+    cancel: 'Cancel',    
+    fees: 'Fees',
+    version: 'Version',
+    in: 'In',
+    out: 'Out'
   },
   MainPage: {
     title: 'ZEN Wallet',
@@ -28,8 +32,7 @@ export const ENGLISH_TRANSLATION = {
     from: 'From',
     toAddress: 'To Address',
     amount: 'Amount',    
-    max: 'Max',
-    fees: 'Fees',
+    max: 'Max',    
     send: 'Send',
     txSuccessful: 'Transcation successful! Click here to see your transaction.',
     confirmSend: 'I want to send these ZEN',
@@ -39,6 +42,12 @@ export const ENGLISH_TRANSLATION = {
     zeroAmount: 'Amount must be greater than 0.',
     notEnoughZEN: 'Not enough confirmed ZEN in account to perform transaction',
     noCameraPermissions: 'No camera permissions. You can allow camera access in your settings.'
+  },
+  TxDetailPage:{
+    txid: 'Transaction Id',
+    blockhash: 'Block Hash',
+    blockheight: 'Block Height',
+    confirmations: 'Confirmations',    
   },
   SettingsPage: {
     title: 'Settings',

@@ -21,7 +21,6 @@ import {
   SpeedDialItem
 } from 'react-onsenui';
 
-
 import { 
   setAddress,
   setPrivateKey,
@@ -29,6 +28,7 @@ import {
   setZenInBtcValue,
   setZenInCurrencyValue
 } from '../actions/Context'
+import { LANG_ENGLISH } from '../actions/Settings'
 import { urlAppend, prettyFormatPrices } from '../utils/index'
 
 import AddressInfoPage from './AddressInfoPage'
@@ -38,7 +38,8 @@ import SettingsPage from './SettingsPage'
 import TRANSLATIONS from '../translations'
 
 
-const getTxDetailPage = (tx) => {
+const getTxDetailPage = (tx, curLang=LANG_ENGLISH) => {
+  const curTranslation = TRANSLATIONS[curLang]
   const txPage = ({navigator}) => (
     <Page renderToolbar={() => (
         <Toolbar>
@@ -49,31 +50,31 @@ const getTxDetailPage = (tx) => {
       )}>
       <List style={{wordBreak: 'break-word'}}>
         <ListItem tappable>
-          <ons-row><strong>txid</strong></ons-row>
+          <ons-row><strong>{ curTranslation.TxDetailPage.txid }</strong></ons-row>
           <ons-row>{tx.txid}</ons-row>
         </ListItem>
         <ListItem tappable>
-          <ons-row><strong>blockhash</strong></ons-row>
+          <ons-row><strong>{ curTranslation.TxDetailPage.blockhash }</strong></ons-row>
           <ons-row>{tx.blockhash}</ons-row>          
         </ListItem>
         <ListItem tappable>
-        <ons-row><strong>version</strong></ons-row>
+        <ons-row><strong>{ curTranslation.General.version }</strong></ons-row>
           <ons-row>{tx.version}</ons-row>          
         </ListItem>
         <ListItem tappable>
-        <ons-row><strong>blockheight</strong></ons-row>
+        <ons-row><strong>{ curTranslation.TxDetailPage.blockheight }</strong></ons-row>
           <ons-row>{tx.blockheight}</ons-row>          
         </ListItem>
         <ListItem tappable>
-          <ons-row><strong>confirmations</strong></ons-row>
+          <ons-row><strong>{ curTranslation.TxDetailPage.confirmations }</strong></ons-row>
           <ons-row>{tx.confirmations}</ons-row>
         </ListItem>
         <ListItem tappable>
-          <ons-row><strong>fees</strong></ons-row>
+          <ons-row><strong>{ curTranslation.General.fees }</strong></ons-row>
           <ons-row>{tx.fees}</ons-row>   
         </ListItem>
         <ListItem tappable>
-          <ons-row><strong>in ({tx.valueIn} ZEN)</strong></ons-row>          
+          <ons-row><strong>{ curTranslation.General.in }&nbsp;({tx.valueIn} ZEN)</strong></ons-row>          
           {
             tx.vin.map(function(vin){
               return (
@@ -92,7 +93,7 @@ const getTxDetailPage = (tx) => {
           }                       
         </ListItem>
         <ListItem tappable>
-          <ons-row><strong>out ({tx.valueOut} ZEN)</strong></ons-row>          
+          <ons-row><strong>{ curTranslation.General.out } ({tx.valueOut} ZEN)</strong></ons-row>          
           {
             tx.vout.map(function(vout){
               return (
@@ -340,7 +341,7 @@ class MainPage extends React.Component {
         </ons-row>
 
         <hr/>             
-
+                  
         <List>
           {
             this.state.selectedAddressScannedTxs === false ?
@@ -363,48 +364,44 @@ class MainPage extends React.Component {
               const vins = tx.vin || []
               const vouts = tx.vout || []
               var txTime = moment.unix(tx.time).local().format('lll')
-              var ret
+              var txValue = 0.0
 
-              // Are we receiving zen?
-              // and whats the amount of zen we receive / sent?
-              const txPage = getTxDetailPage(tx)
+              // Double tap tx to get more info on it
+              const txPage = getTxDetailPage(tx, CUR_LANG)
               const handleTxClick = () => this.gotoComponent(txPage)
 
-              function getTxListItem (received, value) {                
-                return (
-                  <ListItem
-                    onClick={handleTxClick}
-                    tappable>
-                    <ons-row>
-                      <ons-col>
-                        { received ? receivedLang : sentLang } <br/>
-                        <span style={{color: '#7f8c8d'}}>{ txTime }</span>
-                      </ons-col>
-                      <ons-col style={{textAlign: 'right', paddingRight: '12px'}}>
-                        { received ? '+' : '-' } { parseFloat(value) } zen
-                      </ons-col>
-                    </ons-row>
-                  </ListItem>
-                )
-              }
-
               vins.forEach(function(vin){
-                if (vin.addr === selectedAddress){                     
-                  ret = getTxListItem(false, vin.value)
+                if (vin.addr === selectedAddress){
+                  txValue = txValue - parseFloat(vin.value)
                 }
               })
-              
-              if (ret === undefined){
-                vouts.forEach(function(vout){                      
-                  vout.scriptPubKey.addresses.forEach(function(addr){
-                    if (addr === selectedAddress){
-                      ret = getTxListItem(true, vout.value)
-                    }
-                  })
-                })
+                            
+              vouts.forEach(function(vout){                      
+                if (vout.scriptPubKey.addresses[0] === selectedAddress){
+                  txValue = txValue + parseFloat(vout.value)
+                }
+              })
+
+              // Don't display useless data
+              if (parseFloat(txValue.toFixed(8)) === 0.0) {
+                return null
               }
 
-              return ret                               
+              return (
+                <ListItem
+                  onClick={handleTxClick}
+                  tappable>
+                  <ons-row>
+                    <ons-col>
+                      { txValue > 0 ? receivedLang : sentLang } <br/>
+                      <span style={{color: '#7f8c8d'}}>{ txTime }</span>
+                    </ons-col>
+                    <ons-col style={{textAlign: 'right', paddingRight: '12px'}}>
+                      { txValue > 0 ? '+' : '-' } { parseFloat(Math.abs(txValue)).toFixed(8) } zen
+                    </ons-col>
+                  </ons-row>
+                </ListItem>
+              )                           
             }.bind(this))
           }                
         </List>

@@ -3,7 +3,11 @@ export const RUSSIAN_TRANSLATION = {
     loading: 'загрузка...',
     address: 'Адрес',
     privateKey: 'Приватный ключ',
-    cancel: 'Отменить', 
+    cancel: 'Отменить',    
+    fees: 'Комиссия',
+    version: 'Version', // TODO
+    in: 'In', // TODO
+    out: 'Out' // TODO
   },
   MainPage: {
     title: 'ZEN кошелек',
@@ -28,8 +32,7 @@ export const RUSSIAN_TRANSLATION = {
     from: 'С адреса',
     toAddress: 'На адрес',
     amount: 'Количество',
-    max: 'Макс',
-    fees: 'Комиссия',
+    max: 'Макс',    
     send: 'Отправить',
     txSuccessful: 'Транзакция успешна! Кликните сюда чтобы просмотреть транзакцию.',
     confirmSend: 'Да, Я хочу отправить ZEN',
@@ -39,6 +42,12 @@ export const RUSSIAN_TRANSLATION = {
     zeroAmount: 'Количество ZEN должно быть больше 0.',
     notEnoughZEN: 'На аккаунте недостаточно подтвержденного ZEN для транзакции',
     noCameraPermissions: 'Камера не разрешена. Вы можете разрешить доступ к камере в настройках.'
+  },
+  TxDetailPage:{
+    txid: 'Transaction Id', // TODO
+    blockhash: 'Block Hash', // TODO
+    blockheight: 'Block Height', // TODO
+    confirmations: 'Confirmations', // TODO
   },
   SettingsPage: {
     title: 'Настройки',

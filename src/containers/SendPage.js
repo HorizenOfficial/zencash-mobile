@@ -331,6 +331,7 @@ class SendPage extends React.Component {
 
     const addressLang = TRANSLATIONS[CUR_LANG].General.address
     const cancelLang = TRANSLATIONS[CUR_LANG].General.cancel
+    const feesLang = TRANSLATIONS[CUR_LANG].General.fees
 
     const payToLang = TRANSLATIONS[CUR_LANG].SendPage.payTo
     const amountToPayLang = TRANSLATIONS[CUR_LANG].SendPage.amountToPay
@@ -342,8 +343,7 @@ class SendPage extends React.Component {
     const toAddressLang = TRANSLATIONS[CUR_LANG].SendPage.toAddress
     const amountLang = TRANSLATIONS[CUR_LANG].SendPage.amount
     const maxLang = TRANSLATIONS[CUR_LANG].SendPage.max
-    const sendLang = TRANSLATIONS[CUR_LANG].SendPage.send
-    const feesLang = TRANSLATIONS[CUR_LANG].SendPage.fees
+    const sendLang = TRANSLATIONS[CUR_LANG].SendPage.send    
     const sendZENLang = TRANSLATIONS[CUR_LANG].SendPage.sendZEN
     const txSuccessfulLang = TRANSLATIONS[CUR_LANG].SendPage.txSuccessful
     const confirmSendLang = TRANSLATIONS[CUR_LANG].SendPage.confirmSend    
