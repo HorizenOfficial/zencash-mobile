@@ -1,11 +1,11 @@
 {
     "name": "zencash-mobile",
-    "version": "0.0.4a",
+    "version": "0.0.5a",
     "description": "Mobile Wallet for ZENCash",
     "main": "index.js",
     "scripts": {
         "start": "webpack-dev-server --host 0.0.0.0 --progress --content-base www/",
-        "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
+        "build": "babel src/ -d lib/ && cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
         "flow-build": "babel --watch src/ -d lib/"
     },
     "repository": {
@@ -52,7 +52,6 @@
         "promise": "^8.0.1",
         "qrcode.react": "^0.7.1",
         "react": "^15.3.1",
-        "react-code-input": "^1.1.5",
         "react-dom": "^15.3.1",
         "react-fontawesome": "^1.6.1",
         "react-hot-loader": "^3.0.0-beta.6",
@@ -77,6 +76,7 @@
         "cordova-plugin-inappbrowser": "^1.7.1",
         "cordova-plugin-qrscanner": "^2.5.0",
         "danielsogl-cordova-plugin-clipboard": "^1.0.2",
+        "react-pin-input": "^0.4.1",
         "zencashjs": "^1.1.6-a"
     },
     "cordova": {

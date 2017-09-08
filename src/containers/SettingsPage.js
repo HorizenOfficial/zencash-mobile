@@ -16,6 +16,7 @@ import {
 } from 'react-onsenui';
 
 import AboutPage from './AboutPage'
+import ChangePinPage from './ChangePinPage'
 import SecretPhrasePage from './SecretPhrasePage'
 import RecoverWalletPage from './RecoverWalletPage'
 import ShowPrivateKeyPage from './ShowPrivateKeyPage'
@@ -76,6 +77,11 @@ class SettingsPage extends React.Component {
             { currencyLang }
           </ListItem>
           <ListHeader></ListHeader>
+          <ListItem
+            onClick={this.gotoComponent.bind(this, ChangePinPage)}
+            tappable>
+            Change Pin
+          </ListItem>
           <ListItem
             onClick={this.gotoComponent.bind(this, SecretPhrasePage)}
             tappable>

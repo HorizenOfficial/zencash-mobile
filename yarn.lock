@@ -1282,10 +1282,6 @@ clap@^1.0.9:
   dependencies:
     chalk "^1.1.3"
 
-classnames@^2.2.5:
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
-
 cli-cursor@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/cli-cursor/-/cli-cursor-2.1.0.tgz#b35dac376479facc3e94747d41d0d0f5238ffcb5"
@@ -4321,19 +4317,11 @@ rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-code-input@^1.1.5:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/react-code-input/-/react-code-input-1.1.5.tgz#422c487bf48e373a9b95a4ce617df6b4eaa7338b"
-  dependencies:
-    classnames "^2.2.5"
-    react "^15.5.4"
-    react-dom "^15.5.4"
-
 react-deep-force-update@^2.0.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-2.1.1.tgz#8ea4263cd6455a050b37445b3f08fd839d86e909"
 
-react-dom@^15.3.1, react-dom@^15.5.4:
+react-dom@^15.3.1:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.6.1.tgz#2cb0ed4191038e53c209eb3a79a23e2a4cf99470"
   dependencies:
@@ -4365,6 +4353,10 @@ react-onsenui@^1.0.4:
   dependencies:
     prop-types "^15.5.10"
 
+react-pin-input@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/react-pin-input/-/react-pin-input-0.4.1.tgz#acb6344ff20d55e3e34cdf4ff1ed4f9398b2636d"
+
 react-proxy@^3.0.0-alpha.0:
   version "3.0.0-alpha.1"
   resolved "https://registry.yarnpkg.com/react-proxy/-/react-proxy-3.0.0-alpha.1.tgz#4400426bcfa80caa6724c7755695315209fa4b07"
@@ -4382,7 +4374,7 @@ react-redux@^5.0.6:
     loose-envify "^1.1.0"
     prop-types "^15.5.10"
 
-react@^15.3.1, react@^15.5.4:
+react@^15.3.1:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/react/-/react-15.6.1.tgz#baa8434ec6780bde997cdc380b79cd33b96393df"
   dependencies:

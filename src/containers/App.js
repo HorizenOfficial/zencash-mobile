@@ -3,7 +3,7 @@
 // of the async nature of JS
 
 import React from 'react';
-import ReactCodeInput from 'react-code-input'
+
 
 import {
   Page,
@@ -22,6 +22,8 @@ import { phraseToSecretItems } from '../utils/wallet'
 
 import MainPage from './MainPage'
 import SetupPage from './SetupPage'
+import NewPinPage from './NewPinPage'
+import VerifyPinPage from './VerifyPinPage'
 
 import ZENCASH_IMG from '../../assets/img/zencash.png'
 
@@ -67,7 +69,7 @@ class App extends React.Component {
       
       // Get settings
       // Future: add insight, explorer settings      
-      if (data.settings !== undefined){             
+      if (data.settings !== undefined){      
         if (data.settings.language !== undefined){
           const settingsLanguage = data.settings.language            
           this.props.setLanguage(settingsLanguage)
@@ -93,9 +95,13 @@ class App extends React.Component {
       })
 
     }.bind(this), function(err){
+      // Usually this means we don't have the file
+      this.setState({
+        readSavedFile: true
+      })
       // Cordova plugin might not work for
       // All api versions. in the event...      
-      alert(JSON.stringify(err))
+      // alert('Unable to read file. Error: ' + JSON.stringify(err))
     }.bind(this))
   }
 
@@ -121,18 +127,12 @@ class App extends React.Component {
           (
             // Haven't input pin
             // Ask em to input pin
-            <div>input your pin pls</div>
+            <VerifyPinPage onComplete={() => this.setState({ hasInputPin: true })}/>
           )          
         ) : 
         (
-          // Ask them to set pin
-          <ons-row>
-            <div style={{textAlign: 'center', paddingTop: '25px'}}>
-              Please enter your pin<br/>
-              <ReactCodeInput type='number' fields={4} onChange={(e) => this.setState({ tempPin: e })}/><br/>
-              { this.state.tempPin }
-            </div>
-          </ons-row>          
+          // Ask them to setup new pin
+          <NewPinPage onComplete={() => this.setState({ hasExistingPin: true, hasInputPin: true })}/>
         )
     ) :
     (
