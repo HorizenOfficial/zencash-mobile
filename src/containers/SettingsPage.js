@@ -49,8 +49,9 @@ class SettingsPage extends React.Component {
 
   render() {
     // Translation stuff
-    const CUR_LANG = this.props.settings.language
-    const aboutLang = TRANSLATIONS[CUR_LANG].SettingsPage.about
+    const CUR_LANG = this.props.settings.language    
+
+    const changePinLang = TRANSLATIONS[CUR_LANG].PinPage.changePinTitle
     const currentLang = TRANSLATIONS[CUR_LANG].SettingsPage.current
     const currencyLang = TRANSLATIONS[CUR_LANG].SettingsPage.currency
     const languageLang = TRANSLATIONS[CUR_LANG].SettingsPage.language
@@ -60,12 +61,7 @@ class SettingsPage extends React.Component {
 
     return (
       <Page renderToolbar={this.renderToolbar.bind(this)}>
-        <List>
-          <ListItem 
-            onClick={this.gotoComponent.bind(this, AboutPage)}
-            tappable>
-            { aboutLang }
-          </ListItem>
+        <List>          
           <ListItem 
             onClick={this.gotoComponent.bind(this, SelectLanguagePage)}
             tappable>
@@ -80,8 +76,9 @@ class SettingsPage extends React.Component {
           <ListItem
             onClick={this.gotoComponent.bind(this, ChangePinPage)}
             tappable>
-            Change Pin
+            { changePinLang }
           </ListItem>
+          <ListHeader></ListHeader>
           <ListItem
             onClick={this.gotoComponent.bind(this, SecretPhrasePage)}
             tappable>

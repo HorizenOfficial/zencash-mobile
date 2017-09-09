@@ -80,19 +80,25 @@ class PinPage extends React.Component {
     return (
       <Toolbar>
         <div className='center'>
-          ZEN Wallet Setup
+          { TRANSLATIONS[this.props.settings.language].PinPage.newPinPageTitle }
         </div>  
       </Toolbar>
     );
   }
 
-  render() {    
+  render() {
+    const CUR_LANG = this.props.settings.language
+    
+    const setupNewPinLang = TRANSLATIONS[CUR_LANG].PinPage.setupNewPin
+    const reenterPinLang = TRANSLATIONS[CUR_LANG].PinPage.reenterPin
+    const pinsNotSimilarLang = TRANSLATIONS[CUR_LANG].PinPage.pinsNotSimilar
+
     return (
       <Page renderToolbar={this.props.renderToolbar || this.renderToolbar.bind(this)}>
         <div style={{padding: '25px 12px 0 12px', textAlign: 'center'}}>
           <img src={ZENCASH_IMG} width='100'/>
-          <h2>{ this.state.firstEntry ? 'Set up a new PIN' : 'Re-enter your PIN' }</h2>
-          { this.state.similarPin ? '' : <h4 style={{color: '#e74c3c'}}>PINs entered do not match</h4> }
+          <h2>{ this.state.firstEntry ? setupNewPinLang : reenterPinLang }</h2>
+          { this.state.similarPin ? '' : <h4 style={{color: '#e74c3c'}}>{ pinsNotSimilarLang }</h4> }
           <hr width='50%'/>
           <input 
             style={{

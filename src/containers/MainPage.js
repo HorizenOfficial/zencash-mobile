@@ -36,6 +36,7 @@ import { urlAppend, prettyFormatPrices } from '../utils/index'
 
 import AddressInfoPage from './AddressInfoPage'
 import SendPage from './SendPage';
+import AboutPage from './AboutPage'
 import SettingsPage from './SettingsPage'
 
 import TRANSLATIONS from '../translations'
@@ -290,14 +291,15 @@ class MainPage extends React.Component {
 
   render() {
     // Language translations
-    const CUR_LANG = this.props.settings.language
+    const CUR_LANG = this.props.settings.language    
     const valueLang = TRANSLATIONS[CUR_LANG].MainPage.value
     const addressLang = TRANSLATIONS[CUR_LANG].General.address
     const copyToClipboardLang = TRANSLATIONS[CUR_LANG].MainPage.copyToClipboard
     const sendLang = TRANSLATIONS[CUR_LANG].MainPage.send
     const sentLang = TRANSLATIONS[CUR_LANG].MainPage.sent
     const receivedLang = TRANSLATIONS[CUR_LANG].MainPage.received
-    const settingsLang = TRANSLATIONS[CUR_LANG].MainPage.settings
+    const settingsLang = TRANSLATIONS[CUR_LANG].SettingsPage.title
+    const aboutLang = TRANSLATIONS[CUR_LANG].AboutPage.title
     const noTxFoundLang = TRANSLATIONS[CUR_LANG].MainPage.noTxFound
     const loadingLang = TRANSLATIONS[CUR_LANG].General.loading  
 
@@ -321,9 +323,13 @@ class MainPage extends React.Component {
                   dataSource=
                   {[
                     {
-                      name: 'Settings',
+                      name: aboutLang,
+                      component: AboutPage
+                    },
+                    {
+                      name: settingsLang,
                       component: SettingsPage
-                    }
+                    }                    
                   ]}                
                   renderHeader={() => <ListHeader>ZEN</ListHeader>}
                   renderRow={(i) => 

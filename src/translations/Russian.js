@@ -14,8 +14,7 @@ export const RUSSIAN_TRANSLATION = {
     value: 'На счету',    
     send: 'Отправить',
     received: 'Получено',
-    sent: 'Отправлено',
-    settings: 'Настройки',
+    sent: 'Отправлено',    
     noTxFound: 'Не найдена история транзакций.'
   },
   AddressInfoPage: {
@@ -50,8 +49,7 @@ export const RUSSIAN_TRANSLATION = {
     confirmations: 'Подтверждения',
   },
   SettingsPage: {
-    title: 'Настройки',
-    about: 'О программе',
+    title: 'Настройки',    
     language: 'Язык',
     currency: 'Валюта',
     secretPhrase: 'Показать секретную фразу',
@@ -74,5 +72,15 @@ export const RUSSIAN_TRANSLATION = {
   },
   AboutPage: {
     title: 'О программе',
+  },
+  PinPage: {
+    changePinTitle: 'rChange PIN',
+    newPinPageTitle: 'rZEN Wallet Setup',
+    verifyPinPageTitle: 'rZEN Wallet PIN Verification',
+    setupNewPin: 'rSet up a new PIN',
+    reenterPin: 'rRe-enter your PIN',
+    pinsNotSimilar: 'rPINs entered do not match',
+    invalidPin: 'rInvalid PIN',
+    enterYourPin: 'rEnter your PIN'
   }
 }

@@ -31,6 +31,7 @@ class VerifyPinPage extends React.Component {
     }
 
     this.handlePinVerify = this.handlePinVerify.bind(this)
+    this.renderToolbar = this.renderToolbar.bind(this)    
   }
 
   handlePinVerify(v){       
@@ -57,19 +58,25 @@ class VerifyPinPage extends React.Component {
     return (
       <Toolbar>
         <div className='center'>
-          ZEN Wallet PIN Verification
+          { TRANSLATIONS[this.props.settings.language].PinPage.verifyPinPageTitle }
         </div>  
       </Toolbar>
     );
   }
 
-  render() {    
+  render() {
+    const CUR_LANG = this.props.settings.language
+    
+    const enterYourPinLang = TRANSLATIONS[CUR_LANG].PinPage.enterYourPin
+    const invalidPinLang = TRANSLATIONS[CUR_LANG].PinPage.invalidPin
+
+    
     return (
-      <Page renderToolbar={this.props.renderToolbar || this.renderToolbar.bind(this)}>
+      <Page renderToolbar={this.props.renderToolbar || this.renderToolbar}>
         <div style={{padding: '25px 12px 0 12px', textAlign: 'center'}}>
           <img src={ZENCASH_IMG} width='100'/>
-          <h2>Enter your PIN</h2>
-          { this.state.invalidPin ? <h4 style={{color: '#e74c3c'}}>Invalid PIN</h4> : '' }
+          <h2>{ enterYourPinLang }</h2>
+          { this.state.invalidPin ? <h4 style={{color: '#e74c3c'}}>{ invalidPin }</h4> : null }
           <hr width='50%'/>
           <input 
             style={{

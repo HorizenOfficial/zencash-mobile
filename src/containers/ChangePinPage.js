@@ -32,7 +32,8 @@ class ChangePinPage extends React.Component {
   }
   
   renderToolbar() {
-    const CUR_LANG = this.props.settings.language
+    const CUR_LANG = this.props.settings.language        
+    const changePinLang = TRANSLATIONS[CUR_LANG].PinPage.changePinTitle
 
     return (
       <Toolbar>
@@ -40,7 +41,7 @@ class ChangePinPage extends React.Component {
           <BackButton onClick={() => this.props.navigator.popPage()}>Back</BackButton>
         </div>
         <div className='center'>
-          Change Pin
+          { changePinLang }
         </div>
       </Toolbar>
     );

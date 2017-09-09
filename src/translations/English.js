@@ -14,8 +14,7 @@ export const ENGLISH_TRANSLATION = {
     value: 'Value',        
     send: 'Send',
     received: 'Received',
-    sent: 'Sent',
-    settings: 'Settings',
+    sent: 'Sent',    
     noTxFound: 'No transaction history found.'
   },
   AddressInfoPage: {
@@ -50,15 +49,14 @@ export const ENGLISH_TRANSLATION = {
     confirmations: 'Confirmations',    
   },
   SettingsPage: {
-    title: 'Settings',
-    about: 'About',
+    title: 'Settings',    
     language: 'Language',
     currency: 'Currency',
     secretPhrase: 'Show Secret Phrase',
     showPrivateKeys: 'Show Private Keys',
     recoverExistingWallet: 'Recover Existing Wallet',
     current: 'Current'
-  },
+  },  
   SecretPhrasePage: {
     title: 'Secret Phrase'
   },
@@ -74,5 +72,15 @@ export const ENGLISH_TRANSLATION = {
   },
   AboutPage: {
     title: 'About',
+  },
+  PinPage: {
+    changePinTitle: 'Change PIN',
+    newPinPageTitle: 'ZEN Wallet Setup',
+    verifyPinPageTitle: 'ZEN Wallet PIN Verification',
+    setupNewPin: 'Set up a new PIN',
+    reenterPin: 'Re-enter your PIN',
+    pinsNotSimilar: 'PINs entered do not match',
+    invalidPin: 'Invalid PIN',
+    enterYourPin: 'Enter your PIN'
   }
 }
