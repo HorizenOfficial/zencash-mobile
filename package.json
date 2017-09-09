@@ -60,6 +60,7 @@
         "redux": "^3.6.0",
         "redux-logger": "^3.0.6",
         "redux-thunk": "^2.1.0",
+        "simple-plist": "^0.2.1",
         "style-loader": "^0.18.2",
         "stylus": "^0.54.5",
         "stylus-loader": "^3.0.1",
@@ -76,7 +77,6 @@
         "cordova-plugin-inappbrowser": "^1.7.1",
         "cordova-plugin-qrscanner": "^2.5.0",
         "danielsogl-cordova-plugin-clipboard": "^1.0.2",
-        "react-pin-input": "^0.4.1",
         "zencashjs": "^1.1.6-a"
     },
     "cordova": {

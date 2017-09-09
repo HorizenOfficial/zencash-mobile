@@ -3,8 +3,6 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import PinInput from 'react-pin-input'
-
 import {
   Page,  
   Toolbar, 
