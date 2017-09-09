@@ -6,8 +6,8 @@ export const RUSSIAN_TRANSLATION = {
     cancel: 'Отменить',    
     fees: 'Комиссия',
     version: 'Версия',
-    in: 'В', // to check
-    out: 'Из' // to check
+    in: 'Пришло', // to check
+    out: 'Ушло' // to check
   },
   MainPage: {
     title: 'ZEN кошелек',
@@ -44,8 +44,8 @@ export const RUSSIAN_TRANSLATION = {
   },
   TxDetailPage:{
     txid: 'Номер транзакции',
-    blockhash: 'Хэш блока', // !
-    blockheight: 'Высота блока', // !
+    blockhash: 'Хэш блока',
+    blockheight: 'Высота блока',
     confirmations: 'Подтверждения',
   },
   SettingsPage: {
@@ -74,13 +74,13 @@ export const RUSSIAN_TRANSLATION = {
     title: 'О программе',
   },
   PinPage: {
-    changePinTitle: 'rChange PIN',
-    newPinPageTitle: 'rZEN Wallet Setup',
-    verifyPinPageTitle: 'rZEN Wallet PIN Verification',
-    setupNewPin: 'rSet up a new PIN',
-    reenterPin: 'rRe-enter your PIN',
-    pinsNotSimilar: 'rPINs entered do not match',
-    invalidPin: 'rInvalid PIN',
-    enterYourPin: 'rEnter your PIN'
+    changePinTitle: 'Изменить PIN',
+    newPinPageTitle: 'Настройка ZEN кошелька',
+    verifyPinPageTitle: 'ZEN кошелёк подтверждение PIN',
+    setupNewPin: 'Введите новый PIN',
+    reenterPin: 'Повторите ваш PIN',
+    pinsNotSimilar: 'Введёные PIN-ы не совпадают',
+    invalidPin: 'Неверный PIN',
+    enterYourPin: 'Введите ваш PIN'
   }
 }
