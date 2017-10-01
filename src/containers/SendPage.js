@@ -386,7 +386,15 @@ class SendPage extends React.Component {
 
               <br/>
 
-              <h3>{amountToPayLang}&nbsp;&nbsp;<Button modifier='quiet' onClick={() => this.handleSendValueChange({target: {value: this.props.context.value}})}>{maxLang}</Button></h3>
+              <h3>{amountToPayLang}&nbsp;&nbsp;
+                <Button
+                  modifier='quiet' 
+                  onClick={
+                    () => this.handleSendValueChange({target: {value: (this.props.context.value - (this.state.sendFee / 100000000)).toPrecision(8)}})}
+                  >
+                    {maxLang}
+                </Button>
+              </h3>
               <ons-row width={'45%'} style={{textAlign: 'center'}}>                
                 <ons-col>
                   <span style={{fontSize: '12px', color: '#7f8c8d'}}>
