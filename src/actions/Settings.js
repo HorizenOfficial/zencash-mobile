@@ -69,17 +69,25 @@ export const CURRENCIES = [
 
 // Languages
 export const LANG_ENGLISH = 'English'
-export const LANG_RUSSIAN = 'Russian'
-export const LANG_PORTUGUESE = 'Portuguese'
-export const LANG_SPANISH = 'Spanish'
+export const LANG_FILIPINO = 'Filipino'
+export const LANG_FRENCH = 'French'
 export const LANG_GERMAN = 'German'
+export const LANG_INDONESIAN = 'Indonesian'
+export const LANG_PORTUGUESE = 'Portuguese'
+export const LANG_RUSSIAN = 'Russian'
+export const LANG_SPANISH = 'Spanish'
+export const LANG_SWEDISH = 'Swedish'
 
 export const LANGUAGES = [
   LANG_ENGLISH,
-  LANG_RUSSIAN,
+  LANG_FILIPINO,
+  LANG_FRENCH,
+  LANG_GERMAN,
+  LANG_INDONESIAN,
   LANG_PORTUGUESE,
+  LANG_RUSSIAN,
   LANG_SPANISH,
-  LANG_GERMAN
+  LANG_SWEDISH
 ]
 
 // Actions

@@ -89,9 +89,11 @@ class SetupPage extends React.Component {
             >Recover Wallet
           </Button>
 
+          <div style={{paddingTop: '20px', paddingBottom: '20px', textAlign: 'center'}}>OR</div>
+
           <Button
             onClick={() => this.handleNewWallet()}
-            style={{width: '100%', marginTop: '100%'}}
+            style={{width: '100%'}}
             >New Wallet
           </Button>  
         </div>  
