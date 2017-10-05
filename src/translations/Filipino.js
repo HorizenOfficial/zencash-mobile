@@ -2,9 +2,9 @@ export const FILIPINO_TRANSLATION = {
   General: {
     loading: 'Nagsisimula...',
     address: 'Address',
-    privateKey: 'Pribadong Susi (Private Key)',
+    privateKey: 'Pribadong Susi',
     cancel: 'Kansela',    
-    fees: 'Bayarin',
+    fees: 'Mga kabayaran',
     version: 'Bersyon',
     in: 'Papasok',
     out: 'Palabas'
@@ -15,7 +15,7 @@ export const FILIPINO_TRANSLATION = {
     send: 'Padala',
     received: 'Natanggap',
     sent: 'Napadala',    
-    noTxFound: 'Walang transaksyon na nakita.'
+    noTxFound: 'Walang transaksiyon na nakita.'
   },
   AddressInfoPage: {
     copyToClipboard: 'Kopyahin ang Address sa Clipboard',
@@ -29,16 +29,16 @@ export const FILIPINO_TRANSLATION = {
     slowTx: 'Mabagal na Tx',
     fastTx: 'Mabilis na Tx',    
     from: 'Mula sa',
-    toAddress: 'Patungong Address',
+    toAddress: 'Papadalhan na Address',
     amount: 'Halaga',    
-    max: 'Lahat na',    
+    max: 'Lahat na puwede',    
     send: 'Ipadala',
-    txSuccessful: 'Tagumpay na Transaksyon! Click dito para makita ang detalye ng transaksyon.',
+    txSuccessful: 'Tagumpay na Transaksiyon! Click dito para makita ang detalye ng transaksiyon.',
     confirmSend: 'Gusto ko ipadala ang ZEN na ito.',
-    invalidAddress: 'Hindi tamang `Patungong Address` transparent na addresses lang ang supportado sa ngayon.',
+    invalidAddress: 'Hindi tamang `Papadlhang Address` transparent na addresses lang ang supportado sa ngayon.',
     invalidAmount: 'Hindi tamang `Halaga`.',
-    invalidFee: 'Hindi tamang `Bayad(Fees)`. Subukan 0 :)',
-    zeroAmount: 'Mas mataaas sa 0 dapat ang halaga na kailangan.',
+    invalidFee: 'Hindi tamang `Bayad` o kulang. Subukan 0 :)',
+    zeroAmount: 'Mas mataaas sa halagang 0 ang kailangan.',
     notEnoughZEN: 'Hindi sapat na kumpirmadong ZEN sa account para gawin ang transaksyon.',
     noCameraPermissions: 'Walang pahintulot sa camera. Pwede mong pahintulutan ang camera sa iyong settings.'
   },
@@ -52,23 +52,23 @@ export const FILIPINO_TRANSLATION = {
     title: 'Settings',    
     language: 'Lengguwahe',
     currency: 'Salapi',
-    secretPhrase: 'Pakita ang Pribadong Kataga',
-    showPrivateKeys: 'Pakita ang Pribadong Susi(Private Keys)',
-    recoverExistingWallet: 'Karga muli ang dating Wallet',
+    secretPhrase: 'Pakita ang Pribadong Parilala',
+    showPrivateKeys: 'Pakita ang Pribadong Susi',
+    recoverExistingWallet: 'Isauli ang dating Wallet',
     current: 'Kasalukuyan'
   },  
   SecretPhrasePage: {
-    title: 'Pribadong Kataga(Secret Phrase)'
+    title: 'Pribadong Parilala'
   },
   ShowPrivateKeyPage: {
-    title: 'Pribadong Susi(Private Keys)'
+    title: 'Pribadong Susi'
   },
   RecoverExistingWalletPage: {
-    title: 'Karga muli ang dating Wallet',
-    secretPhrase: 'Pribadong Kataga(Secret Phrase)',
-    textareaPlaceholder: 'Pribadong Kataga. Hindi dapat bababa sa 16 na letra o numero',
-    confirmUnderstand: 'Naintindihan ko na pag kinarga ko ang dating wallet, ang kasalukuyang wallet ay mabubura.',
-    recover: 'Mag karga muli'
+    title: 'Mag sauli ng dating Wallet',
+    secretPhrase: 'Pribadong Parilala',
+    textareaPlaceholder: 'Pribadong Parirala. Hindi dapat bababa sa 16 na letra o numero',
+    confirmUnderstand: 'Naintindihan ko na pag sinauli ko ang dating wallet, ang kasalukuyang wallet ay mabubura.',
+    recover: 'Mag sauli'
   },
   AboutPage: {
     title: 'Tungkol sa...',
