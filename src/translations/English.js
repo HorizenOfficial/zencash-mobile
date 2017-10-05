@@ -39,7 +39,7 @@ export const ENGLISH_TRANSLATION = {
     invalidAmount: 'Invalid `Amount`.',
     invalidFee: 'Invalid `Fees`. Try 0 :)',
     zeroAmount: 'Amount must be greater than 0.',
-    notEnoughZEN: 'Not enough confirmed ZEN in account to perform transaction',
+    notEnoughZEN: 'Not enough confirmed ZEN in account to perform transaction.',
     noCameraPermissions: 'No camera permissions. You can allow camera access in your settings.'
   },
   TxDetailPage:{
