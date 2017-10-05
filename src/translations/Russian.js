@@ -6,8 +6,8 @@ export const RUSSIAN_TRANSLATION = {
     cancel: 'Отменить',    
     fees: 'Комиссия',
     version: 'Версия',
-    in: 'Пришло', // to check
-    out: 'Ушло' // to check
+    in: 'Зашло', // still sounds wrong but I've checked a lot of different BTC wallets and it's really bad everywhere.
+    out: 'Ушло' // still sounds wrong but I've checked a lot of different BTC wallets and it's really bad everywhere.
   },
   MainPage: {
     title: 'ZEN кошелек',
@@ -39,7 +39,7 @@ export const RUSSIAN_TRANSLATION = {
     invalidAmount: 'Неверная сумма.',
     invalidFee: 'Неверная комиссия.',
     zeroAmount: 'Количество ZEN должно быть больше 0.',
-    notEnoughZEN: 'На аккаунте недостаточно подтвержденного ZEN для транзакции',
+    notEnoughZEN: 'На кошельке недостаточно подтвержденного ZEN для транзакции.',
     noCameraPermissions: 'Камера не разрешена. Вы можете разрешить доступ к камере в настройках.'
   },
   TxDetailPage:{
@@ -67,7 +67,7 @@ export const RUSSIAN_TRANSLATION = {
     title: 'Восстановить существующий кошелек',
     secretPhrase: 'Секретная фраза',
     textareaPlaceholder: 'секретная фраза. мин. 16 символов',
-    confirmUnderstand: 'Я понимаю, что при восстановлении кошелька, текущий кошелек будет уничтожен',
+    confirmUnderstand: 'Я понимаю что при восстановлении кошелька текущий кошелек будет уничтожен',
     recover: 'Восстановить'
   },
   AboutPage: {
@@ -76,11 +76,11 @@ export const RUSSIAN_TRANSLATION = {
   PinPage: {
     changePinTitle: 'Изменить PIN',
     newPinPageTitle: 'Настройка ZEN кошелька',
-    verifyPinPageTitle: 'ZEN кошелёк подтверждение PIN',
+    verifyPinPageTitle: 'ZEN кошелек подтверждение PIN',
     setupNewPin: 'Введите новый PIN',
     reenterPin: 'Повторите ваш PIN',
-    pinsNotSimilar: 'Введёные PIN-ы не совпадают',
+    pinsNotSimilar: 'Введеные PIN-ы не совпадают',
     invalidPin: 'Неверный PIN',
-    enterYourPin: 'Введите ваш PIN'
+    enterYourPin: 'Введите PIN'
   }
 }
