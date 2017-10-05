@@ -1,10 +1,10 @@
 export const FRENCH_TRANSLATION = {
   General: {
-    loading: 'chargement...',
+    loading: 'Chargement...',
     address: 'Adresse',
     privateKey: 'Clé Privée',
     cancel: 'Annuler',    
-    fees: 'Frais',
+    fees: 'Frais de réseau',
     version: 'Version',
     in: 'Entrant',
     out: 'Sortant'
@@ -29,7 +29,7 @@ export const FRENCH_TRANSLATION = {
     slowTx: 'Transmission lente',
     fastTx: 'Transmission rapide',    
     from: 'De',
-    toAddress: 'Vers Adresse',
+    toAddress: 'Vers adresse',
     amount: 'Montant',    
     max: 'Maximum',    
     send: 'Envoyer',
@@ -37,10 +37,10 @@ export const FRENCH_TRANSLATION = {
     confirmSend: 'Je veux envoyer ces ZEN',
     invalidAddress: '`To Address` invalide. Seules les transactions transparentes sont actuellement supportées.',
     invalidAmount: '`Amount` invalide.',
-    invalidFee: '`Fees` invalides. Try 0 :)',
+    invalidFee: '`Fees` invalides. Essayez 0 :)',
     zeroAmount: 'Le montant doit être supérieur à 0.',
     notEnoughZEN: 'Pas assez de ZEN confirmés sur le compte pour effectuer cette transaction.',
-    noCameraPermissions: 'Pas de permissions d\'utiliser l\'appareil photo. Vous pouvez autoriser l\'accès à la caméra dans vos paramètres.'
+    noCameraPermissions: 'Pas de permissions pour accéder à l\'appareil photo. Vous pouvez autoriser l\'accès à la caméra dans vos paramètres.'
   },
   TxDetailPage:{
     txid: 'Id de transaction',
@@ -71,7 +71,7 @@ export const FRENCH_TRANSLATION = {
     recover: 'Récupérer'
   },
   AboutPage: {
-    title: 'A propos',
+    title: 'A Propos',
   },
   PinPage: {
     changePinTitle: 'Changer le code PIN',
