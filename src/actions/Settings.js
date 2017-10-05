@@ -70,10 +70,12 @@ export const CURRENCIES = [
 // Languages
 export const LANG_ENGLISH = 'English'
 export const LANG_RUSSIAN = 'Russian'
+export const LANG_SPANISH = 'Spanish'
 
 export const LANGUAGES = [
   LANG_ENGLISH,
-  LANG_RUSSIAN
+  LANG_RUSSIAN,
+  LANG_SPANISH
 ]
 
 // Actions
