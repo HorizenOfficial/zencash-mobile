@@ -71,11 +71,15 @@ export const CURRENCIES = [
 export const LANG_ENGLISH = 'English'
 export const LANG_RUSSIAN = 'Russian'
 export const LANG_PORTUGUESE = 'Portuguese'
+export const LANG_SPANISH = 'Spanish'
+export const LANG_GERMAN = 'German'
 
 export const LANGUAGES = [
   LANG_ENGLISH,
   LANG_RUSSIAN,
-  LANG_PORTUGUESE
+  LANG_PORTUGUESE,
+  LANG_SPANISH,
+  LANG_GERMAN
 ]
 
 // Actions
