@@ -4,7 +4,7 @@ export const FILIPINO_TRANSLATION = {
     address: 'Address',
     privateKey: 'Pribadong Susi',
     cancel: 'Kansela',    
-    fees: 'Mga kabayaran',
+    fees: 'Babayaran sa Network',
     version: 'Bersyon',
     in: 'Papasok',
     out: 'Palabas'
