@@ -1,4 +1,4 @@
-export const ENGLISH_TRANSLATION = {
+export const AFRIKAANS_TRANSLATION = {
   General: {
     loading: 'besig...',
     address: 'Adres',
