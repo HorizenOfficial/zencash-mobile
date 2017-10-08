@@ -68,6 +68,7 @@ export const CURRENCIES = [
 ]
 
 // Languages
+export const LANG_AFRIKAANS = 'Afrikaans'
 export const LANG_ENGLISH = 'English'
 export const LANG_FILIPINO = 'Filipino'
 export const LANG_FRENCH = 'French'
@@ -77,9 +78,9 @@ export const LANG_PORTUGUESE = 'Portuguese'
 export const LANG_RUSSIAN = 'Russian'
 export const LANG_SPANISH = 'Spanish'
 export const LANG_SWEDISH = 'Swedish'
-export const LANG_AFRIKAANS = 'Afrikaans'
 
 export const LANGUAGES = [
+  LANG_AFRIKAANS,
   LANG_ENGLISH,
   LANG_FILIPINO,
   LANG_FRENCH,
