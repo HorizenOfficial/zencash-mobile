@@ -40,7 +40,7 @@ export const GERMAN_TRANSLATION = {
         invalidFee: 'Ungültige Gebühren. Versuchen Sie 0 :)',
         zeroAmount: 'Betrag muss größer als 0 sein.',
         notEnoughZEN: 'Nicht genügend bestätigte ZEN im Benutzerkonto, um diese Transaktion auszuführen.',
-        noCameraPermissions: 'Keine Berechtigungen zur Kameranutzung. Die Funktion kann in den Einstellungen geändert werden.'
+        noCameraPermissions: 'Keine Berechtigungen zur Kameranutzung. Diese Funktion kann in den Einstellungen geändert werden.'
     },
     TxDetailPage:{
         txid: 'Transaktionsnummer',
@@ -67,7 +67,7 @@ export const GERMAN_TRANSLATION = {
         title: 'Wallet-Wiederherstellung',
         secretPhrase: 'Geheime Zugangsphrase',
         textareaPlaceholder: 'Geheime Zugangsphrase (mind. 16 Buchstaben)',
-        confirmUnderstand: 'Ich habe verstanden das bei der Wiederherstellung meine aktuelles Wallet gelöscht wird!',
+        confirmUnderstand: 'Ich habe verstanden, dass bei der Wiederherstellung meine aktuelle Wallet gelöscht wird!',
         recover: 'Wiederherstellen'
     },
     AboutPage: {
