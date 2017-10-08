@@ -8,14 +8,23 @@ import {
   Toolbar, 
   ToolbarButton, 
   BackButton,
-  Button   
+  Button,
+  Toast
 } from 'react-onsenui';
 
 import QRCode from 'qrcode.react'
 
 import TRANSLATIONS from '../translations'
 
-class AddressInfoPage extends React.Component {  
+class AddressInfoPage extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      toastShown: false
+    }
+  } 
+
   renderToolbar() {
     const CUR_LANG = this.props.settings.language
     const addressLang = TRANSLATIONS[CUR_LANG].General.address
@@ -49,12 +58,22 @@ class AddressInfoPage extends React.Component {
 
           <Button
             onClick={() => {
-              cordova.plugins.clipboard.copy(this.props.context.address)                    
+              cordova.plugins.clipboard.copy(this.props.context.address)
+              this.setState({toastShown: true})               
             }}
             style={{fontSize: '12px', marginBottom: '10px', width: '90%'}}>                  
             { copyToClipboardLang }
           </Button> 
         </div>
+
+        <Toast isOpen={this.state.toastShown}>
+          <div className="message">
+            Address Copied!
+          </div>
+          <button onClick={() => this.setState({toastShown: false})}>
+            Dismiss
+          </button>
+        </Toast>
       </Page>
     );
   }
