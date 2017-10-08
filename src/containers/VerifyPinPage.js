@@ -32,14 +32,10 @@ class VerifyPinPage extends React.Component {
     this.renderToolbar = this.renderToolbar.bind(this)    
   }
 
-  handlePinVerify(v){       
-    this.setState({
-      pin: v
-    })
-
+  handlePinVerify(v){        
     // Once pin is of length 4
     // resets and asks for another input
-    if (v.length === 4){
+    if (v.length >= 4){
       if (v === this.props.settings.pin) {
         this.props.onComplete()
       }
@@ -49,6 +45,11 @@ class VerifyPinPage extends React.Component {
           pin: ''
         })
       }
+    }
+    else{
+      this.setState({
+        pin: v
+      })
     }    
   }
 
@@ -64,28 +65,33 @@ class VerifyPinPage extends React.Component {
 
   render() {
     const CUR_LANG = this.props.settings.language
-    
+    const pinTextBoxStyle = {
+      WebkitTextSecurity: 'disc',                
+      textAlign: 'center',
+      padding: '15px',
+      fontSize: '17px',
+      shadowBlur: '5px',
+      border: '2px solid #34495e'          
+    }
     const enterYourPinLang = TRANSLATIONS[CUR_LANG].PinPage.enterYourPin
     const invalidPinLang = TRANSLATIONS[CUR_LANG].PinPage.invalidPin
-
     
     return (
       <Page renderToolbar={this.props.renderToolbar || this.renderToolbar}>
         <div style={{padding: '25px 12px 0 12px', textAlign: 'center'}}>
           <img src={ZENCASH_IMG} width='100'/>
-          <h2>{ enterYourPinLang }</h2>
-          { this.state.invalidPin ? <h4 style={{color: '#e74c3c'}}>{ invalidPin }</h4> : null }
+          <h2>{ enterYourPinLang }</h2>          
+          { this.state.invalidPin ? <h4 style={{color: '#e74c3c'}}>{ invalidPinLang }</h4> : null }
           <hr width='50%'/>
-          <input 
-            style={{
-              WebkitTextSecurity: 'disc',
-              textAlign: 'center',
-              padding: '15px',
-              fontSize: '17px',
-              shadowBlur: '5px',
-              border: '2px solid #34495e'          
-            }}
-            type='number' onChange={(e) => this.handlePinVerify(e.target.value)} value={this.state.pin}/>
+          { device.platform === 'iOS' ?
+            <input 
+              style={pinTextBoxStyle}
+              type='text' pattern='[0-9]*' onChange={(e) => this.handlePinVerify(e.target.value)} value={this.state.pin}/>
+              :
+            <input 
+              style={pinTextBoxStyle}
+              type='number' onChange={(e) => this.handlePinVerify(e.target.value)} value={this.state.pin}/>
+          }
         </div>
       </Page>
     );

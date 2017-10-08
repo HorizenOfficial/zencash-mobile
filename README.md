@@ -9,7 +9,7 @@ Use node v6.11.X
 ```
 npm install -g yarn cordova
 yarn install
-cordova plugin add cordova-plugin-qrscanner cordova-plugin-file cordova-plugin-http cordova-clipboard cordova-plugin-inappbrowser
+cordova plugin add cordova-plugin-qrscanner cordova-plugin-file cordova-plugin-http cordova-clipboard cordova-plugin-inappbrowser cordova-plugin-device cordova-plugin-wkwebview-engine
 cordova platform add [android | ios]
 cordova run [android | ios]
 ```

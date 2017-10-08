@@ -111,8 +111,7 @@ class SendPage extends React.Component {
 
       // If we are authorized to scan, then only do we invoke
       // the scan method
-      if (status.authorized) {        
-        this.props.setQrScanning(true)
+      if (status.authorized) {                
         // Start scanning
         QRScanner.scan(function(err, address){
 
@@ -133,7 +132,10 @@ class SendPage extends React.Component {
         }.bind(this))
         
         // Show scanning preview
-        QRScanner.show()      
+        QRScanner.show()  
+        
+        // Set transparency
+        this.props.setQrScanning(true)
       }
       else if (status.denied) {
         const CUR_LANG = this.props.settings.language
@@ -324,7 +326,8 @@ class SendPage extends React.Component {
 
   render() {
     // For qr scanning
-    const pageOpacity = this.props.context.qrScanning === true ? '0.4' : '1.0'
+    const pageOpacity = this.props.context.qrScanning ? '0.4' : '1.0'
+    const pageStyle = this.props.context.qrScanning ? {opacity: pageOpacity, visibility: 'visible', transition: 'all 0.1s ease-out', WebkitTransform: 'translateZ(0)'} : {}
 
     // Translation stuff    
     const CUR_LANG = this.props.settings.language     
@@ -350,7 +353,7 @@ class SendPage extends React.Component {
 
     return (      
       <Page
-        style={{opacity: pageOpacity}}
+        style={pageStyle}
         renderToolbar={this.renderToolbar.bind(this)} >
         {
           // Show qr capture area

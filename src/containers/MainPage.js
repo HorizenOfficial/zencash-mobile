@@ -305,12 +305,14 @@ class MainPage extends React.Component {
 
     // For qr scanning
     const pageOpacity = this.props.context.qrScanning ? '0.0' : '1.0'
+    const pageStyle = this.props.context.qrScanning ? { opacity: pageOpacity, visibility: 'visible', transition: 'all 0.1s ease-out' } : {}
 
     return (      
       <Page 
-        style={{ opacity: pageOpacity }}>
+        style={pageStyle}>
         <Splitter>
           <SplitterSide
+            style={pageStyle}
             side='left'
             isOpen={this.state.splitterOpen}
             onClose={(e) => this.setState({ splitterOpen: false })}

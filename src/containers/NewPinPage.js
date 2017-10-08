@@ -86,7 +86,14 @@ class PinPage extends React.Component {
 
   render() {
     const CUR_LANG = this.props.settings.language
-    
+    const pinTextBoxStyle = {
+      WebkitTextSecurity: 'disc',
+      textAlign: 'center',
+      padding: '15px',
+      fontSize: '17px',
+      shadowBlur: '5px',
+      border: '2px solid #34495e'          
+    }    
     const setupNewPinLang = TRANSLATIONS[CUR_LANG].PinPage.setupNewPin
     const reenterPinLang = TRANSLATIONS[CUR_LANG].PinPage.reenterPin
     const pinsNotSimilarLang = TRANSLATIONS[CUR_LANG].PinPage.pinsNotSimilar
@@ -98,16 +105,15 @@ class PinPage extends React.Component {
           <h2>{ this.state.firstEntry ? setupNewPinLang : reenterPinLang }</h2>
           { this.state.similarPin ? '' : <h4 style={{color: '#e74c3c'}}>{ pinsNotSimilarLang }</h4> }
           <hr width='50%'/>
-          <input 
-            style={{
-              WebkitTextSecurity: 'disc',
-              textAlign: 'center',
-              padding: '15px',
-              fontSize: '17px',
-              shadowBlur: '5px',
-              border: '2px solid #34495e'          
-            }}
-            type='number' onChange={(e) => this.handlePinSetup(e.target.value)} value={this.state.pin}/>
+          { device.platform === 'iOS' ?
+            <input 
+              style={pinTextBoxStyle}
+              type='text' pattern='[0-9]*' onChange={(e) => this.handlePinSetup(e.target.value)} value={this.state.pin}/>
+            :
+            <input 
+              style={pinTextBoxStyle}
+              type='number' onChange={(e) => this.handlePinSetup(e.target.value)} value={this.state.pin}/>
+          }
         </div>
       </Page>
     );

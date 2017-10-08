@@ -72,11 +72,14 @@
         "cordova-android": "^6.2.3",
         "cordova-clipboard": "^1.0.0",
         "cordova-plugin-compat": "^1.1.0",
+        "cordova-plugin-device": "^1.1.6",
         "cordova-plugin-file": "^4.3.3",
         "cordova-plugin-http": "^1.2.0",
         "cordova-plugin-inappbrowser": "^1.7.1",
         "cordova-plugin-qrscanner": "^2.5.0",
+        "cordova-plugin-wkwebview-engine": "^1.1.3",
         "danielsogl-cordova-plugin-clipboard": "^1.0.2",
+        "ios-deploy": "^1.9.2",
         "zencashjs": "^1.1.6-a"
     },
     "cordova": {
@@ -85,7 +88,9 @@
             "cordova-plugin-file": {},
             "cordova-plugin-http": {},
             "cordova-clipboard": {},
-            "cordova-plugin-inappbrowser": {}
+            "cordova-plugin-inappbrowser": {},
+            "cordova-plugin-device": {},
+            "cordova-plugin-wkwebview-engine": {}
         }
     }
 }
