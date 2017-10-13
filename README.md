@@ -58,3 +58,5 @@ Icons are a bit of a bitch to setup for iOS. Make sure you've added the ios plat
 [simoneddeland](https://github.com/simoneddeland)
 
 [dropnib](https://github.com/dropnib)
+
+[rubyxroot] (https://github.com/rubyxroot)
