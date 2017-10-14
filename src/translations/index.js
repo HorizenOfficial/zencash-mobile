@@ -8,7 +8,8 @@ import {
   LANG_RUSSIAN,
   LANG_SPANISH,
   LANG_SWEDISH,
-  LANG_AFRIKAANS
+  LANG_AFRIKAANS, 
+  LANG_SERBIAN
 } from '../actions/Settings';
 
 import { ENGLISH_TRANSLATION } from './English.js';
@@ -21,6 +22,7 @@ import { RUSSIAN_TRANSLATION } from './Russian.js';
 import { SPANISH_TRANSLATION } from './Spanish.js';
 import { SWEDISH_TRANSLATION } from './Swedish.js';
 import { AFRIKAANS_TRANSLATION } from './Afrikaans.js';
+import { SERBIAN_TRANSLATION } from './Serbian.js';
 
 var translations = {};
 
@@ -35,5 +37,6 @@ translations[LANG_RUSSIAN] = RUSSIAN_TRANSLATION;
 translations[LANG_SPANISH] = SPANISH_TRANSLATION;
 translations[LANG_SWEDISH] = SWEDISH_TRANSLATION;
 translations[LANG_AFRIKAANS] = AFRIKAANS_TRANSLATION;
+translations[LANG_SERBIAN] = SERBIAN_TRANSLATION;
 
 export default translations
