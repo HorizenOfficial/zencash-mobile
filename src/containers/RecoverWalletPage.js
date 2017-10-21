@@ -1,16 +1,15 @@
-import React from 'react';
+import PropTypes from 'prop-types'
+import React from 'react'
 
 import {
-  Page,  
-  Toolbar, 
-  ToolbarButton, 
+  Page,
+  Toolbar,
   BackButton,
   Button,
-  Input,
   Icon,
   Dialog,
   Checkbox
-} from 'react-onsenui';
+} from 'react-onsenui'
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -22,7 +21,7 @@ import { setAddress, setPrivateKey, setAddressValue } from '../actions/Context'
 import TRANSLATIONS from '../translations'
 
 class RecoverWalletPage extends React.Component {
-  constructor(props){
+  constructor (props) {
     super(props)
 
     this.state = {
@@ -35,8 +34,8 @@ class RecoverWalletPage extends React.Component {
     this.newSecrets = this.newSecrets.bind(this)
   }
 
-  newSecrets() {
-    try{
+  newSecrets () {
+    try {
       this.setState({
         tempSecretPhrase: '',
         recovering: true,
@@ -50,7 +49,7 @@ class RecoverWalletPage extends React.Component {
       this.props.setSecretPhrase(secretPhrase)
 
       this.props.setAddress(secretItems[0].address)
-      this.props.setPrivateKey(secretItems[0].privateKey)            
+      this.props.setPrivateKey(secretItems[0].privateKey)
     } catch (err) {
       this.setState({
         recovering: false
@@ -59,7 +58,7 @@ class RecoverWalletPage extends React.Component {
     }
   }
 
-  renderToolbar() {
+  renderToolbar () {
     const CUR_LANG = this.props.settings.language
 
     return (
@@ -69,12 +68,12 @@ class RecoverWalletPage extends React.Component {
         </div>
         <div className='center'>
           { TRANSLATIONS[CUR_LANG].RecoverExistingWalletPage.title }
-        </div>        
+        </div>
       </Toolbar>
-    );
+    )
   }
 
-  render() {
+  render () {
     // translation
     const CUR_LANG = this.props.settings.language
     const secretPhraseLang = TRANSLATIONS[CUR_LANG].RecoverExistingWalletPage.secretPhrase
@@ -93,10 +92,10 @@ class RecoverWalletPage extends React.Component {
               onChange={(e) => {
                 var str = e.target.value
 
-                if (str.length > 64){
+                if (str.length > 64) {
                   str = str.slice(0, 64)
                 }
-                
+
                 this.setState({ tempSecretPhrase: e.target.value })
               }}
               className="textarea" rows="3" placeholder={textareaPlaceholderLang}>
@@ -105,8 +104,8 @@ class RecoverWalletPage extends React.Component {
 
           <p>
             <label className="left">
-              <Checkbox                
-                onChange={(e) => {                  
+              <Checkbox
+                onChange={(e) => {
                   this.setState({
                     confirmRecover: !this.state.confirmRecover
                   })
@@ -120,19 +119,18 @@ class RecoverWalletPage extends React.Component {
           </p>
 
           {
-            this.state.recovering ?
-            <Icon icon='spinner' spin/>
-            :
-            (
-              <Button
-                onClick={() => this.newSecrets()}
-                disabled={!this.state.confirmRecover || this.state.tempSecretPhrase.length < 16}
-                style={{width: '100%', textAlign: 'center'}}
+            this.state.recovering
+              ? <Icon icon='spinner' spin/>
+              : (
+                <Button
+                  onClick={() => this.newSecrets()}
+                  disabled={!this.state.confirmRecover || this.state.tempSecretPhrase.length < 16}
+                  style={{width: '100%', textAlign: 'center'}}
                 >
-                { recoverLang }
-              </Button>
-            )
-          }    
+                  { recoverLang }
+                </Button>
+              )
+          }
         </div>
 
         <Dialog
@@ -144,7 +142,7 @@ class RecoverWalletPage extends React.Component {
           cancelable>
           <p style={{textAlign: 'center'}}>Wallet recovered!</p>
           <p style={{textAlign: 'center'}}>
-            <Button 
+            <Button
               style={{width: '90%'}}
               disabled={!this.state.dialogOpen}
               onClick={() => {
@@ -155,8 +153,19 @@ class RecoverWalletPage extends React.Component {
           </p>
         </Dialog>
       </Page>
-    );
+    )
   }
+}
+
+RecoverWalletPage.propTypes = {
+  secrets: PropTypes.object.isRequired,
+  settings: PropTypes.object.isRequired,
+  navigator: PropTypes.object.isRequired,
+  setSecretItems: PropTypes.func.isRequired,
+  setSecretPhrase: PropTypes.func.isRequired,
+  setAddress: PropTypes.func.isRequired,
+  setAddressValue: PropTypes.func.isRequired,
+  setPrivateKey: PropTypes.func.isRequired
 }
 
 function mapStateToProps (state) {
@@ -174,10 +183,10 @@ function matchDispatchToProps (dispatch) {
       setSecretPhrase,
       setAddress,
       setAddressValue,
-      setPrivateKey    
+      setPrivateKey
     },
     dispatch
   )
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(RecoverWalletPage);
+export default connect(mapStateToProps, matchDispatchToProps)(RecoverWalletPage)

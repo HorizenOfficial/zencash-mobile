@@ -1,12 +1,11 @@
 {
     "name": "zencash-mobile",
-    "version": "0.0.3",
+    "version": "0.0.6",
     "description": "Mobile Wallet for ZENCash",
     "main": "index.js",
     "scripts": {
         "start": "webpack-dev-server --host 0.0.0.0 --progress --content-base www/",
-        "build": "babel src/ -d lib/ && cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
-        "flow-build": "babel --watch src/ -d lib/"
+        "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js"
     },
     "repository": {
         "type": "git",
@@ -23,6 +22,7 @@
         "axios": "^0.16.2",
         "babel-cli": "^6.26.0",
         "babel-core": "^6.26.0",
+        "babel-eslint": "^8.0.1",
         "babel-loader": "^7.1.2",
         "babel-polyfill": "^6.26.0",
         "babel-preset-es2015": "^6.18.0",
@@ -36,9 +36,10 @@
         "country-data": "0.0.31",
         "cross-env": "^5.0.5",
         "css-loader": "^0.28.7",
-        "eslint": "^4.6.1",
+        "eslint": "^4.9.0",
+        "eslint-plugin-flowtype": "^2.39.1",
         "eslint-plugin-promise": "^3.3.0",
-        "eslint-plugin-react": "^7.3.0",
+        "eslint-plugin-react": "^7.4.0",
         "eslint-plugin-standard": "^3.0.1",
         "file-loader": "^0.11.2",
         "flow-bin": "^0.54.1",
@@ -60,6 +61,7 @@
         "redux": "^3.6.0",
         "redux-logger": "^3.0.6",
         "redux-thunk": "^2.1.0",
+        "sentencer": "^0.1.5",
         "simple-plist": "^0.2.1",
         "style-loader": "^0.18.2",
         "stylus": "^0.54.5",

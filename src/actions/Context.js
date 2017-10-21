@@ -5,7 +5,6 @@ export const SET_QR_SCANNING = 'SET_QR_SCANNING'
 export const SET_ZEN_IN_BTC_VALUE = 'SET_ZEN_IN_BTC_VALUE'
 export const SET_ZEN_IN_CURRENCY_VALUE = 'SET_ZEN_IN_CURRENCY_VALUE'
 
-
 export function setZenInBtcValue (BTCValue) {
   return {
     type: SET_ZEN_IN_BTC_VALUE,

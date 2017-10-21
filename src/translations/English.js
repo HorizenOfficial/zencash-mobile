@@ -1,9 +1,12 @@
-export const ENGLISH_TRANSLATION = {
+// @flow
+import type { TRANSLATION_OBJ } from '../types'
+
+export const ENGLISH_TRANSLATION: TRANSLATION_OBJ = {
   General: {
     loading: 'loading...',
     address: 'Address',
     privateKey: 'Private Key',
-    cancel: 'Cancel',    
+    cancel: 'Cancel',
     fees: 'Fees',
     version: 'Version',
     in: 'In',
@@ -11,14 +14,14 @@ export const ENGLISH_TRANSLATION = {
   },
   MainPage: {
     title: 'ZEN Wallet',
-    value: 'Value',        
+    value: 'Value',
     send: 'Send',
     received: 'Received',
-    sent: 'Sent',    
+    sent: 'Sent',
     noTxFound: 'No transaction history found.'
   },
   AddressInfoPage: {
-    copyToClipboard: 'Copy Address To Clipboard',
+    copyToClipboard: 'Copy Address To Clipboard'
   },
   SendPage: {
     title: 'Send ZEN',
@@ -27,11 +30,11 @@ export const ENGLISH_TRANSLATION = {
     balance: 'Balance',
     networkFee: 'Network Fee',
     slowTx: 'Slow Tx',
-    fastTx: 'Fast Tx',    
+    fastTx: 'Fast Tx',
     from: 'From',
     toAddress: 'To Address',
-    amount: 'Amount',    
-    max: 'Max',    
+    amount: 'Amount',
+    max: 'Max',
     send: 'Send',
     txSuccessful: 'Transcation successful! Click here to see your transaction.',
     confirmSend: 'I want to send these ZEN',
@@ -42,21 +45,21 @@ export const ENGLISH_TRANSLATION = {
     notEnoughZEN: 'Not enough confirmed ZEN in account to perform transaction.',
     noCameraPermissions: 'No camera permissions. You can allow camera access in your settings.'
   },
-  TxDetailPage:{
+  TxDetailPage: {
     txid: 'Transaction Id',
     blockhash: 'Block Hash',
     blockheight: 'Block Height',
-    confirmations: 'Confirmations',    
+    confirmations: 'Confirmations'
   },
   SettingsPage: {
-    title: 'Settings',    
+    title: 'Settings',
     language: 'Language',
     currency: 'Currency',
     secretPhrase: 'Show Secret Phrase',
     showPrivateKeys: 'Show Private Keys',
     recoverExistingWallet: 'Recover Existing Wallet',
     current: 'Current'
-  },  
+  },
   SecretPhrasePage: {
     title: 'Secret Phrase'
   },
@@ -71,7 +74,7 @@ export const ENGLISH_TRANSLATION = {
     recover: 'Recover'
   },
   AboutPage: {
-    title: 'About',
+    title: 'About'
   },
   PinPage: {
     changePinTitle: 'Change PIN',

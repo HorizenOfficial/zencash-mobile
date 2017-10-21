@@ -22,18 +22,17 @@ const initialSecrets = {
   items: []
 }
 
-export default function SecretsReducer(state=initialSecrets, action){
-  switch(action.type){
+export default function SecretsReducer (state = initialSecrets, action) {
+  switch (action.type) {
     case SET_SECRET_ITEMS:
       return Object.assign({}, state, {
-        items: action.items        
+        items: action.items
       })
-    
+
     case SET_SECRET_PHRASE:
       return Object.assign({}, state, {
-        secretPhrase: action.secretPhrase   
+        secretPhrase: action.secretPhrase
       })
-    
 
     default:
       return state

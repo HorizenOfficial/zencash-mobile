@@ -1,9 +1,12 @@
-export const SWEDISH_TRANSLATION = {
+// @flow
+import type { TRANSLATION_OBJ } from '../types'
+
+export const SWEDISH_TRANSLATION: TRANSLATION_OBJ = {
   General: {
     loading: 'laddar...',
     address: 'Adress',
     privateKey: 'Privat nyckel',
-    cancel: 'Avbryt',    
+    cancel: 'Avbryt',
     fees: 'Avgifter',
     version: 'Version',
     in: 'In',
@@ -11,14 +14,14 @@ export const SWEDISH_TRANSLATION = {
   },
   MainPage: {
     title: 'ZEN Wallet',
-    value: 'Värde',        
+    value: 'Värde',
     send: 'Skicka',
     received: 'Mottaget',
-    sent: 'Skickat',    
+    sent: 'Skickat',
     noTxFound: 'Ingen transaktionshistorik hittades.'
   },
   AddressInfoPage: {
-    copyToClipboard: 'Kopiera adressen till urklipp',
+    copyToClipboard: 'Kopiera adressen till urklipp'
   },
   SendPage: {
     title: 'Skicka ZEN',
@@ -27,11 +30,11 @@ export const SWEDISH_TRANSLATION = {
     balance: 'Saldo',
     networkFee: 'Nätverksavgift',
     slowTx: 'Långsam Tx',
-    fastTx: 'Snabb Tx',    
+    fastTx: 'Snabb Tx',
     from: 'Från',
     toAddress: 'Till adress',
-    amount: 'Summa',    
-    max: 'Max',    
+    amount: 'Summa',
+    max: 'Max',
     send: 'Skicka',
     txSuccessful: 'Transaktionen lyckades! Tryck här för att se din transaktion.',
     confirmSend: 'Jag vill skicka dessa ZEN',
@@ -42,21 +45,21 @@ export const SWEDISH_TRANSLATION = {
     notEnoughZEN: 'Det finns inte tillräckligt med ZEN i kontot för att genomföra transaktionen.',
     noCameraPermissions: 'Inget kameratillstånd. Du kan tillåta kameran i dina inställningar.'
   },
-  TxDetailPage:{
+  TxDetailPage: {
     txid: 'Transaktions-ID',
     blockhash: 'Block Hash',
     blockheight: 'Blockhöjd',
-    confirmations: 'Bekräftelser',    
+    confirmations: 'Bekräftelser'
   },
   SettingsPage: {
-    title: 'Inställningar',    
+    title: 'Inställningar',
     language: 'Språk',
     currency: 'Valuta',
     secretPhrase: 'Visa hemlig fras',
     showPrivateKeys: 'Visa privata nycklar',
     recoverExistingWallet: 'Återskapa befintlig plånbok',
     current: 'Nuvarande'
-  },  
+  },
   SecretPhrasePage: {
     title: 'Hemlig fras'
   },
@@ -71,7 +74,7 @@ export const SWEDISH_TRANSLATION = {
     recover: 'Återskapa'
   },
   AboutPage: {
-    title: 'Om',
+    title: 'Om'
   },
   PinPage: {
     changePinTitle: 'Ändra PIN',

@@ -1,21 +1,20 @@
-import React from 'react';
+import PropTypes from 'prop-types'
+import React from 'react'
 
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
-import { LANGUAGES, CURRENCIES, setLanguage, setCurrency } from '../actions/Settings'
+import { setLanguage, setCurrency } from '../actions/Settings'
 
 import {
-  Page,  
-  Toolbar,  
+  Page,
+  Toolbar,
   BackButton,
   List,
   ListHeader,
-  ListItem,
-  Dialog  
-} from 'react-onsenui';
+  ListItem
+} from 'react-onsenui'
 
-import AboutPage from './AboutPage'
 import ChangePinPage from './ChangePinPage'
 import SecretPhrasePage from './SecretPhrasePage'
 import RecoverWalletPage from './RecoverWalletPage'
@@ -26,11 +25,11 @@ import SelectLanguagePage from './SelectLanguagePage'
 import TRANSLATIONS from '../translations'
 
 class SettingsPage extends React.Component {
-  gotoComponent(c) {    
-    this.props.navigator.pushPage({component: c})    
+  gotoComponent (c) {
+    this.props.navigator.pushPage({component: c})
   }
 
-  renderToolbar() {
+  renderToolbar () {
     // Translation stuff
     const CUR_LANG = this.props.settings.language
     const titleLang = TRANSLATIONS[CUR_LANG].SettingsPage.title
@@ -42,17 +41,16 @@ class SettingsPage extends React.Component {
         </div>
         <div className='center'>
           { titleLang }
-        </div>  
+        </div>
       </Toolbar>
-    );
-  }  
+    )
+  }
 
-  render() {
+  render () {
     // Translation stuff
-    const CUR_LANG = this.props.settings.language    
+    const CUR_LANG = this.props.settings.language
 
     const changePinLang = TRANSLATIONS[CUR_LANG].PinPage.changePinTitle
-    const currentLang = TRANSLATIONS[CUR_LANG].SettingsPage.current
     const currencyLang = TRANSLATIONS[CUR_LANG].SettingsPage.currency
     const languageLang = TRANSLATIONS[CUR_LANG].SettingsPage.language
     const secretPhraseLang = TRANSLATIONS[CUR_LANG].SettingsPage.secretPhrase
@@ -61,13 +59,13 @@ class SettingsPage extends React.Component {
 
     return (
       <Page renderToolbar={this.renderToolbar.bind(this)}>
-        <List>          
-          <ListItem 
+        <List>
+          <ListItem
             onClick={this.gotoComponent.bind(this, SelectLanguagePage)}
             tappable>
             { languageLang }
           </ListItem>
-          <ListItem 
+          <ListItem
             onClick={this.gotoComponent.bind(this, SelectCurrencyPage)}
             tappable>
             { currencyLang }
@@ -83,7 +81,7 @@ class SettingsPage extends React.Component {
             onClick={this.gotoComponent.bind(this, SecretPhrasePage)}
             tappable>
             { secretPhraseLang }
-          </ListItem>          
+          </ListItem>
           <ListItem
             onClick={this.gotoComponent.bind(this, ShowPrivateKeyPage)}
             tappable>
@@ -94,15 +92,22 @@ class SettingsPage extends React.Component {
             tappable style={{color: 'red'}}>
             { recoverExistingWalletLang }
           </ListItem>
-        </List>  
+        </List>
       </Page>
-    );
+    )
   }
 }
 
-function mapStateToProps(state){  
-  return {    
-    settings: state.settings    
+SettingsPage.propTypes = {
+  settings: PropTypes.object.isRequired,
+  navigator: PropTypes.object.isRequired,
+  setLanguage: PropTypes.func.isRequired,
+  setCurrency: PropTypes.func.isRequired
+}
+
+function mapStateToProps (state) {
+  return {
+    settings: state.settings
   }
 }
 
@@ -117,4 +122,4 @@ function matchDispatchToProps (dispatch) {
   )
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(SettingsPage);
+export default connect(mapStateToProps, matchDispatchToProps)(SettingsPage)

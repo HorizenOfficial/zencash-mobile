@@ -1,14 +1,15 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
-import { Page, Toolbar, ToolbarButton, BackButton, Button, Input, Icon} from 'react-onsenui'
+import {
+  Page,
+  Toolbar,
+  BackButton
+} from 'react-onsenui'
 
 import QRCode from 'qrcode.react'
 
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-
-import { ZENCASH_MOBILE_SAVE_PATH, readFromFile, writeToFile } from '../utils/persistentStorage'
-import { phraseToSecretItems } from '../utils/wallet'
 
 import TRANSLATIONS from '../translations'
 
@@ -44,37 +45,43 @@ class ShowPrivateKeyPage extends React.Component {
       <Page renderToolbar={this.renderToolbar.bind(this)}>
         <hr/>
         {
-          this.props.secrets.items.map(function(i){
+          this.props.secrets.items.map(function (i, idx) {
             return (
-              <div>
+              <div key={idx}>
                 <ons-row style={{textAlign: 'center'}}>
                   <ons-col>
                     <p>
                       { TRANSLATIONS[CUR_LANG].General.privateKey }<br/>
                       <QRCode value={i.privateKey} />
                     </p>
-                    <p style={{fontSize: '12px'}}>                      
+                    <p style={{fontSize: '12px'}}>
                       <textarea disabled value={i.privateKey}></textarea>
                     </p>
                   </ons-col>
                   <ons-col>
                     <p>
-                    { TRANSLATIONS[CUR_LANG].General.address }<br/>
+                      { TRANSLATIONS[CUR_LANG].General.address }<br/>
                       <QRCode value={i.address} />
-                    </p> 
-                    <p style={{fontSize: '12px'}}>                    
-                      <textarea disabled value={i.address}></textarea>                    
-                    </p>                         
-                  </ons-col>                
+                    </p>
+                    <p style={{fontSize: '12px'}}>
+                      <textarea disabled value={i.address}></textarea>
+                    </p>
+                  </ons-col>
                 </ons-row>
                 <hr/>
-              </div>            
+              </div>
             )
           })
-        }        
+        }
       </Page>
     )
   }
+}
+
+ShowPrivateKeyPage.propTypes = {
+  settings: PropTypes.object.isRequired,
+  secrets: PropTypes.object.isRequired,
+  navigator: PropTypes.object.isRequired
 }
 
 function mapStateToProps (state) {

@@ -1,9 +1,12 @@
-export const PORTUGUESE_TRANSLATION = {
+// @flow
+import type { TRANSLATION_OBJ } from '../types'
+
+export const PORTUGUESE_TRANSLATION: TRANSLATION_OBJ = {
   General: {
     loading: 'carregando...',
     address: 'Endereço',
     privateKey: 'Chave Privada',
-    cancel: 'Cancelar',    
+    cancel: 'Cancelar',
     fees: 'Taxas',
     version: 'Versão',
     in: 'Entrada',
@@ -11,14 +14,14 @@ export const PORTUGUESE_TRANSLATION = {
   },
   MainPage: {
     title: 'Carteira ZEN',
-    value: 'Valor',        
+    value: 'Valor',
     send: 'Enviar',
     received: 'Recebido',
-    sent: 'Enviado',    
+    sent: 'Enviado',
     noTxFound: 'Nenhum histórico de transações encontrado.'
   },
   AddressInfoPage: {
-    copyToClipboard: 'Copiar Endereço para a Área de Transferência',
+    copyToClipboard: 'Copiar Endereço para a Área de Transferência'
   },
   SendPage: {
     title: 'Enviar ZEN',
@@ -27,11 +30,11 @@ export const PORTUGUESE_TRANSLATION = {
     balance: 'Saldo',
     networkFee: 'Taxa de rede',
     slowTx: 'Lentamente',
-    fastTx: 'Rapidamente',    
+    fastTx: 'Rapidamente',
     from: 'De',
     toAddress: 'Para o Endereço',
-    amount: 'Quantia',    
-    max: 'Max',    
+    amount: 'Quantia',
+    max: 'Max',
     send: 'Enviar',
     txSuccessful: 'Transação bem sucedida! Clique aqui para ver sua transação.',
     confirmSend: 'Eu quero enviar estes ZEN',
@@ -42,21 +45,21 @@ export const PORTUGUESE_TRANSLATION = {
     notEnoughZEN: 'Não existe quantidade suficiente de ZEN confirmadas na conta para fazer essa transação.',
     noCameraPermissions: 'Sem permissão de câmera. Você pode habilitar o acesso à câmera nas configurações.'
   },
-  TxDetailPage:{
+  TxDetailPage: {
     txid: 'Id da transação',
-    blockhash: 'Block Hash', //don't have translation
-    blockheight: 'Block Height',//don't have a good translation
-    confirmations: 'Confirmações',    
+    blockhash: 'Block Hash', // don't have translation
+    blockheight: 'Block Height', // don't have a good translation
+    confirmations: 'Confirmações'
   },
   SettingsPage: {
-    title: 'Configurações',    
+    title: 'Configurações',
     language: 'Idioma',
     currency: 'Moeda',
     secretPhrase: 'Mostra Frase Secreta',
     showPrivateKeys: 'Mostra Chave Privada',
     recoverExistingWallet: 'Restaurar uma carteira existente',
     current: 'Corrente'
-  },  
+  },
   SecretPhrasePage: {
     title: 'Frase Secreta'
   },
@@ -71,7 +74,7 @@ export const PORTUGUESE_TRANSLATION = {
     recover: 'Recuperar'
   },
   AboutPage: {
-    title: 'Sobre',
+    title: 'Sobre'
   },
   PinPage: {
     changePinTitle: 'Alterar PIN',

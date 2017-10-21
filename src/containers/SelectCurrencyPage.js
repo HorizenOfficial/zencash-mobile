@@ -1,25 +1,24 @@
-import React from 'react';
+import PropTypes from 'prop-types'
+import React from 'react'
 
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 import { CURRENCIES, setCurrency } from '../actions/Settings'
 
 import {
-  Page,  
-  Toolbar,  
+  Page,
+  Toolbar,
   BackButton,
   List,
-  ListHeader,
-  ListItem  
-} from 'react-onsenui';
+  ListItem
+} from 'react-onsenui'
 
 import TRANSLATIONS from '../translations'
 
 class SelectCurrencyPage extends React.Component {
-  renderToolbar() {
+  renderToolbar () {
     const CUR_LANG = this.props.settings.language
-    const currentLang = TRANSLATIONS[CUR_LANG].SettingsPage.current
     const currencyLang = TRANSLATIONS[CUR_LANG].SettingsPage.currency
 
     return (
@@ -29,41 +28,48 @@ class SelectCurrencyPage extends React.Component {
         </div>
         <div className='center'>
           { currencyLang } ({ this.props.settings.currency })
-        </div>  
+        </div>
       </Toolbar>
     )
   }
 
-  render () {    
+  render () {
     return (
       <Page renderToolbar={this.renderToolbar.bind(this)}>
-        <List>          
+        <List>
           {
-            CURRENCIES.map(function(l){
+            CURRENCIES.map(function (l) {
               return (
                 <div>
-                  <ListItem                    
-                    onClick={function(){
+                  <ListItem
+                    onClick={function () {
                       this.props.setCurrency(l)
                       this.props.navigator.popPage()
                     }.bind(this)}
                     tappable
                   >
-                  { l }
+                    { l }
                   </ListItem>
                 </div>
               )
             }.bind(this))
-          }                
+          }
         </List>
       </Page>
     )
   }
 }
 
-function mapStateToProps(state){  
-  return {    
-    settings: state.settings    
+SelectCurrencyPage.propTypes = {
+  secrets: PropTypes.object.isRequired,
+  settings: PropTypes.object.isRequired,
+  navigator: PropTypes.object.isRequired,
+  setCurrency: PropTypes.func.isRequired
+}
+
+function mapStateToProps (state) {
+  return {
+    settings: state.settings
   }
 }
 
@@ -77,4 +83,4 @@ function matchDispatchToProps (dispatch) {
   )
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(SelectCurrencyPage);
+export default connect(mapStateToProps, matchDispatchToProps)(SelectCurrencyPage)

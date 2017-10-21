@@ -1,9 +1,12 @@
-export const SPANISH_TRANSLATION = {
+// @flow
+import type { TRANSLATION_OBJ } from '../types'
+
+export const SPANISH_TRANSLATION: TRANSLATION_OBJ = {
   General: {
     loading: 'cargando...',
     address: 'Dirección',
     privateKey: 'Llave privada',
-    cancel: 'Cancelar',    
+    cancel: 'Cancelar',
     fees: 'Tarifas',
     version: 'Versión',
     in: 'Entrantes',
@@ -11,14 +14,14 @@ export const SPANISH_TRANSLATION = {
   },
   MainPage: {
     title: 'Billetera ZEN',
-    value: 'Valor',        
+    value: 'Valor',
     send: 'Enviar',
     received: 'Recibido',
-    sent: 'Enviado',    
+    sent: 'Enviado',
     noTxFound: 'No se encontró ningún historial de trancción.'
   },
   AddressInfoPage: {
-    copyToClipboard: 'Copiar Dirección al Portapapeles',
+    copyToClipboard: 'Copiar Dirección al Portapapeles'
   },
   SendPage: {
     title: 'Enviar un ZEN',
@@ -27,11 +30,11 @@ export const SPANISH_TRANSLATION = {
     balance: 'Balance',
     networkFee: 'Tarifa de Red',
     slowTx: 'Trancción Lenta',
-    fastTx: 'Transacción Rápida',    
+    fastTx: 'Transacción Rápida',
     from: 'De',
     toAddress: 'Dirigido a',
-    amount: 'Monto',    
-    max: 'Máx',    
+    amount: 'Monto',
+    max: 'Máx',
     send: 'Enviar',
     txSuccessful: '¡Transacción exitosa! Haga clic aquí para ver su transacción.',
     confirmSend: 'Quiero enviar estos ZEN',
@@ -42,21 +45,21 @@ export const SPANISH_TRANSLATION = {
     notEnoughZEN: 'No hay suficiente ZEN confirmado en la cuenta para realizar la transacción.',
     noCameraPermissions: 'No hay permisos de cámara. Puede permitir el acceso de la cámara en su configuración.'
   },
-  TxDetailPage:{
+  TxDetailPage: {
     txid: 'Id de Transacción',
     blockhash: 'Hash del Bloque',
     blockheight: 'Altura del bloque',
-    confirmations: 'Confirmaciones',    
+    confirmations: 'Confirmaciones'
   },
   SettingsPage: {
-    title: 'Configuraciones',    
+    title: 'Configuraciones',
     language: 'Lenguaje',
     currency: 'Moneda',
     secretPhrase: 'Mostrar Frase Secreta',
     showPrivateKeys: 'Mostrar Llaves Privadas',
     recoverExistingWallet: 'Recuperar Billetera existente',
     current: 'Actual'
-  },  
+  },
   SecretPhrasePage: {
     title: 'Frase Secreta'
   },
@@ -71,7 +74,7 @@ export const SPANISH_TRANSLATION = {
     recover: 'Recuperar'
   },
   AboutPage: {
-    title: 'Acerca de',
+    title: 'Acerca de'
   },
   PinPage: {
     changePinTitle: 'Cambiar PIN',

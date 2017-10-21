@@ -1,20 +1,21 @@
 export const ZENCASH_MOBILE_SAVE_PATH = 'zencash_wallet.json'
 
 export function readFromFile (fileName, onSuccess, onFail) {
-  const pathToFile = cordova.file.dataDirectory + fileName  
+  const pathToFile = cordova.file.dataDirectory + fileName
   window.resolveLocalFileSystemURL(
     pathToFile,
     function (fileEntry) {
       fileEntry.file(function (file) {
         var reader = new FileReader()
 
-        reader.onloadend = function (e) {                 
-          onSuccess(this.result)   
+        reader.onloadend = function (e) {
+          onSuccess(this.result)
         }
 
         reader.readAsText(file)
       }, onFail
-    )}, onFail
+      ) 
+}, onFail
   )
 }
 
@@ -38,8 +39,8 @@ export function writeToFile (fileName, data) {
               alert('WARNING. YOUR SECRET PHRASE COULD NOT BE SAVED. PRIVATE KEYS SAVING FAILED.')
             }
 
-            var blob = new Blob([data], { type: 'text/plain' })            
-            fileWriter.write(blob)            
+            var blob = new Blob([data], { type: 'text/plain' })
+            fileWriter.write(blob)
           }, errorHandler.bind(null, fileName))
         },
         errorHandler.bind(null, fileName)
@@ -72,6 +73,6 @@ const errorHandler = function (fileName, e) {
       msg = 'Unknown error'
       break
   }
-  
+
   alert('Error (' + fileName + '): ' + msg)
 }

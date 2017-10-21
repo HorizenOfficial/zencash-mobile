@@ -1,11 +1,13 @@
-import React from 'react';
-import {render} from 'react-dom';
+import 'babel-polyfill'
 
-import {Provider} from 'react-redux';
-import {createStore, applyMiddleware} from 'redux';
+import React from 'react';
+import { render } from 'react-dom';
+
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
-import {AppContainer} from 'react-hot-loader';
+import { AppContainer } from 'react-hot-loader';
 
 import allReducers from './reducers';
 import App from './containers/App';
@@ -28,9 +30,9 @@ const store = createStore(allReducers,
 
 // Save file, etc
 store.subscribe(() => {
-  const state = store.getState()  
+  const state = store.getState()
 
-  if (state.secrets.secretPhrase !== null && state.settings.pin !== null){
+  if (state.secrets.secretPhrase !== null && state.settings.pin !== null) {
     // Write to file woot woot    
     writeToFile(ZENCASH_MOBILE_SAVE_PATH, {
       secretPhrase: state.secrets.secretPhrase,

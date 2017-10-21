@@ -1,17 +1,13 @@
-import React from 'react';
+import PropTypes from 'prop-types'
+import React from 'react'
 
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 import {
-  Page,  
-  Toolbar, 
-  ToolbarButton, 
-  BackButton,
-  Button,
-  Input,
-  Icon
-} from 'react-onsenui';
+  Toolbar,
+  BackButton
+} from 'react-onsenui'
 
 import { setWalletPin } from '../actions/Settings'
 
@@ -25,14 +21,14 @@ class ChangePinPage extends React.Component {
     super(props)
 
     this.state = {
-      pinVerified: false      
+      pinVerified: false
     }
 
     this.renderToolbar = this.renderToolbar.bind(this)
   }
-  
-  renderToolbar() {
-    const CUR_LANG = this.props.settings.language        
+
+  renderToolbar () {
+    const CUR_LANG = this.props.settings.language
     const changePinLang = TRANSLATIONS[CUR_LANG].PinPage.changePinTitle
 
     return (
@@ -44,36 +40,42 @@ class ChangePinPage extends React.Component {
           { changePinLang }
         </div>
       </Toolbar>
-    );
+    )
   }
 
-  render() {
-    return (      
-      this.state.pinVerified ?
-      (
-        <NewPinPage onComplete={() => this.props.navigator.popPage()} renderToolbar={this.renderToolbar} />        
-      ) :
-      (
-        <VerifyPinPage onComplete={() => this.setState({ pinVerified: true })} renderToolbar={this.renderToolbar} />    
-      )      
-    );   
+  render () {
+    return (
+      this.state.pinVerified
+        ? (
+          <NewPinPage onComplete={() => this.props.navigator.popPage()} renderToolbar={this.renderToolbar} />
+        )
+        : (
+          <VerifyPinPage onComplete={() => this.setState({ pinVerified: true })} renderToolbar={this.renderToolbar} />
+        )
+    )
   }
 }
 
-function mapStateToProps(state){  
-  return {    
-    settings: state.settings    
+ChangePinPage.propTypes = {
+  setWalletPin: PropTypes.func.isRequired,
+  settings: PropTypes.object.isRequired,
+  navigator: PropTypes.object.isRequired
+}
+
+function mapStateToProps (state) {
+  return {
+    settings: state.settings
   }
 }
 
 function matchDispatchToProps (dispatch) {
   // Set context for the send page
   return bindActionCreators(
-    {      
+    {
       setWalletPin
     },
     dispatch
   )
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(ChangePinPage);
+export default connect(mapStateToProps, matchDispatchToProps)(ChangePinPage)

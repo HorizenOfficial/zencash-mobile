@@ -68,6 +68,7 @@ export const CURRENCIES = [
 ]
 
 // Languages
+export const LANG_AFRIKAANS = 'Afrikaans'
 export const LANG_ENGLISH = 'English'
 export const LANG_FILIPINO = 'Filipino'
 export const LANG_FRENCH = 'French'
@@ -75,10 +76,12 @@ export const LANG_GERMAN = 'German'
 export const LANG_INDONESIAN = 'Indonesian'
 export const LANG_PORTUGUESE = 'Portuguese'
 export const LANG_RUSSIAN = 'Russian'
+export const LANG_SERBIAN = 'Serbian'
 export const LANG_SPANISH = 'Spanish'
 export const LANG_SWEDISH = 'Swedish'
 
 export const LANGUAGES = [
+  LANG_AFRIKAANS,
   LANG_ENGLISH,
   LANG_FILIPINO,
   LANG_FRENCH,
@@ -86,6 +89,7 @@ export const LANGUAGES = [
   LANG_INDONESIAN,
   LANG_PORTUGUESE,
   LANG_RUSSIAN,
+  LANG_SERBIAN,
   LANG_SPANISH,
   LANG_SWEDISH
 ]
@@ -95,21 +99,21 @@ export const SET_LANGUAGE = 'SET_LANGUAGE'
 export const SET_CURRENCY = 'SET_CURRENCY'
 export const SET_WALLET_PIN = 'SET_WALLET_PIN'
 
-export function setWalletPin(pin) {
+export function setWalletPin (pin) {
   return {
     type: SET_WALLET_PIN,
     pin
   }
 }
 
-export function setLanguage(language){
+export function setLanguage (language) {
   return {
     type: SET_LANGUAGE,
     language
   }
 }
 
-export function setCurrency(currency){
+export function setCurrency (currency) {
   return {
     type: SET_CURRENCY,
     currency

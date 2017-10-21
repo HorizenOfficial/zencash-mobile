@@ -1,22 +1,18 @@
-import React from 'react';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 
 import {
-  Page,  
-  Toolbar, 
-  ToolbarButton, 
-  BackButton,
-  Button,
-  Input,
-  Icon
-} from 'react-onsenui';
+  Page,
+  Toolbar,
+  BackButton
+} from 'react-onsenui'
 
 import TRANSLATIONS from '../translations'
 
-class RecoverWalletPage extends React.Component {  
-  renderToolbar() {
+class RecoverWalletPage extends React.Component {
+  renderToolbar () {
     const CUR_LANG = this.props.settings.language
 
     return (
@@ -28,10 +24,10 @@ class RecoverWalletPage extends React.Component {
           { TRANSLATIONS[CUR_LANG].AboutPage.title }
         </div>
       </Toolbar>
-    );
+    )
   }
 
-  render() {    
+  render () {
     return (
       <Page renderToolbar={this.renderToolbar.bind(this)}>
         <div style={{padding: '12px 12px 0 12px', textAlign: 'center'}}>
@@ -47,14 +43,19 @@ class RecoverWalletPage extends React.Component {
           </p>
         </div>
       </Page>
-    );
+    )
   }
 }
 
-function mapStateToProps(state){  
-  return {    
-    settings: state.settings    
+RecoverWalletPage.propTypes = {
+  settings: PropTypes.object.isRequired,
+  navigator: PropTypes.object.isRequired
+}
+
+function mapStateToProps (state) {
+  return {
+    settings: state.settings
   }
 }
 
-export default connect(mapStateToProps)(RecoverWalletPage);
+export default connect(mapStateToProps)(RecoverWalletPage)

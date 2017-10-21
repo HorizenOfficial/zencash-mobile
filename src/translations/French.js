@@ -1,9 +1,12 @@
-export const FRENCH_TRANSLATION = {
+// @flow
+import type { TRANSLATION_OBJ } from '../types'
+
+export const FRENCH_TRANSLATION: TRANSLATION_OBJ = {
   General: {
     loading: 'Chargement...',
     address: 'Adresse',
     privateKey: 'Clé Privée',
-    cancel: 'Annuler',    
+    cancel: 'Annuler',
     fees: 'Frais de réseau',
     version: 'Version',
     in: 'Entrant',
@@ -11,14 +14,14 @@ export const FRENCH_TRANSLATION = {
   },
   MainPage: {
     title: 'Porte-Monnaie ZEN',
-    value: 'Valeur',        
+    value: 'Valeur',
     send: 'Envoi',
     received: 'Reçu',
-    sent: 'Envoyé',    
+    sent: 'Envoyé',
     noTxFound: 'Aucun historique de transaction trouvé.'
   },
   AddressInfoPage: {
-    copyToClipboard: 'Copier l\'adresse dans le presse-papier',
+    copyToClipboard: 'Copier l\'adresse dans le presse-papier'
   },
   SendPage: {
     title: 'Envoyer ZEN',
@@ -27,11 +30,11 @@ export const FRENCH_TRANSLATION = {
     balance: 'Balance',
     networkFee: 'Frais de réseau',
     slowTx: 'Transmission lente',
-    fastTx: 'Transmission rapide',    
+    fastTx: 'Transmission rapide',
     from: 'De',
     toAddress: 'Vers adresse',
-    amount: 'Montant',    
-    max: 'Maximum',    
+    amount: 'Montant',
+    max: 'Maximum',
     send: 'Envoyer',
     txSuccessful: 'Transaction effectuée avec succès! Cliquez ici pour voir votre transaction.',
     confirmSend: 'Je veux envoyer ces ZEN',
@@ -42,21 +45,21 @@ export const FRENCH_TRANSLATION = {
     notEnoughZEN: 'Pas assez de ZEN confirmés sur le compte pour effectuer cette transaction.',
     noCameraPermissions: 'Pas de permissions pour accéder à l\'appareil photo. Vous pouvez autoriser l\'accès à la caméra dans vos paramètres.'
   },
-  TxDetailPage:{
+  TxDetailPage: {
     txid: 'Id de transaction',
     blockhash: 'Hash de bloc',
     blockheight: 'Hauteur de bloc',
-    confirmations: 'Confirmations',    
+    confirmations: 'Confirmations'
   },
   SettingsPage: {
-    title: 'Paramètres',    
+    title: 'Paramètres',
     language: 'Langue',
     currency: 'Devise',
     secretPhrase: 'Afficher la Phrase Secrète',
     showPrivateKeys: 'Afficher les Clés Privées',
     recoverExistingWallet: 'Récupérer un Porte-Monnaie existant',
     current: 'Actuel'
-  },  
+  },
   SecretPhrasePage: {
     title: 'Phrase Secrète'
   },
@@ -71,7 +74,7 @@ export const FRENCH_TRANSLATION = {
     recover: 'Récupérer'
   },
   AboutPage: {
-    title: 'A Propos',
+    title: 'A Propos'
   },
   PinPage: {
     changePinTitle: 'Changer le code PIN',

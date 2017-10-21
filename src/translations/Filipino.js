@@ -1,24 +1,27 @@
-export const FILIPINO_TRANSLATION = {
+// @flow
+import type { TRANSLATION_OBJ } from '../types'
+
+export const FILIPINO_TRANSLATION: TRANSLATION_OBJ = {
   General: {
     loading: 'Nagsisimula...',
     address: 'Address',
     privateKey: 'Pribadong Susi',
-    cancel: 'Kansela',    
-    fees: 'Mga kabayaran',
+    cancel: 'Kansela',
+    fees: 'Babayaran sa Network',
     version: 'Bersyon',
     in: 'Papasok',
     out: 'Palabas'
   },
   MainPage: {
     title: 'ZEN Wallet',
-    value: 'Halaga',        
+    value: 'Halaga',
     send: 'Padala',
     received: 'Natanggap',
-    sent: 'Napadala',    
-    noTxFound: 'Walang transaksiyon na nakita.'
+    sent: 'Napadala',
+    noTxFound: 'Walang pang transaksiyon.'
   },
   AddressInfoPage: {
-    copyToClipboard: 'Kopyahin ang Address sa Clipboard',
+    copyToClipboard: 'Kopyahin ang Address sa Clipboard'
   },
   SendPage: {
     title: 'Magpadala ng ZEN',
@@ -27,36 +30,36 @@ export const FILIPINO_TRANSLATION = {
     balance: 'Balanse',
     networkFee: 'Bayad sa Network',
     slowTx: 'Mabagal na Tx',
-    fastTx: 'Mabilis na Tx',    
+    fastTx: 'Mabilis na Tx',
     from: 'Mula sa',
-    toAddress: 'Papadalhan na Address',
-    amount: 'Halaga',    
-    max: 'Lahat na puwede',    
+    toAddress: ' Address na Papadalhan',
+    amount: 'Halaga',
+    max: 'Lahat na puwede',
     send: 'Ipadala',
     txSuccessful: 'Tagumpay na Transaksiyon! Click dito para makita ang detalye ng transaksiyon.',
     confirmSend: 'Gusto ko ipadala ang ZEN na ito.',
-    invalidAddress: 'Hindi tamang `Papadlhang Address` transparent na addresses lang ang supportado sa ngayon.',
+    invalidAddress: 'Hindi tamang `Papadalhang Address` transparent na addresses lang ang supportado sa ngayon.',
     invalidAmount: 'Hindi tamang `Halaga`.',
     invalidFee: 'Hindi tamang `Bayad` o kulang. Subukan 0 :)',
     zeroAmount: 'Mas mataaas sa halagang 0 ang kailangan.',
-    notEnoughZEN: 'Hindi sapat na kumpirmadong ZEN sa account para gawin ang transaksyon.',
+    notEnoughZEN: 'Hindi sapat na kumpirmadong ZEN sa account para gawin ang transaksiyon.',
     noCameraPermissions: 'Walang pahintulot sa camera. Pwede mong pahintulutan ang camera sa iyong settings.'
   },
-  TxDetailPage:{
+  TxDetailPage: {
     txid: 'Transaksyong Id',
     blockhash: 'Block Hash',
     blockheight: 'Block Height',
-    confirmations: 'Mga Kumpirmasyon',    
+    confirmations: 'Mga Kumpirmasyon'
   },
   SettingsPage: {
-    title: 'Settings',    
+    title: 'Settings',
     language: 'Lengguwahe',
     currency: 'Salapi',
     secretPhrase: 'Pakita ang Pribadong Parilala',
     showPrivateKeys: 'Pakita ang Pribadong Susi',
-    recoverExistingWallet: 'Isauli ang dating Wallet',
+    recoverExistingWallet: 'Magbalik ng dating Wallet',
     current: 'Kasalukuyan'
-  },  
+  },
   SecretPhrasePage: {
     title: 'Pribadong Parilala'
   },
@@ -64,14 +67,14 @@ export const FILIPINO_TRANSLATION = {
     title: 'Pribadong Susi'
   },
   RecoverExistingWalletPage: {
-    title: 'Mag sauli ng dating Wallet',
+    title: 'Magbalik ng dating Wallet',
     secretPhrase: 'Pribadong Parilala',
     textareaPlaceholder: 'Pribadong Parirala. Hindi dapat bababa sa 16 na letra o numero',
-    confirmUnderstand: 'Naintindihan ko na pag sinauli ko ang dating wallet, ang kasalukuyang wallet ay mabubura.',
-    recover: 'Mag sauli'
+    confirmUnderstand: 'Naintindihan ko na pag binalik ko ang dating wallet, ang kasalukuyang wallet ay mabubura.',
+    recover: 'Ibalik ang dating Wallet'
   },
   AboutPage: {
-    title: 'Tungkol sa...',
+    title: 'Karagdagang Impormasiyon'
   },
   PinPage: {
     changePinTitle: 'Palitan ang PIN',

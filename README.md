@@ -9,7 +9,7 @@ Use node v6.11.X
 ```
 npm install -g yarn cordova
 yarn install
-cordova plugin add cordova-plugin-qrscanner cordova-plugin-file cordova-plugin-http cordova-clipboard cordova-plugin-inappbrowser
+cordova plugin add cordova-plugin-qrscanner cordova-plugin-file cordova-plugin-http cordova-clipboard cordova-plugin-inappbrowser cordova-plugin-device cordova-plugin-wkwebview-engine
 cordova platform add [android | ios]
 cordova run [android | ios]
 ```
@@ -58,3 +58,5 @@ Icons are a bit of a bitch to setup for iOS. Make sure you've added the ios plat
 [simoneddeland](https://github.com/simoneddeland)
 
 [dropnib](https://github.com/dropnib)
+
+[rubyxroot](https://github.com/rubyxroot)
