@@ -12,7 +12,7 @@ import {
 
 const initialSettings = {
   insightAPI: 'https://explorer.zensystem.io/insight-api-zen/',
-  explorerURL: 'http://explorer.zensystem.io/',
+  explorerURL: 'https://explorer.zensystem.io/',
   language: LANG_ENGLISH,
   currency: CURRENCY_USD,
   pin: null
