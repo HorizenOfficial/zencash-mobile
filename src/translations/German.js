@@ -87,8 +87,8 @@ export const GERMAN_TRANSLATION: TRANSLATION_OBJ = {
     enterYourPin: 'PIN Eingeben'
   },
   ContactsPage: {
-    contacts: 'Contacts',
+    contacts: 'Kontakte',
     contactsName: 'Name',
-    contactsAddress: 'Address'
+    contactsAddress: 'Adresse'
   }
 }
