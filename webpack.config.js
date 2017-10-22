@@ -57,14 +57,13 @@ module.exports = {
     ]
   },
   plugins: [
-    "react",
+    'react',
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
-      VERSION: JSON.stringify(require("./package.json").version)
+      VERSION: JSON.stringify(require('./package.json').version)
     })
   ],
   node: {
     fs: 'empty'
   }
-};
-
+}

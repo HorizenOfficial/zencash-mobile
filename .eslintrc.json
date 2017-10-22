@@ -16,6 +16,9 @@
         "cordovaHTTP": true,
         "cordova": true,
         "QRScanner": true,
-        "VERSION": true
+        "VERSION": true,
+        "FileReader": true,
+        "FileError": true,
+        "Blob": true
     }
 }

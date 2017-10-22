@@ -50,11 +50,10 @@ module.exports = {
       }
     }),
     new webpack.DefinePlugin({
-      VERSION: JSON.stringify(require("./package.json").version)
+      VERSION: JSON.stringify(require('./package.json').version)
     })
   ],
   node: {
     fs: 'empty'
   }
-};
-
+}

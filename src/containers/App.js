@@ -13,10 +13,11 @@ import {
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
+import { setContacts } from '../actions/Contacts'
 import { setSecretPhrase, setSecretItems } from '../actions/Secrets'
 import { setLanguage, setCurrency, setWalletPin } from '../actions/Settings'
 
-import { ZENCASH_MOBILE_SAVE_PATH, readFromFile } from '../utils/persistentStorage'
+import { ZENCASH_MOBILE_SAVE_PATH, ZENCASH_MOBILE_CONTACTS_PATH, readFromFile } from '../utils/persistentStorage'
 import { phraseToSecretItems } from '../utils/wallet'
 
 import MainPage from './MainPage'
@@ -44,7 +45,17 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    readFromFile(ZENCASH_MOBILE_SAVE_PATH, function (data) {
+    readFromFile(ZENCASH_MOBILE_CONTACTS_PATH, (data) => {
+      // Get contact list      
+      try {
+        data = JSON.parse(data)
+      } catch (err) {
+        data = {contacts: []}
+      }
+      this.props.setContacts(data.contacts)
+    }, () => {})
+
+    readFromFile(ZENCASH_MOBILE_SAVE_PATH, (data) => {
       // If errors while we're reading the JSOn
       // then just assume its empty
       try {
@@ -92,7 +103,7 @@ class App extends React.Component {
       this.setState({
         readSavedFile: true
       })
-    }.bind(this), function (err) {
+    }, (err) => {
       // This means we don't have the file
       this.setState({
         readSavedFile: true
@@ -102,7 +113,7 @@ class App extends React.Component {
       // All api versions. in the event...      
       // alert('Unable to read file. Error: ' + JSON.stringify(err))
       console.log(err) // Just to stop eslint from complaining
-    }.bind(this))
+    })
   }
 
   render () {
@@ -155,6 +166,7 @@ App.propTypes = {
   setSecretPhrase: PropTypes.func.isRequired,
   setLanguage: PropTypes.func.isRequired,
   setCurrency: PropTypes.func.isRequired,
+  setContacts: PropTypes.func.isRequired,
   context: PropTypes.object.isRequired,
   navigator: PropTypes.object.isRequired
 }
@@ -169,6 +181,7 @@ function matchDispatchToProps (dispatch) {
   // Set context for the send page
   return bindActionCreators(
     {
+      setContacts,
       setSecretItems,
       setSecretPhrase,
       setLanguage,

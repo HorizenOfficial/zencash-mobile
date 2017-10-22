@@ -86,3 +86,8 @@ export type TRANSLATION_OBJ = {
     enterYourPin: string
   }
 }
+
+export type CONTACT = {
+  name: string,
+  address: string
+}

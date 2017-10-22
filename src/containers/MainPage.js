@@ -39,12 +39,13 @@ import AddressInfoPage from './AddressInfoPage'
 import SendPage from './SendPage'
 import AboutPage from './AboutPage'
 import SettingsPage from './SettingsPage'
+import ContactsPage from './ContactsPage'
 
 import TRANSLATIONS from '../translations'
 
-const getTxDetailPage = (tx, curLang = LANG_ENGLISH) => {
+const getTxDetailPage = (navigator, tx, curLang = LANG_ENGLISH) => {
   const curTranslation = TRANSLATIONS[curLang]
-  const txPage = (navigator) => (
+  const txPage = () => (
     <Page renderToolbar={() => (
       <Toolbar>
         <div className='left'>
@@ -324,6 +325,10 @@ class MainPage extends React.Component {
                       component: AboutPage
                     },
                     {
+                      name: 'Contacts',
+                      component: ContactsPage
+                    },
+                    {
                       name: settingsLang,
                       component: SettingsPage
                     }
@@ -413,7 +418,7 @@ class MainPage extends React.Component {
                         var txValue = 0.0
 
                         // Double tap tx to get more info on it
-                        const txPage = getTxDetailPage(tx, CUR_LANG)
+                        const txPage = getTxDetailPage(this.props.navigator, tx, CUR_LANG)
                         const handleTxClick = () => this.gotoComponent(txPage)
 
                         vins.forEach(function (vin) {
