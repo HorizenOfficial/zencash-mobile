@@ -11,7 +11,10 @@ import {
   Icon,
   ProgressBar,
   Checkbox,
-  Range
+  Range,
+  List,
+  ListItem,
+  ListHeader
 } from 'react-onsenui'
 
 import zencashjs from 'zencashjs'
@@ -23,6 +26,48 @@ import { setQrScanning } from '../actions/Context'
 
 import { urlAppend, prettyFormatPrices } from '../utils/index'
 import TRANSLATIONS from '../translations'
+
+const getContactsList = (navigator, contacts, selectContact) => {
+  const ctxPage = () => (
+    <Page
+      renderToolbar={() => (
+        <Toolbar>
+          <div className='left'>
+            <BackButton onClick={() => navigator.popPage()}>Back</BackButton>
+          </div>
+        </Toolbar>
+      )}
+    >
+      <List style={{wordBreak: 'break-word'}}>
+        {
+          contacts.length === 0
+            ? (
+              <ListHeader>
+                  No contacts found
+              </ListHeader>
+            )
+            // Sort alphabetically and map
+            : contacts.sort((a, b) => {
+              return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)
+            }).map((c, idx) => {
+              return (
+                <ListItem key={idx}
+                  onClick={() => {
+                    selectContact(c.address)
+                    navigator.popPage()
+                  }}
+                  tappable>
+                  {c.name}
+                </ListItem>
+              )
+            })
+        }
+      </List>
+    </Page>
+  )
+
+  return ctxPage
+}
 
 class SendPage extends React.Component {
   constructor (props) {
@@ -44,6 +89,11 @@ class SendPage extends React.Component {
     this.handleSendCurrencyValueChange = this.handleSendCurrencyValueChange.bind(this)
     this.setProgressValue = this.setProgressValue.bind(this)
     this.safeReleaseCamera = this.safeReleaseCamera.bind(this)
+    this.gotoComponent = this.gotoComponent.bind(this)
+  }
+
+  gotoComponent (c) {
+    this.props.navigator.pushPage({component: c})
   }
 
   // Handles conversion between
@@ -350,6 +400,10 @@ class SendPage extends React.Component {
         renderToolbar={this.renderToolbar.bind(this)} >
         {
           // Show qr capture area
+          // Why we have it in redux
+          // Is because it needs all background
+          // previous page in the navigator
+          // to be transparent :\ fml          
           this.props.context.qrScanning
             ? (
               <div style={{ height: '100%', opacity: '0.4' }}>
@@ -370,7 +424,18 @@ class SendPage extends React.Component {
             : (
               <div style={{ padding: '12px 12px 0 12px' }}>
                 <div>
-                  <h3>{payToLang}</h3>
+                  <h3>{payToLang}&nbsp;&nbsp;
+                    <Button
+                      modifier='quiet'
+                      onClick={() => {
+                        this.gotoComponent(getContactsList(this.props.navigator, this.props.contacts, (address) => {
+                          this.setState({
+                            addressReceive: address
+                          })
+                        }))
+                      }}>
+                      Contacts
+                    </Button></h3>
                   <Input
                     onChange={(e) => this.setState({ addressReceive: e.target.value })}
                     value={this.state.addressReceive}
@@ -521,13 +586,15 @@ SendPage.propTypes = {
   setQrScanning: PropTypes.func.isRequired,
   context: PropTypes.object.isRequired,
   settings: PropTypes.object.isRequired,
-  navigator: PropTypes.object.isRequired
+  navigator: PropTypes.object.isRequired,
+  contacts: PropTypes.array.isRequired
 }
 
 function mapStateToProps (state) {
   return {
     context: state.context,
-    settings: state.settings
+    settings: state.settings,
+    contacts: state.contacts
   }
 }
 
