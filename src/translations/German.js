@@ -85,5 +85,10 @@ export const GERMAN_TRANSLATION: TRANSLATION_OBJ = {
     pinsNotSimilar: 'PINs stimmen nicht überein',
     invalidPin: 'Ungültige PIN',
     enterYourPin: 'PIN Eingeben'
+  },
+  ContactsPage: {
+    contacts: 'Contacts',
+    contactsName: 'Name',
+    contactsAddress: 'Address'
   }
 }

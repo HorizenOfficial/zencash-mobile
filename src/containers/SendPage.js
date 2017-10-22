@@ -394,6 +394,8 @@ class SendPage extends React.Component {
     const txSuccessfulLang = TRANSLATIONS[CUR_LANG].SendPage.txSuccessful
     const confirmSendLang = TRANSLATIONS[CUR_LANG].SendPage.confirmSend
 
+    const contactLang = TRANSLATIONS[CUR_LANG].ContactsPage.contacts
+
     return (
       <Page
         style={pageStyle}
@@ -434,7 +436,7 @@ class SendPage extends React.Component {
                           })
                         }))
                       }}>
-                      Contacts
+                      {contactLang}
                     </Button></h3>
                   <Input
                     onChange={(e) => this.setState({ addressReceive: e.target.value })}

@@ -84,6 +84,11 @@ export type TRANSLATION_OBJ = {
     pinsNotSimilar: string,
     invalidPin: string,
     enterYourPin: string
+  },
+  ContactsPage: {
+    contacts: string,
+    contactsName: string,
+    contactsAddress: string
   }
 }
 

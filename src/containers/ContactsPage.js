@@ -19,7 +19,13 @@ import {
   ToolbarButton
 } from 'react-onsenui'
 
-const getContactDetails = (navigator, addContact, deleteContact, contactName, contactAddress) => {
+import TRANSLATIONS from '../translations'
+
+const getContactDetails = (curLang, navigator, addContact, deleteContact, contactName, contactAddress) => {
+  // Language  
+  const nameLang = TRANSLATIONS[curLang].ContactsPage.contactsName
+  const addressLang = TRANSLATIONS[curLang].ContactsPage.contactsAddress
+
   // Local style
   const inputStyle = {
     width: '95%',
@@ -77,7 +83,7 @@ const getContactDetails = (navigator, addContact, deleteContact, contactName, co
           <Input
             style={inputStyle}
             value={tmpContactName}
-            placeholder='Contact Name'
+            placeholder={nameLang}
             float
             onChange={(e) => { tmpContactName = e.target.value }}
           />
@@ -86,7 +92,7 @@ const getContactDetails = (navigator, addContact, deleteContact, contactName, co
           <Input
             style={inputStyle}
             value={tmpContactAddress}
-            placeholder='Contact Address'
+            placeholder={addressLang}
             float
             onChange={(e) => { tmpContactAddress = e.target.value }}
           />
@@ -104,13 +110,15 @@ class ContactsPage extends React.Component {
   }
 
   renderToolbar () {
+    const contactLang = TRANSLATIONS[this.props.settings.language].ContactsPage.contacts
+
     return (
       <Toolbar>
         <div className='left'>
           <BackButton onClick={() => this.props.navigator.popPage()}>Back</BackButton>
         </div>
         <div className='center'>
-          Contacts
+          {contactLang}
         </div>
       </Toolbar>
     )
@@ -120,7 +128,7 @@ class ContactsPage extends React.Component {
     return (
       <Fab
         position='bottom right'
-        onClick={() => this.gotoComponent(getContactDetails(this.props.navigator, this.props.addContact, this.props.deleteContact, '', ''))}>
+        onClick={() => this.gotoComponent(getContactDetails(this.props.settings.language, this.props.navigator, this.props.addContact, this.props.deleteContact, '', ''))}>
         <Icon icon='ion-plus'/>
       </Fab>
     )
@@ -145,7 +153,7 @@ class ContactsPage extends React.Component {
               }).map((c, idx) => {
                 return (
                   <ListItem key={idx}
-                    onClick={this.gotoComponent.bind(this, getContactDetails(this.props.navigator, this.props.addContact, this.props.deleteContact, c.name, c.address))}
+                    onClick={this.gotoComponent.bind(this, getContactDetails(this.props.settings.language, this.props.navigator, this.props.addContact, this.props.deleteContact, c.name, c.address))}
                     tappable>
                     {c.name}
                   </ListItem>
@@ -159,6 +167,7 @@ class ContactsPage extends React.Component {
 }
 
 ContactsPage.propTypes = {
+  language: PropTypes.object.isRequired,
   settings: PropTypes.object.isRequired,
   navigator: PropTypes.object.isRequired,
   contacts: PropTypes.array.isRequired,
@@ -168,7 +177,8 @@ ContactsPage.propTypes = {
 
 function mapStateToProps (state) {
   return {
-    contacts: state.contacts
+    contacts: state.contacts,
+    settings: state.settings
   }
 }
 

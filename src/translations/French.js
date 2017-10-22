@@ -85,5 +85,10 @@ export const FRENCH_TRANSLATION: TRANSLATION_OBJ = {
     pinsNotSimilar: 'Les codes PIN entrés ne correspondent pas',
     invalidPin: 'Code PIN invalide',
     enterYourPin: 'Entrez votre code PIN'
+  },
+  ContactsPage: {
+    contacts: 'Contacts',
+    contactsName: 'Name',
+    contactsAddress: 'Address'
   }
 }

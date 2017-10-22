@@ -85,5 +85,10 @@ export const SPANISH_TRANSLATION: TRANSLATION_OBJ = {
     pinsNotSimilar: 'Los PINs introducidos no coinciden',
     invalidPin: 'PIN Inválido',
     enterYourPin: 'Ingrese su PIN'
+  },
+  ContactsPage: {
+    contacts: 'Contacts',
+    contactsName: 'Name',
+    contactsAddress: 'Address'
   }
 }

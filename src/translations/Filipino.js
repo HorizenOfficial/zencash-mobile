@@ -85,5 +85,10 @@ export const FILIPINO_TRANSLATION: TRANSLATION_OBJ = {
     pinsNotSimilar: 'Hindi tugma ang PINs na nailagay',
     invalidPin: 'Hindi tamang PIN',
     enterYourPin: 'Lagay ang iyong PIN'
+  },
+  ContactsPage: {
+    contacts: 'Contacts',
+    contactsName: 'Name',
+    contactsAddress: 'Address'
   }
 }

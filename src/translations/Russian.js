@@ -85,5 +85,10 @@ export const RUSSIAN_TRANSLATION: TRANSLATION_OBJ = {
     pinsNotSimilar: 'Введеные PIN-ы не совпадают',
     invalidPin: 'Неверный PIN',
     enterYourPin: 'Введите PIN'
+  },
+  ContactsPage: {
+    contacts: 'Contacts',
+    contactsName: 'Name',
+    contactsAddress: 'Address'
   }
 }

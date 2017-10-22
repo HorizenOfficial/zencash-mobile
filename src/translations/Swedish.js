@@ -85,5 +85,10 @@ export const SWEDISH_TRANSLATION: TRANSLATION_OBJ = {
     pinsNotSimilar: 'Dina inskrivna PIN matchar inte',
     invalidPin: 'Ogiltig PIN',
     enterYourPin: 'Skriv in din PIN'
+  },
+  ContactsPage: {
+    contacts: 'Contacts',
+    contactsName: 'Name',
+    contactsAddress: 'Address'
   }
 }

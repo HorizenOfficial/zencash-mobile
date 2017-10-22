@@ -85,5 +85,10 @@ export const AFRIKAANS_TRANSLATION: TRANSLATION_OBJ = {
     pinsNotSimilar: 'PINs wat ingevoer word, stem nie ooreen nie',
     invalidPin: 'Ongeldige PIN',
     enterYourPin: 'Voer U PIN in'
+  },
+  ContactsPage: {
+    contacts: 'Contacts',
+    contactsName: 'Name',
+    contactsAddress: 'Address'
   }
 }

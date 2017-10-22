@@ -85,5 +85,10 @@ export const SERBIAN_TRANSLATION: TRANSLATION_OBJ = {
     pinsNotSimilar: 'Uneti PINovi se ne slažu',
     invalidPin: 'Nevažeći PIN',
     enterYourPin: 'Unesite vaš PIN'
+  },
+  ContactsPage: {
+    contacts: 'Contacts',
+    contactsName: 'Name',
+    contactsAddress: 'Address'
   }
 }

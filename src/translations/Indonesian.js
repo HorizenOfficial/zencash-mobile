@@ -85,5 +85,10 @@ export const INDONESIAN_TRANSLATION: TRANSLATION_OBJ = {
     pinsNotSimilar: 'PIN yang dimasukkan tidak cocok',
     invalidPin: 'PIN tidak valid',
     enterYourPin: 'Masukkan PIN Anda'
+  },
+  ContactsPage: {
+    contacts: 'Contacts',
+    contactsName: 'Name',
+    contactsAddress: 'Address'
   }
 }
