@@ -87,8 +87,8 @@ export const RUSSIAN_TRANSLATION: TRANSLATION_OBJ = {
     enterYourPin: 'Введите PIN'
   },
   ContactsPage: {
-    contacts: 'Contacts',
-    contactsName: 'Name',
-    contactsAddress: 'Address'
+    contacts: 'Контакты',
+    contactsName: 'Имя',
+    contactsAddress: 'Адрес'
   }
 }
