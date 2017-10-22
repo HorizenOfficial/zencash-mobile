@@ -117,7 +117,8 @@ NewPinPage.propTypes = {
   settings: PropTypes.object.isRequired,
   navigator: PropTypes.object.isRequired,
   setWalletPin: PropTypes.func.isRequired,
-  onComplete: PropTypes.func.isRequired
+  onComplete: PropTypes.func.isRequired,
+  renderToolbar: PropTypes.func
 }
 
 function mapStateToProps (state) {

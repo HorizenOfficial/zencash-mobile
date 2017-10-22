@@ -173,7 +173,7 @@ class MainPage extends React.Component {
         cordovaHTTP.get(cmcZenInfoURL, {}, {},
           (resp) => {
             try {
-              const coinmarketcapData = JSON.parse(resp.data)              
+              const coinmarketcapData = JSON.parse(resp.data)
               const priceBtc = parseFloat(coinmarketcapData[0]['price_btc'])
               const priceCurrency = parseFloat(coinmarketcapData[0]['price_' + curCurrency.toLowerCase()])
 
@@ -182,8 +182,8 @@ class MainPage extends React.Component {
             } catch (err) {
               alert(err)
             }
-          }
-        ), (err) => alert(JSON.stringify(err))        
+          }, (err) => alert(JSON.stringify(err))
+        )
       }, (err) => alert(JSON.stringify(err))
     )
 

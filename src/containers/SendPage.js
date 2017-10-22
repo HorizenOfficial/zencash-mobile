@@ -167,7 +167,7 @@ class SendPage extends React.Component {
     // Alert messages too
     var errString = ''
 
-    if (recipientAddress.length != 35) {
+    if (recipientAddress.length !== 35) {
       errString += TRANSLATIONS[CUR_LANG].SendPage.invalidAddress
       errString += '\n\n'
     }
@@ -207,43 +207,43 @@ class SendPage extends React.Component {
     // How many satoshis do we have so far
     var satoshisSoFar = 0
     var history = []
-    var recipients = [{address: recipientAddress, satoshis: satoshisToSend}]
+    var recipients = [{ address: recipientAddress, satoshis: satoshisToSend }]
 
     // Get previous unspent transactions
-    cordovaHTTP.get(prevTxURL, {}, {}, function (tx_resp) {
+    cordovaHTTP.get(prevTxURL, {}, {}, function (txResp) {
       this.setProgressValue(25)
 
-      const tx_data = JSON.parse(tx_resp.data)
+      const txData = JSON.parse(txResp.data)
 
       // Get blockheight and hash
-      cordovaHTTP.get(infoURL, {}, {}, function (info_resp) {
+      cordovaHTTP.get(infoURL, {}, {}, function (infoResp) {
         this.setProgressValue(50)
-        const info_data = JSON.parse(info_resp.data)
+        const infoData = JSON.parse(infoResp.data)
 
-        const blockHeight = info_data.info.blocks - 300
+        const blockHeight = infoData.info.blocks - 300
         const blockHashURL = urlAppend(this.props.settings.insightAPI, 'block-index/') + blockHeight
 
         // Get block hash
-        cordovaHTTP.get(blockHashURL, {}, {}, function (response_bhash) {
+        cordovaHTTP.get(blockHashURL, {}, {}, function (responseBhash) {
           this.setProgressValue(75)
 
-          const blockHash = JSON.parse(response_bhash.data).blockHash
+          const blockHash = JSON.parse(responseBhash.data).blockHash
 
           // Iterate through each utxo
           // append it to history
-          for (var i = 0; i < tx_data.length; i++) {
-            if (tx_data[i].confirmations === 0) {
+          for (var i = 0; i < txData.length; i++) {
+            if (txData[i].confirmations === 0) {
               continue
             }
 
             history = history.concat({
-              txid: tx_data[i].txid,
-              vout: tx_data[i].vout,
-              scriptPubKey: tx_data[i].scriptPubKey
+              txid: txData[i].txid,
+              vout: txData[i].vout,
+              scriptPubKey: txData[i].scriptPubKey
             })
 
             // How many satoshis do we have so far
-            satoshisSoFar = satoshisSoFar + tx_data[i].satoshis
+            satoshisSoFar = satoshisSoFar + txData[i].satoshis
             if (satoshisSoFar >= satoshisToSend + satoshisfeesToSend) {
               break
             }
@@ -261,14 +261,14 @@ class SendPage extends React.Component {
           // Refund remaining to current address
           if (satoshisSoFar !== satoshisToSend + satoshisfeesToSend) {
             var refundSatoshis = satoshisSoFar - satoshisToSend - satoshisfeesToSend
-            recipients = recipients.concat({address: senderAddress, satoshis: refundSatoshis})
+            recipients = recipients.concat({ address: senderAddress, satoshis: refundSatoshis })
           }
 
           // Create transaction
           var txObj = zencashjs.transaction.createRawTx(history, recipients, blockHeight, blockHash)
 
           // Sign each history transcation          
-          for (var i = 0; i < history.length; i++) {
+          for (var j = 0; j < history.length; j++) {
             txObj = zencashjs.transaction.signTx(txObj, i, senderPrivateKey, true)
           }
 
@@ -276,12 +276,12 @@ class SendPage extends React.Component {
           const txHexString = zencashjs.transaction.serializeTx(txObj)
 
           // Post it to the api
-          cordovaHTTP.post(sendRawTxURL, {rawtx: txHexString}, {}, function (sendtx_resp) {
-            const tx_resp_data = JSON.parse(sendtx_resp.data)
+          cordovaHTTP.post(sendRawTxURL, { rawtx: txHexString }, {}, function (sendtxResp) {
+            const txRespData = JSON.parse(sendtxResp.data)
 
             this.setState({
               progressValue: 100,
-              sendTxid: tx_resp_data.txid
+              sendTxid: txRespData.txid
             })
           }.bind(this), (err) => { alert('ERROR: ' + JSON.stringify(err)); this.setProgressValue(0) })
         }.bind(this), (err) => { alert('ERROR: ' + JSON.stringify(err)); this.setProgressValue(0) })
@@ -303,7 +303,7 @@ class SendPage extends React.Component {
             }}>Back</BackButton>
         </div>
         <div className='center'>
-          { TRANSLATIONS[CUR_LANG].SendPage.title }
+          {TRANSLATIONS[CUR_LANG].SendPage.title}
         </div>
         <div className='right'>
           <ToolbarButton onClick={() => {
@@ -313,7 +313,7 @@ class SendPage extends React.Component {
               alert(JSON.stringify(err))
             }
           }}>
-            <Icon icon='ion-camera'/>
+            <Icon icon='ion-camera' />
           </ToolbarButton>
         </div>
       </Toolbar>
@@ -323,7 +323,7 @@ class SendPage extends React.Component {
   render () {
     // For qr scanning
     const pageOpacity = this.props.context.qrScanning ? '0.4' : '1.0'
-    const pageStyle = this.props.context.qrScanning ? {opacity: pageOpacity, visibility: 'visible', transition: 'all 0.1s ease-out', WebkitTransform: 'translateZ(0)'} : {}
+    const pageStyle = this.props.context.qrScanning ? { opacity: pageOpacity, visibility: 'visible', transition: 'all 0.1s ease-out', WebkitTransform: 'translateZ(0)' } : {}
 
     // Translation stuff    
     const CUR_LANG = this.props.settings.language
@@ -352,48 +352,48 @@ class SendPage extends React.Component {
           // Show qr capture area
           this.props.context.qrScanning
             ? (
-              <div style={{height: '100%', opacity: '0.4'}}>
-                <ons-row style={{height: '30%'}}>
+              <div style={{ height: '100%', opacity: '0.4' }}>
+                <ons-row style={{ height: '30%' }}>
                   <ons-col></ons-col>
                 </ons-row>
-                <ons-row style={{height: '40%'}}>
+                <ons-row style={{ height: '40%' }}>
                   <ons-col width="25%"></ons-col>
                   <ons-col
-                    style={{border: '5px solid red'}}>
+                    style={{ border: '5px solid red' }}>
                   </ons-col>
                   <ons-col width="25%"></ons-col>
                 </ons-row>
-                <ons-row style={{height: '30%'}}>
+                <ons-row style={{ height: '30%' }}>
                 </ons-row>
               </div>
             )
             : (
-              <div style={{padding: '12px 12px 0 12px'}}>
+              <div style={{ padding: '12px 12px 0 12px' }}>
                 <div>
-                  <h3>{ payToLang }</h3>
+                  <h3>{payToLang}</h3>
                   <Input
                     onChange={(e) => this.setState({ addressReceive: e.target.value })}
                     value={this.state.addressReceive}
                     placeholder={addressLang}
-                    style={{width: '100%'}}
+                    style={{ width: '100%' }}
                     float={true}
                   />
                 </div>
 
-                <br/>
+                <br />
 
                 <h3>{amountToPayLang}&nbsp;&nbsp;
                   <Button
                     modifier='quiet'
                     onClick={
-                      () => this.handleSendValueChange({target: {value: (this.props.context.value - (this.state.sendFee / 100000000)).toPrecision(8)}})}
+                      () => this.handleSendValueChange({ target: { value: (this.props.context.value - (this.state.sendFee / 100000000)).toPrecision(8) } })}
                   >
                     {maxLang}
                   </Button>
                 </h3>
-                <ons-row width={'45%'} style={{textAlign: 'center'}}>
+                <ons-row width={'45%'} style={{ textAlign: 'center' }}>
                   <ons-col>
-                    <span style={{fontSize: '12px', color: '#7f8c8d'}}>
+                    <span style={{ fontSize: '12px', color: '#7f8c8d' }}>
                       {balanceLang}:&nbsp;
                       {prettyFormatPrices(this.props.context.value)}&nbsp;
                     ZEN
@@ -402,17 +402,17 @@ class SendPage extends React.Component {
                       onChange={this.handleSendValueChange}
                       value={this.state.sendValue}
                       placeholder={amountLang}
-                      style={{width: '100%'}}
-                    /><br/>
-                  ZEN
+                      style={{ width: '100%' }}
+                    /><br />
+                    ZEN
                   </ons-col>
                   <ons-col width={'10%'}>
-                    <br/>
-                    <Icon icon='ion-arrow-swap'/>
-                    <br/>
+                    <br />
+                    <Icon icon='ion-arrow-swap' />
+                    <br />
                   </ons-col>
                   <ons-col width={'45%'}>
-                    <span style={{fontSize: '12px', color: '#7f8c8d'}}>
+                    <span style={{ fontSize: '12px', color: '#7f8c8d' }}>
                       {balanceLang}:&nbsp;
                       {prettyFormatPrices(this.props.context.value * this.props.context.currencyValue)}&nbsp;
                       {this.props.settings.currency}
@@ -421,29 +421,29 @@ class SendPage extends React.Component {
                       onChange={this.handleSendCurrencyValueChange}
                       value={this.state.sendCurrencyValue}
                       placeholder={amountLang}
-                      style={{width: '100%'}}
-                    /><br/>
+                      style={{ width: '100%' }}
+                    /><br />
                     {this.props.settings.currency}
                   </ons-col>
                 </ons-row>
 
-                <br/>
+                <br />
 
                 <h3>{networkFeeLang}</h3>
-                <ons-row style={{textAlign: 'center'}}>
+                <ons-row style={{ textAlign: 'center' }}>
                   <ons-col width={'25%'}>
                     {slowTxLang}
                   </ons-col>
 
                   <ons-col width={'50%'}>
                     <Range
-                      style={{width: '100%'}}
+                      style={{ width: '100%' }}
                       onChange={(e) => this.setState({ sendFee: e.target.value })}
                       value={this.state.sendFee}
                       min={0}
                       max={10000}
                     />
-                    <br/>
+                    <br />
                     {feesLang}: {parseFloat(this.state.sendFee / 100000000).toString()} ZEN
                   </ons-col>
 
@@ -452,7 +452,7 @@ class SendPage extends React.Component {
                   </ons-col>
                 </ons-row>
 
-                <br/>
+                <br />
 
                 <div>
                   <label className="left">
@@ -467,30 +467,30 @@ class SendPage extends React.Component {
                     />
                   </label>
                   <label htmlFor='understoodCheckbox' className="center">
-                  &nbsp;{confirmSendLang}
+                    &nbsp;{confirmSendLang}
                   </label>
                 </div>
 
-                <br/>
+                <br />
 
-                <ons-row style={{textAlign: 'center'}}>
+                <ons-row style={{ textAlign: 'center' }}>
                   <ons-col width={'47.5%'}>
                     <Button
                       onClick={() => this.props.navigator.popPage()}
-                      style={{width: '100%', height: '50px', paddingTop: '7px'}}>{cancelLang}</Button>
+                      style={{ width: '100%', height: '50px', paddingTop: '7px' }}>{cancelLang}</Button>
                   </ons-col>
                   <ons-col width={'5%'}></ons-col>
                   <ons-col width={'47.5%'}>
                     <Button
                       onClick={() => this.handleSendZEN()}
                       disabled={!this.state.confirmSend || (this.state.progressValue > 0)}
-                      style={{width: '100%', height: '50px', paddingTop: '7px'}}>{sendLang}</Button>
+                      style={{ width: '100%', height: '50px', paddingTop: '7px' }}>{sendLang}</Button>
                   </ons-col>
                 </ons-row>
 
                 <p>
                   <ProgressBar
-                    style={{width: ' 100%', height: '20px'}}
+                    style={{ width: ' 100%', height: '20px' }}
                     value={this.state.progressValue}
                   />
                 </p>
@@ -499,7 +499,7 @@ class SendPage extends React.Component {
                   {
                     this.state.progressValue === 100
                       ? (
-                        <div style={{textAlign: 'center'}}>
+                        <div style={{ textAlign: 'center' }}>
                           <a
                             href='#'
                             onClick={() => window.open(urlAppend(this.props.settings.explorerURL, 'tx/') + this.state.sendTxid, '_system')}
