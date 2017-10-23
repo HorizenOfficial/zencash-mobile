@@ -1,17 +1,18 @@
 import {
+  LANG_AFRIKAANS,
+  LANG_CHINESE,
   LANG_ENGLISH,
   LANG_FILIPINO,
   LANG_FINNISH,
   LANG_FRENCH,
   LANG_GERMAN,
   LANG_INDONESIAN,
+  LANG_NORWEGIAN,
   LANG_PORTUGUESE,
   LANG_RUSSIAN,
   LANG_SERBIAN,
   LANG_SPANISH,
-  LANG_SWEDISH,
-  LANG_AFRIKAANS,
-  LANG_CHINESE
+  LANG_SWEDISH
 } from '../actions/Settings'
 
 import { AFRIKAANS_TRANSLATION } from './Afrikaans.js'
@@ -22,6 +23,7 @@ import { FINNISH_TRANSLATION } from './Finnish.js'
 import { FRENCH_TRANSLATION } from './French.js'
 import { GERMAN_TRANSLATION } from './German.js'
 import { INDONESIAN_TRANSLATION } from './Indonesian.js'
+import { NORWEGIAN_TRANSLATION } from './Norwegian.js'
 import { PORTUGUESE_TRANSLATION } from './Portuguese.js'
 import { RUSSIAN_TRANSLATION } from './Russian.js'
 import { SERBIAN_TRANSLATION } from './Serbian.js'
@@ -38,6 +40,7 @@ translations[LANG_FILIPINO] = FILIPINO_TRANSLATION
 translations[LANG_FRENCH] = FRENCH_TRANSLATION
 translations[LANG_GERMAN] = GERMAN_TRANSLATION
 translations[LANG_INDONESIAN] = INDONESIAN_TRANSLATION
+translations[LANG_NORWEGIAN] = NORWEGIAN_TRANSLATION
 translations[LANG_PORTUGUESE] = PORTUGUESE_TRANSLATION
 translations[LANG_RUSSIAN] = RUSSIAN_TRANSLATION
 translations[LANG_SERBIAN] = SERBIAN_TRANSLATION
