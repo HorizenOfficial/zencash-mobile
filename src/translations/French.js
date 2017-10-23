@@ -18,7 +18,8 @@ export const FRENCH_TRANSLATION: TRANSLATION_OBJ = {
     send: 'Envoi',
     received: 'Reçu',
     sent: 'Envoyé',
-    noTxFound: 'Aucun historique de transaction trouvé.'
+    noTxFound: 'Aucun historique de transaction trouvé.',
+    noConnection: 'No Connection.'
   },
   AddressInfoPage: {
     copyToClipboard: 'Copier l\'adresse dans le presse-papier'

@@ -18,7 +18,8 @@ export const INDONESIAN_TRANSLATION: TRANSLATION_OBJ = {
     send: 'Kirim',
     received: 'Diterima',
     sent: 'Dikirim',
-    noTxFound: 'Tidak ditemukan riwayat transaksi.'
+    noTxFound: 'Tidak ditemukan riwayat transaksi.',
+    noConnection: 'No Connection.'
   },
   AddressInfoPage: {
     copyToClipboard: 'Salin Alamat Ke Clipboard'

@@ -197,6 +197,9 @@ class SendPage extends React.Component {
   }
 
   handleSendZEN () {
+    // Error handling function (less code duplication)
+    const errFunc = (err) => { alert('ERROR: ' + JSON.stringify(err)); this.setProgressValue(0) }
+
     // Language stuff
     const CUR_LANG = this.props.settings.language
 
@@ -260,13 +263,13 @@ class SendPage extends React.Component {
     var recipients = [{ address: recipientAddress, satoshis: satoshisToSend }]
 
     // Get previous unspent transactions
-    cordovaHTTP.get(prevTxURL, {}, {}, function (txResp) {
+    cordovaHTTP.get(prevTxURL, {}, {}, (txResp) => {
       this.setProgressValue(25)
 
       const txData = JSON.parse(txResp.data)
 
       // Get blockheight and hash
-      cordovaHTTP.get(infoURL, {}, {}, function (infoResp) {
+      cordovaHTTP.get(infoURL, {}, {}, (infoResp) => {
         this.setProgressValue(50)
         const infoData = JSON.parse(infoResp.data)
 
@@ -274,7 +277,7 @@ class SendPage extends React.Component {
         const blockHashURL = urlAppend(this.props.settings.insightAPI, 'block-index/') + blockHeight
 
         // Get block hash
-        cordovaHTTP.get(blockHashURL, {}, {}, function (responseBhash) {
+        cordovaHTTP.get(blockHashURL, {}, {}, (responseBhash) => {
           this.setProgressValue(75)
 
           const blockHash = JSON.parse(responseBhash.data).blockHash
@@ -326,17 +329,17 @@ class SendPage extends React.Component {
           const txHexString = zencashjs.transaction.serializeTx(txObj)
 
           // Post it to the api
-          cordovaHTTP.post(sendRawTxURL, { rawtx: txHexString }, {}, function (sendtxResp) {
+          cordovaHTTP.post(sendRawTxURL, { rawtx: txHexString }, {}, (sendtxResp) => {
             const txRespData = JSON.parse(sendtxResp.data)
 
             this.setState({
               progressValue: 100,
               sendTxid: txRespData.txid
             })
-          }.bind(this), (err) => { alert('ERROR: ' + JSON.stringify(err)); this.setProgressValue(0) })
-        }.bind(this), (err) => { alert('ERROR: ' + JSON.stringify(err)); this.setProgressValue(0) })
-      }.bind(this), (err) => { alert('ERROR: ' + JSON.stringify(err)); this.setProgressValue(0) })
-    }.bind(this), (err) => { alert('ERROR: ' + JSON.stringify(err)); this.setProgressValue(0) })
+          }, errFunc)
+        }, errFunc)
+      }, errFunc)
+    }, errFunc)
   }
 
   renderToolbar () {

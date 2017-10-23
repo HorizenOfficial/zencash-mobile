@@ -18,7 +18,8 @@ export const GERMAN_TRANSLATION: TRANSLATION_OBJ = {
     send: 'Senden',
     received: 'Erhalten',
     sent: 'Gesendet',
-    noTxFound: 'Keine Transaktionshistorie gefunden.'
+    noTxFound: 'Keine Transaktionshistorie gefunden.',
+    noConnection: 'No Connection.'
   },
   AddressInfoPage: {
     copyToClipboard: 'In die Zwischenablage kopieren'

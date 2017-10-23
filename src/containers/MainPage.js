@@ -129,17 +129,19 @@ class MainPage extends React.Component {
     this.state = {
       splitterOpen: false,
       dialogSelectAddressOpen: false,
+      connectionError: false, // Are we connected to the internet or nah.
       selectedAddressTxFrom: 0,
       selectedAddressTxTo: 50,
       selectedAddressTxs: [],
       selectedAddressNoTxs: false,
-      selectedAddressScannedTxs: false // Have we tried and fined the txs? (used to display loading...)
+      selectedAddressScannedTxs: false // Have we tried and fined the txs? (used to display loading...)      
     }
 
     this.toggleSelectAddressDialog = this.toggleSelectAddressDialog.bind(this)
     this.gotoComponent = this.gotoComponent.bind(this)
     this.setAddressInfo = this.setAddressInfo.bind(this)
     this.setAddressTxList = this.setAddressTxList.bind(this)
+    this.setConnectionError = this.setConnectionError.bind(this)
   }
 
   toggleSelectAddressDialog () {
@@ -148,9 +150,16 @@ class MainPage extends React.Component {
     })
   }
 
+  setConnectionError (b) {
+    this.setState({
+      connectionError: b
+    })
+  }
+
   // Sets information about address
   setAddressInfo (address) {
     // Resets
+    this.setConnectionError(false)
     this.props.setAddressValue(null)
     this.props.setZenInBtcValue(null)
     this.props.setZenInCurrencyValue(null)
@@ -164,7 +173,10 @@ class MainPage extends React.Component {
           const addrBalance = parseFloat(addrInfo.balance)
           this.props.setAddressValue(addrBalance)
         } catch (err) {
-          alert(err)
+          if (err) {
+            console.log(err)
+          }
+          this.setConnectionError(true)
         }
 
         // Get btc value and get local currency
@@ -181,11 +193,32 @@ class MainPage extends React.Component {
               this.props.setZenInBtcValue(priceBtc)
               this.props.setZenInCurrencyValue(priceCurrency)
             } catch (err) {
-              alert(err)
+              if (err) {
+                console.log(err)
+              }
+              this.setConnectionError(true)
             }
-          }, (err) => alert(JSON.stringify(err))
+          }, (err) => {
+            if (err) {
+              // If there's an error here
+              // I think it's safe to assume that 
+              // there is no connection
+              console.log(err)
+            }
+
+            this.setConnectionError(true)
+          }
         )
-      }, (err) => alert(JSON.stringify(err))
+      }, (err) => {
+        if (err) {
+          // If there's an error here
+          // I think it's safe to assume that 
+          // there is no connection
+          console.log(err)
+        }
+
+        this.setConnectionError(true)
+      }
     )
 
     // Sets information about tx
@@ -202,7 +235,7 @@ class MainPage extends React.Component {
     })
 
     cordovaHTTP.get(txInfoURL, {}, {},
-      function (resp) {
+      (resp) => {
         const txinfo = JSON.parse(resp.data)
         const curTxs = this.state.selectedAddressTxs || []
         const newTxs = append ? curTxs.concat(txinfo.items) : txinfo.items
@@ -212,7 +245,12 @@ class MainPage extends React.Component {
           selectedAddressNoTxs: newTxs.length === 0,
           selectedAddressScannedTxs: true
         })
-      }.bind(this), (err) => alert(JSON.stringify(err)))
+      }, (err) => {
+        if (err) {
+          console.log(err)
+        }
+        this.setConnectionError(true)
+      })
   }
 
   gotoComponent (c) {
@@ -298,6 +336,7 @@ class MainPage extends React.Component {
     const aboutLang = TRANSLATIONS[CUR_LANG].AboutPage.title
     const noTxFoundLang = TRANSLATIONS[CUR_LANG].MainPage.noTxFound
     const loadingLang = TRANSLATIONS[CUR_LANG].General.loading
+    const noConnectionLang = TRANSLATIONS[CUR_LANG].MainPage.noConnection
 
     // For qr scanning
     const pageOpacity = this.props.context.qrScanning ? '0.0' : '1.0'
@@ -356,8 +395,11 @@ class MainPage extends React.Component {
                   <h1 style={{marginLeft: '12px'}}>
                     {
                       this.props.context.value === null
-                        ? loadingLang
-                        : prettyFormatPrices(this.props.context.value)
+                        ? (
+                          this.state.connectionError
+                            ? <Icon icon='ion-minus-round' />
+                            : loadingLang
+                        ) : prettyFormatPrices(this.props.context.value)
                     }&nbsp;
                     {
                       this.props.context.value === null
@@ -373,8 +415,11 @@ class MainPage extends React.Component {
                         BTC<br/>
                         {
                           this.props.context.BTCValue === null && this.props.context.value === null
-                            ? loadingLang
-                            : prettyFormatPrices(this.props.context.value * this.props.context.BTCValue)
+                            ? (
+                              this.state.connectionError
+                                ? <Icon icon='ion-minus-round' />
+                                : loadingLang
+                            ) : prettyFormatPrices(this.props.context.value * this.props.context.BTCValue)
                         }
                       </h5>
                     </ons-col>
@@ -383,8 +428,11 @@ class MainPage extends React.Component {
                         { this.props.settings.currency }<br/>
                         {
                           this.props.context.currencyValue === null && this.props.context.value === null
-                            ? loadingLang
-                            : prettyFormatPrices(this.props.context.value * this.props.context.currencyValue, 2)
+                            ? (
+                              this.state.connectionError
+                                ? <Icon icon='ion-minus-round' />
+                                : loadingLang
+                            ) : prettyFormatPrices(this.props.context.value * this.props.context.currencyValue, 2)
                         }
                       </h5>
                     </ons-col>
@@ -400,7 +448,14 @@ class MainPage extends React.Component {
                     ? (
                       <ListHeader>
                         <div style={{textAlign: 'center'}}>
-                          <Icon icon='spinner' spin/>
+                          {
+                            this.state.connectionError
+                              ? (
+                                <div>
+                                  <Icon icon='ion-alert-circled' />&nbsp;{noConnectionLang}
+                                </div>
+                              ) : (<Icon icon='spinner' spin/>)
+                          }
                         </div>
                       </ListHeader>
                     )

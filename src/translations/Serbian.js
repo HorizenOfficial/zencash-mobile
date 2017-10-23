@@ -18,7 +18,8 @@ export const SERBIAN_TRANSLATION: TRANSLATION_OBJ = {
     send: 'Pošalji',
     received: 'Primljene',
     sent: 'Poslate',
-    noTxFound: 'Nema istorije transakcija.'
+    noTxFound: 'Nema istorije transakcija.',
+    noConnection: 'No Connection.'
   },
   AddressInfoPage: {
     copyToClipboard: 'Prekopiraj Adresu na Clipboard'

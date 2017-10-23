@@ -79,6 +79,7 @@ export const LANG_RUSSIAN = 'Russian'
 export const LANG_SERBIAN = 'Serbian'
 export const LANG_SPANISH = 'Spanish'
 export const LANG_SWEDISH = 'Swedish'
+export const LANG_CHINESE = 'Chinese'
 
 export const LANGUAGES = [
   LANG_AFRIKAANS,
@@ -91,7 +92,8 @@ export const LANGUAGES = [
   LANG_RUSSIAN,
   LANG_SERBIAN,
   LANG_SPANISH,
-  LANG_SWEDISH
+  LANG_SWEDISH,
+  LANG_CHINESE
 ]
 
 // Actions

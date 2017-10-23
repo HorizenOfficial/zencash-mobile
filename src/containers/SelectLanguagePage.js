@@ -38,7 +38,7 @@ class SelectLanguagePage extends React.Component {
       <Page renderToolbar={this.renderToolbar.bind(this)}>
         <List>
           {
-            LANGUAGES.map(function (l) {
+            LANGUAGES.sort().map(function (l) {
               return (
                 <div>
                   <ListItem

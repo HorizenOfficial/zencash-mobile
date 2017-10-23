@@ -18,7 +18,8 @@ export const RUSSIAN_TRANSLATION: TRANSLATION_OBJ = {
     send: 'Отправить',
     received: 'Получено',
     sent: 'Отправлено',
-    noTxFound: 'Не найдена история транзакций.'
+    noTxFound: 'Не найдена история транзакций.',
+    noConnection: 'No Connection.'
   },
   AddressInfoPage: {
     copyToClipboard: 'Скопировать адрес'

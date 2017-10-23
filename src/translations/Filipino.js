@@ -18,7 +18,8 @@ export const FILIPINO_TRANSLATION: TRANSLATION_OBJ = {
     send: 'Padala',
     received: 'Natanggap',
     sent: 'Napadala',
-    noTxFound: 'Walang pang transaksiyon.'
+    noTxFound: 'Walang pang transaksiyon.',
+    noConnection: 'No Connection.'
   },
   AddressInfoPage: {
     copyToClipboard: 'Kopyahin ang Address sa Clipboard'

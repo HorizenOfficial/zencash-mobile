@@ -17,7 +17,8 @@ export type TRANSLATION_OBJ = {
     send: string,
     received: string,
     sent: string,
-    noTxFound: string
+    noTxFound: string,
+    noConnection: string
   },
   AddressInfoPage: {
     copyToClipboard: string,

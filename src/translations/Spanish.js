@@ -18,7 +18,8 @@ export const SPANISH_TRANSLATION: TRANSLATION_OBJ = {
     send: 'Enviar',
     received: 'Recibido',
     sent: 'Enviado',
-    noTxFound: 'No se encontró ningún historial de trancción.'
+    noTxFound: 'No se encontró ningún historial de trancción.',
+    noConnection: 'No Connection.'
   },
   AddressInfoPage: {
     copyToClipboard: 'Copiar Dirección al Portapapeles'

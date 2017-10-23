@@ -18,7 +18,8 @@ export const SWEDISH_TRANSLATION: TRANSLATION_OBJ = {
     send: 'Skicka',
     received: 'Mottaget',
     sent: 'Skickat',
-    noTxFound: 'Ingen transaktionshistorik hittades.'
+    noTxFound: 'Ingen transaktionshistorik hittades.',
+    noConnection: 'No Connection.'
   },
   AddressInfoPage: {
     copyToClipboard: 'Kopiera adressen till urklipp'

@@ -18,7 +18,8 @@ export const AFRIKAANS_TRANSLATION: TRANSLATION_OBJ = {
     send: 'Gestuur',
     received: 'Ontvang',
     sent: 'Gestuur',
-    noTxFound: 'Geen transaksiegeskiedenis gevind nie.'
+    noTxFound: 'Geen transaksiegeskiedenis gevind nie.',
+    noConnection: 'No Connection.'
   },
   AddressInfoPage: {
     copyToClipboard: 'Kopieer Adres na Klipbord'

@@ -18,7 +18,8 @@ export const PORTUGUESE_TRANSLATION: TRANSLATION_OBJ = {
     send: 'Enviar',
     received: 'Recebido',
     sent: 'Enviado',
-    noTxFound: 'Nenhum histórico de transações encontrado.'
+    noTxFound: 'Nenhum histórico de transações encontrado.',
+    noConnection: 'No Connection.'
   },
   AddressInfoPage: {
     copyToClipboard: 'Copiar Endereço para a Área de Transferência'

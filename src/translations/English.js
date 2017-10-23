@@ -18,7 +18,8 @@ export const ENGLISH_TRANSLATION: TRANSLATION_OBJ = {
     send: 'Send',
     received: 'Received',
     sent: 'Sent',
-    noTxFound: 'No transaction history found.'
+    noTxFound: 'No transaction history found.',
+    noConnection: 'No Connection.'
   },
   AddressInfoPage: {
     copyToClipboard: 'Copy Address To Clipboard'
