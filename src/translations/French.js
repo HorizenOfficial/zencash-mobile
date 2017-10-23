@@ -89,7 +89,7 @@ export const FRENCH_TRANSLATION: TRANSLATION_OBJ = {
   },
   ContactsPage: {
     contacts: 'Contacts',
-    contactsName: 'Name',
-    contactsAddress: 'Address'
+    contactsName: 'Nom',
+    contactsAddress: 'Adresse'
   }
 }

@@ -88,8 +88,8 @@ export const SWEDISH_TRANSLATION: TRANSLATION_OBJ = {
     enterYourPin: 'Skriv in din PIN'
   },
   ContactsPage: {
-    contacts: 'Contacts',
-    contactsName: 'Name',
-    contactsAddress: 'Address'
+    contacts: 'Kontakter',
+    contactsName: 'Namn',
+    contactsAddress: 'Adress'
   }
 }
