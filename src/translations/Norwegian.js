@@ -37,7 +37,7 @@ export const NORWEGIAN_TRANSLATION: TRANSLATION_OBJ = {
     max: 'Maks',
     send: 'Send',
     txSuccessful: 'Transaksjon vellykket! Klikk her for å se din transaksjon.',
-    confirmSend: 'Jeg bekrefter at jeg vil sende disse Zen'ene',
+    confirmSend: 'Jeg bekrefter at jeg vil sende disse ZENene',
     invalidAddress: 'Ugyldig `Til Adresse` Kun transparente adresser støttes foreløpig.',
     invalidAmount: 'Ugyldig `Beløp`.',
     invalidFee: 'Ugyldige `Avgifter`. Forsøk 0 :)',
