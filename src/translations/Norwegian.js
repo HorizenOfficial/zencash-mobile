@@ -78,11 +78,11 @@ export const NORWEGIAN_TRANSLATION: TRANSLATION_OBJ = {
   },
   PinPage: {
     changePinTitle: 'Endre PIN',
-    newPinPageTitle: 'ZEN Wallet Setup',
-    verifyPinPageTitle: 'ZEN Wallet PIN Verification',
-    setupNewPin: 'Set up a new PIN',
-    reenterPin: 'Re-enter your PIN',
-    pinsNotSimilar: 'PINs entered do not match',
+    newPinPageTitle: 'ZEN Lommebok Oppsett',
+    verifyPinPageTitle: 'ZEN Lommebok PIN Bekreftelse',
+    setupNewPin: 'Skriv inn ny PIN',
+    reenterPin: 'Gjenta ny PIN',
+    pinsNotSimilar: 'PINs stemmer ikke',
     invalidPin: 'Ugyldig PIN',
     enterYourPin: 'Skriv inn din PIN'
   },
