@@ -19,7 +19,7 @@ export const FILIPINO_TRANSLATION: TRANSLATION_OBJ = {
     received: 'Natanggap',
     sent: 'Napadala',
     noTxFound: 'Walang pang transaksiyon.',
-    noConnection: 'No Connection.'
+    noConnection: 'Hindi tinanggap ang koneksyo.'
   },
   AddressInfoPage: {
     copyToClipboard: 'Kopyahin ang Address sa Clipboard'
@@ -90,6 +90,7 @@ export const FILIPINO_TRANSLATION: TRANSLATION_OBJ = {
   ContactsPage: {
     contacts: 'Contacts',
     contactsName: 'Name',
-    contactsAddress: 'Address'
+    contactsAddress: 'Address',
+    noContactsFound: 'No contacts found.'
   }
 }

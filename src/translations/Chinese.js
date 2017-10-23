@@ -90,6 +90,7 @@ export const CHINESE_TRANSLATION: TRANSLATION_OBJ = {
   ContactsPage: {
     contacts: '联系笔记本',
     contactsName: '名字',
-    contactsAddress: '地址'
+    contactsAddress: '地址',
+    noContactsFound: '无联系。'
   }
 }

@@ -19,7 +19,7 @@ export const SPANISH_TRANSLATION: TRANSLATION_OBJ = {
     received: 'Recibido',
     sent: 'Enviado',
     noTxFound: 'No se encontró ningún historial de trancción.',
-    noConnection: 'No Connection.'
+    noConnection: 'Conexión denegada.'
   },
   AddressInfoPage: {
     copyToClipboard: 'Copiar Dirección al Portapapeles'
@@ -90,6 +90,7 @@ export const SPANISH_TRANSLATION: TRANSLATION_OBJ = {
   ContactsPage: {
     contacts: 'Contacts',
     contactsName: 'Name',
-    contactsAddress: 'Address'
+    contactsAddress: 'Address',
+    noContactsFound: 'No contacts found.'
   }
 }

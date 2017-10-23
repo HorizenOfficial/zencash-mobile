@@ -19,7 +19,7 @@ export const FRENCH_TRANSLATION: TRANSLATION_OBJ = {
     received: 'Reçu',
     sent: 'Envoyé',
     noTxFound: 'Aucun historique de transaction trouvé.',
-    noConnection: 'No Connection.'
+    noConnection: 'Connexion rejetée.'
   },
   AddressInfoPage: {
     copyToClipboard: 'Copier l\'adresse dans le presse-papier'
@@ -90,6 +90,7 @@ export const FRENCH_TRANSLATION: TRANSLATION_OBJ = {
   ContactsPage: {
     contacts: 'Contacts',
     contactsName: 'Nom',
-    contactsAddress: 'Adresse'
+    contactsAddress: 'Adresse',
+    noContactsFound: 'No contacts found.'
   }
 }

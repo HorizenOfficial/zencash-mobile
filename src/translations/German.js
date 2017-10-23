@@ -19,7 +19,7 @@ export const GERMAN_TRANSLATION: TRANSLATION_OBJ = {
     received: 'Erhalten',
     sent: 'Gesendet',
     noTxFound: 'Keine Transaktionshistorie gefunden.',
-    noConnection: 'No Connection.'
+    noConnection: 'Verbindung abgelehnt.'
   },
   AddressInfoPage: {
     copyToClipboard: 'In die Zwischenablage kopieren'
@@ -90,6 +90,7 @@ export const GERMAN_TRANSLATION: TRANSLATION_OBJ = {
   ContactsPage: {
     contacts: 'Kontakte',
     contactsName: 'Name',
-    contactsAddress: 'Adresse'
+    contactsAddress: 'Adresse',
+    noContactsFound: 'No contacts found.'
   }
 }

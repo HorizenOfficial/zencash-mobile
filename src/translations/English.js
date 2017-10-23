@@ -90,6 +90,7 @@ export const ENGLISH_TRANSLATION: TRANSLATION_OBJ = {
   ContactsPage: {
     contacts: 'Contacts',
     contactsName: 'Name',
-    contactsAddress: 'Address'
+    contactsAddress: 'Address',
+    noContactsFound: 'No contacts found.'
   }
 }

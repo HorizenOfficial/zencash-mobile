@@ -19,7 +19,7 @@ export const INDONESIAN_TRANSLATION: TRANSLATION_OBJ = {
     received: 'Diterima',
     sent: 'Dikirim',
     noTxFound: 'Tidak ditemukan riwayat transaksi.',
-    noConnection: 'No Connection.'
+    noConnection: 'Koneksi ditolak.'
   },
   AddressInfoPage: {
     copyToClipboard: 'Salin Alamat Ke Clipboard'
@@ -88,8 +88,9 @@ export const INDONESIAN_TRANSLATION: TRANSLATION_OBJ = {
     enterYourPin: 'Masukkan PIN Anda'
   },
   ContactsPage: {
-    contacts: 'Contacts',
-    contactsName: 'Name',
-    contactsAddress: 'Address'
+    contacts: 'Kontak',
+    contactsName: 'Nama',
+    contactsAddress: 'Alamat',
+    noContactsFound: 'Tiada kontak.'
   }
 }

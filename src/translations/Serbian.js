@@ -19,7 +19,7 @@ export const SERBIAN_TRANSLATION: TRANSLATION_OBJ = {
     received: 'Primljene',
     sent: 'Poslate',
     noTxFound: 'Nema istorije transakcija.',
-    noConnection: 'No Connection.'
+    noConnection: 'конекција је одбијенa.'
   },
   AddressInfoPage: {
     copyToClipboard: 'Prekopiraj Adresu na Clipboard'
@@ -90,6 +90,7 @@ export const SERBIAN_TRANSLATION: TRANSLATION_OBJ = {
   ContactsPage: {
     contacts: 'Contacts',
     contactsName: 'Name',
-    contactsAddress: 'Address'
+    contactsAddress: 'Address',
+    noContactsFound: 'No contacts found.'
   }
 }

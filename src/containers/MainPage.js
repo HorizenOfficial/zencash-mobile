@@ -337,6 +337,7 @@ class MainPage extends React.Component {
     const noTxFoundLang = TRANSLATIONS[CUR_LANG].MainPage.noTxFound
     const loadingLang = TRANSLATIONS[CUR_LANG].General.loading
     const noConnectionLang = TRANSLATIONS[CUR_LANG].MainPage.noConnection
+    const contactsLang = TRANSLATIONS[CUR_LANG].ContactsPage.contacts
 
     // For qr scanning
     const pageOpacity = this.props.context.qrScanning ? '0.0' : '1.0'
@@ -364,7 +365,7 @@ class MainPage extends React.Component {
                       component: AboutPage
                     },
                     {
-                      name: 'Contacts',
+                      name: contactsLang,
                       component: ContactsPage
                     },
                     {

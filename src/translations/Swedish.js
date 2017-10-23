@@ -19,7 +19,7 @@ export const SWEDISH_TRANSLATION: TRANSLATION_OBJ = {
     received: 'Mottaget',
     sent: 'Skickat',
     noTxFound: 'Ingen transaktionshistorik hittades.',
-    noConnection: 'No Connection.'
+    noConnection: 'Anslutningen vägrade.'
   },
   AddressInfoPage: {
     copyToClipboard: 'Kopiera adressen till urklipp'
@@ -90,6 +90,7 @@ export const SWEDISH_TRANSLATION: TRANSLATION_OBJ = {
   ContactsPage: {
     contacts: 'Kontakter',
     contactsName: 'Namn',
-    contactsAddress: 'Adress'
+    contactsAddress: 'Adress',
+    noContactsFound: 'No contacts found.'
   }
 }

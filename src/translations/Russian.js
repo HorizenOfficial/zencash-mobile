@@ -19,7 +19,7 @@ export const RUSSIAN_TRANSLATION: TRANSLATION_OBJ = {
     received: 'Получено',
     sent: 'Отправлено',
     noTxFound: 'Не найдена история транзакций.',
-    noConnection: 'No Connection.'
+    noConnection: 'В соединении отказано.'
   },
   AddressInfoPage: {
     copyToClipboard: 'Скопировать адрес'
@@ -90,6 +90,7 @@ export const RUSSIAN_TRANSLATION: TRANSLATION_OBJ = {
   ContactsPage: {
     contacts: 'Контакты',
     contactsName: 'Имя',
-    contactsAddress: 'Адрес'
+    contactsAddress: 'Адрес',
+    noContactsFound: 'No contacts found.'
   }
 }

@@ -82,7 +82,9 @@
         "cordova-plugin-inappbrowser": "^1.7.1",
         "cordova-plugin-qrscanner": "^2.5.0",
         "danielsogl-cordova-plugin-clipboard": "^1.0.2",
-        "zencashjs": "^1.1.6-a"
+        "zencashjs": "^1.1.6-a",
+        "cordova-plugin-device": "^1.1.6",
+        "cordova-plugin-wkwebview-engine": "^1.1.3"
     },
     "cordova": {
         "plugins": {
@@ -90,7 +92,12 @@
             "cordova-plugin-file": {},
             "cordova-plugin-http": {},
             "cordova-clipboard": {},
-            "cordova-plugin-inappbrowser": {}
-        }
+            "cordova-plugin-inappbrowser": {},
+            "cordova-plugin-device": {},
+            "cordova-plugin-wkwebview-engine": {}
+        },
+        "platforms": [
+            "android"
+        ]
     }
 }

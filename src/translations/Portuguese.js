@@ -19,7 +19,7 @@ export const PORTUGUESE_TRANSLATION: TRANSLATION_OBJ = {
     received: 'Recebido',
     sent: 'Enviado',
     noTxFound: 'Nenhum histórico de transações encontrado.',
-    noConnection: 'No Connection.'
+    noConnection: 'Ligação recusada.'
   },
   AddressInfoPage: {
     copyToClipboard: 'Copiar Endereço para a Área de Transferência'
@@ -90,6 +90,7 @@ export const PORTUGUESE_TRANSLATION: TRANSLATION_OBJ = {
   ContactsPage: {
     contacts: 'Contacts',
     contactsName: 'Name',
-    contactsAddress: 'Address'
+    contactsAddress: 'Address',
+    noContactsFound: 'No contacts found.'
   }
 }

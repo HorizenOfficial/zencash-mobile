@@ -18,7 +18,8 @@ export const ENGLISH_TRANSLATION: TRANSLATION_OBJ = {
     send: 'Lähetä',
     received: 'Vastaanotettu',
     sent: 'Lähetetty',
-    noTxFound: 'Tapahtumahistoriaa ei löytynyt.'
+    noTxFound: 'Tapahtumahistoriaa ei löytynyt.',
+    noConnection: 'Yhteys evätty.'
   },
   AddressInfoPage: {
     copyToClipboard: 'Kopioi osoite leikepöydälle'
@@ -89,6 +90,7 @@ export const ENGLISH_TRANSLATION: TRANSLATION_OBJ = {
   ContactsPage: {
     contacts: 'Yhteystiedot',
     contactsName: 'Nimi',
-    contactsAddress: 'Osoite'
+    contactsAddress: 'Osoite',
+    noContactsFound: 'No contacts found.'
   }
 }

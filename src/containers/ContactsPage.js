@@ -135,6 +135,9 @@ class ContactsPage extends React.Component {
   }
 
   render () {
+    const CUR_LANG = this.props.settings.language
+    const noContactsLang = TRANSLATIONS[CUR_LANG].ContactsPage.noContactsFound
+
     return (
       <Page
         renderToolbar={this.renderToolbar.bind(this)}
@@ -144,7 +147,7 @@ class ContactsPage extends React.Component {
             this.props.contacts.length === 0
               ? (
                 <ListHeader>
-                  No contacts found
+                  {noContactsLang}
                 </ListHeader>
               )
               // Sort alphabetically and map
@@ -153,7 +156,7 @@ class ContactsPage extends React.Component {
               }).map((c, idx) => {
                 return (
                   <ListItem key={idx}
-                    onClick={this.gotoComponent.bind(this, getContactDetails(this.props.settings.language, this.props.navigator, this.props.addContact, this.props.deleteContact, c.name, c.address))}
+                    onClick={this.gotoComponent.bind(this, getContactDetails(CUR_LANG, this.props.navigator, this.props.addContact, this.props.deleteContact, c.name, c.address))}
                     tappable>
                     {c.name}
                   </ListItem>
@@ -167,7 +170,6 @@ class ContactsPage extends React.Component {
 }
 
 ContactsPage.propTypes = {
-  language: PropTypes.object.isRequired,
   settings: PropTypes.object.isRequired,
   navigator: PropTypes.object.isRequired,
   contacts: PropTypes.array.isRequired,

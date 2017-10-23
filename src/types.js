@@ -89,7 +89,8 @@ export type TRANSLATION_OBJ = {
   ContactsPage: {
     contacts: string,
     contactsName: string,
-    contactsAddress: string
+    contactsAddress: string,
+    noContactsFound: string
   }
 }
 
