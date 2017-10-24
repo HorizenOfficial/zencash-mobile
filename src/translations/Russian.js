@@ -91,6 +91,6 @@ export const RUSSIAN_TRANSLATION: TRANSLATION_OBJ = {
     contacts: 'Контакты',
     contactsName: 'Имя',
     contactsAddress: 'Адрес',
-    noContactsFound: 'No contacts found.'
+    noContactsFound: 'Контакты не найдены.'
   }
 }
