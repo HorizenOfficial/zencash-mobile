@@ -91,6 +91,6 @@ export const SWEDISH_TRANSLATION: TRANSLATION_OBJ = {
     contacts: 'Kontakter',
     contactsName: 'Namn',
     contactsAddress: 'Adress',
-    noContactsFound: 'No contacts found.'
+    noContactsFound: 'Inga kontakter hittade.'
   }
 }
