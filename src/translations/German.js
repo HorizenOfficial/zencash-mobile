@@ -91,6 +91,6 @@ export const GERMAN_TRANSLATION: TRANSLATION_OBJ = {
     contacts: 'Kontakte',
     contactsName: 'Name',
     contactsAddress: 'Adresse',
-    noContactsFound: 'No contacts found.'
+    noContactsFound: 'Keine Kontakte gefunden.'
   }
 }
