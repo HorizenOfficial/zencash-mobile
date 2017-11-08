@@ -103,6 +103,7 @@ export const LANGUAGES = [
 // Actions
 export const SET_LANGUAGE = 'SET_LANGUAGE'
 export const SET_CURRENCY = 'SET_CURRENCY'
+export const SET_INSIGHT_API = 'SET_INSIGHT_API'
 export const SET_WALLET_PIN = 'SET_WALLET_PIN'
 
 export function setWalletPin (pin) {
@@ -123,5 +124,12 @@ export function setCurrency (currency) {
   return {
     type: SET_CURRENCY,
     currency
+  }
+}
+
+export function setInsightAPI (insightAPI) {
+  return {
+    type: SET_INSIGHT_API,
+    insightAPI
   }
 }

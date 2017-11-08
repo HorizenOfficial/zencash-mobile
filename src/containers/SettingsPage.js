@@ -21,6 +21,7 @@ import RecoverWalletPage from './RecoverWalletPage'
 import ShowPrivateKeyPage from './ShowPrivateKeyPage'
 import SelectCurrencyPage from './SelectCurrencyPage'
 import SelectLanguagePage from './SelectLanguagePage'
+import SelectInsightPage from './SelectInsightPage'
 
 import TRANSLATIONS from '../translations'
 
@@ -60,6 +61,12 @@ class SettingsPage extends React.Component {
     return (
       <Page renderToolbar={this.renderToolbar.bind(this)}>
         <List>
+          <ListItem
+            onClick={this.gotoComponent.bind(this, SelectInsightPage)}
+            tappable>
+            Insight API
+          </ListItem>
+          <ListHeader></ListHeader>
           <ListItem
             onClick={this.gotoComponent.bind(this, SelectLanguagePage)}
             tappable>
