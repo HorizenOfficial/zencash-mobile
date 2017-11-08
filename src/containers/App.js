@@ -15,7 +15,7 @@ import { connect } from 'react-redux'
 
 import { setContacts } from '../actions/Contacts'
 import { setSecretPhrase, setSecretItems } from '../actions/Secrets'
-import { setLanguage, setCurrency, setWalletPin } from '../actions/Settings'
+import { setLanguage, setCurrency, setWalletPin, setInsightAPI } from '../actions/Settings'
 
 import { ZENCASH_MOBILE_SAVE_PATH, ZENCASH_MOBILE_CONTACTS_PATH, readFromFile } from '../utils/persistentStorage'
 import { phraseToSecretItems } from '../utils/wallet'
@@ -77,12 +77,16 @@ class App extends React.Component {
         })
       }
 
-      // Get settings
-      // Future: add insight, explorer settings      
+      // Get settings         
       if (data.settings !== undefined) {
         if (data.settings.language !== undefined) {
           const settingsLanguage = data.settings.language
           this.props.setLanguage(settingsLanguage)
+        }
+
+        if (data.settings.insightAPI !== undefined) {
+          const settingsLanguage = data.settings.insightAPI
+          this.props.setInsightAPI(settingsLanguage)
         }
 
         if (data.settings.currency !== undefined && data.settings.currency !== null) {
@@ -168,7 +172,8 @@ App.propTypes = {
   setCurrency: PropTypes.func.isRequired,
   setContacts: PropTypes.func.isRequired,
   context: PropTypes.object.isRequired,
-  navigator: PropTypes.object.isRequired
+  navigator: PropTypes.object.isRequired,
+  setInsightAPI: PropTypes.func.isRequired
 }
 
 function mapStateToProps (state) {
@@ -186,7 +191,8 @@ function matchDispatchToProps (dispatch) {
       setSecretPhrase,
       setLanguage,
       setCurrency,
-      setWalletPin
+      setWalletPin,
+      setInsightAPI
     },
     dispatch
   )
