@@ -89,15 +89,7 @@ class RecoverWalletPage extends React.Component {
             <textarea
               style={{width: '100%'}}
               value={this.state.tempSecretPhrase}
-              onChange={(e) => {
-                var str = e.target.value
-
-                if (str.length > 64) {
-                  str = str.slice(0, 64)
-                }
-
-                this.setState({ tempSecretPhrase: e.target.value })
-              }}
+              onChange={(e) => this.setState({ tempSecretPhrase: e.target.value })}
               className="textarea" rows="3" placeholder={textareaPlaceholderLang}>
             </textarea>
           </p>

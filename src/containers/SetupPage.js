@@ -38,16 +38,12 @@ class SetupPage extends React.Component {
         // Noun
         if (Math.random() > 0.5) {
           randomPhrase = randomPhrase.concat(Sentencer.make('{{ noun }}'))
-        }
-
-        // Nouns
-        else {
+        } else {
+          // Nouns
           randomPhrase = randomPhrase.concat(Sentencer.make('{{ nouns }}'))
         }
-      }
-
-      // Adjective
-      else {
+      } else {
+        // Adjective
         randomPhrase = randomPhrase.concat(Sentencer.make('{{ adjective }}'))
       }
     }
@@ -87,7 +83,6 @@ class SetupPage extends React.Component {
               style={{width: '100%'}}
               onChange={(e) => this.setState({ tempSecretPhrase: e.target.value })}
               className="textarea" rows="3" placeholder="secret phrase"
-              maxLength={64}
             >
             </textarea>
           </p>
