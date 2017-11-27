@@ -1,7 +1,7 @@
 // @flow
 import type { TRANSLATION_OBJ } from '../types'
 
-export const AFRIKAANS_TRANSLATION: TRANSLATION_OBJ = {
+export const DUTCH_TRANSLATION: TRANSLATION_OBJ = {
   General: {
     loading: 'laden...',
     address: 'Adres',
