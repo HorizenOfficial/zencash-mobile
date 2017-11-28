@@ -70,6 +70,7 @@ export const CURRENCIES = [
 // Languages
 export const LANG_AFRIKAANS = 'Afrikaans'
 export const LANG_CHINESE = 'Chinese'
+export const LANG_DUTCH = 'Dutch'
 export const LANG_ENGLISH = 'English'
 export const LANG_FILIPINO = 'Filipino'
 export const LANG_FINNISH = 'Finnish'
@@ -86,6 +87,7 @@ export const LANG_SWEDISH = 'Swedish'
 export const LANGUAGES = [
   LANG_AFRIKAANS,
   LANG_CHINESE,
+  LANG_DUTCH,
   LANG_ENGLISH,
   LANG_FILIPINO,
   LANG_FINNISH,

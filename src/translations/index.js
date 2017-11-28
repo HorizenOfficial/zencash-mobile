@@ -1,6 +1,7 @@
 import {
   LANG_AFRIKAANS,
   LANG_CHINESE,
+  LANG_DUTCH,
   LANG_ENGLISH,
   LANG_FILIPINO,
   LANG_FINNISH,
@@ -18,6 +19,7 @@ import {
 import { AFRIKAANS_TRANSLATION } from './Afrikaans.js'
 import { ENGLISH_TRANSLATION } from './English.js'
 import { CHINESE_TRANSLATION } from './Chinese.js'
+import { DUTCH_TRANSLATION } from './Dutch.js'
 import { FILIPINO_TRANSLATION } from './Filipino.js'
 import { FINNISH_TRANSLATION } from './Finnish.js'
 import { FRENCH_TRANSLATION } from './French.js'
@@ -35,6 +37,7 @@ var translations = {}
 // Translations we have so far
 translations[LANG_AFRIKAANS] = AFRIKAANS_TRANSLATION
 translations[LANG_CHINESE] = CHINESE_TRANSLATION
+translations[LANG_DUTCH] = DUTCH_TRANSLATION
 translations[LANG_ENGLISH] = ENGLISH_TRANSLATION
 translations[LANG_FILIPINO] = FILIPINO_TRANSLATION
 translations[LANG_FRENCH] = FRENCH_TRANSLATION
