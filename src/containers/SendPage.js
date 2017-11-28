@@ -77,7 +77,7 @@ class SendPage extends React.Component {
       confirmSend: false,
       addressReceive: '',
       sendValue: 1,
-      sendFee: 500,
+      sendFee: 1,
       progressValue: 0,
       sendTxid: '',
       sendCurrencyValue: props.context.currencyValue
@@ -144,6 +144,19 @@ class SendPage extends React.Component {
       QRScanner.destroy()
       this.props.setQrScanning(false)
     }
+  }
+
+  componentDidMount () {
+    // Get fees dynamically each time component is mounted
+    const statusURL = urlAppend(this.props.settings.insightAPI, 'status')
+
+    cordovaHTTP.get(statusURL, {}, {}, (data) => {
+      const jsonData = JSON.parse(data)
+
+      this.setState({
+        sendFee: parseInt(jsonData.relayfee * 100000000)
+      })
+    }, () => alert('Unable to get fees from insight'))
   }
 
   componentWillUnmount () {
@@ -383,14 +396,10 @@ class SendPage extends React.Component {
 
     const addressLang = TRANSLATIONS[CUR_LANG].General.address
     const cancelLang = TRANSLATIONS[CUR_LANG].General.cancel
-    const feesLang = TRANSLATIONS[CUR_LANG].General.fees
 
     const payToLang = TRANSLATIONS[CUR_LANG].SendPage.payTo
     const amountToPayLang = TRANSLATIONS[CUR_LANG].SendPage.amountToPay
     const balanceLang = TRANSLATIONS[CUR_LANG].SendPage.balance
-    const networkFeeLang = TRANSLATIONS[CUR_LANG].SendPage.networkFee
-    const slowTxLang = TRANSLATIONS[CUR_LANG].SendPage.slowTx
-    const fastTxLang = TRANSLATIONS[CUR_LANG].SendPage.fastTx
     const amountLang = TRANSLATIONS[CUR_LANG].SendPage.amount
     const maxLang = TRANSLATIONS[CUR_LANG].SendPage.max
     const sendLang = TRANSLATIONS[CUR_LANG].SendPage.send
@@ -494,31 +503,6 @@ class SendPage extends React.Component {
                       style={{ width: '100%' }}
                     /><br />
                     {this.props.settings.currency}
-                  </ons-col>
-                </ons-row>
-
-                <br />
-
-                <h3>{networkFeeLang}</h3>
-                <ons-row style={{ textAlign: 'center' }}>
-                  <ons-col width={'25%'}>
-                    {slowTxLang}
-                  </ons-col>
-
-                  <ons-col width={'50%'}>
-                    <Range
-                      style={{ width: '100%' }}
-                      onChange={(e) => this.setState({ sendFee: e.target.value })}
-                      value={this.state.sendFee}
-                      min={0}
-                      max={10000}
-                    />
-                    <br />
-                    {feesLang}: {parseFloat(this.state.sendFee / 100000000).toString()} ZEN
-                  </ons-col>
-
-                  <ons-col width={'25%'}>
-                    {fastTxLang}
                   </ons-col>
                 </ons-row>
 
