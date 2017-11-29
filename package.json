@@ -84,7 +84,7 @@
     "cordova-plugin-qrscanner": "^2.5.0",
     "cordova-plugin-wkwebview-engine": "^1.1.4",
     "danielsogl-cordova-plugin-clipboard": "^1.0.2",
-    "zencashjs": "^1.1.6-a"
+    "zencashjs": "^1.1.9-a"
   },
   "cordova": {
     "plugins": {
