@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import axios from 'axios'
 
 import {
   Page,
@@ -11,7 +12,6 @@ import {
   Icon,
   ProgressBar,
   Checkbox,
-  Range,
   List,
   ListItem,
   ListHeader
@@ -77,7 +77,7 @@ class SendPage extends React.Component {
       confirmSend: false,
       addressReceive: '',
       sendValue: 1,
-      sendFee: 1,
+      sendFee: 1e-8,
       progressValue: 0,
       sendTxid: '',
       sendCurrencyValue: props.context.currencyValue
@@ -150,13 +150,21 @@ class SendPage extends React.Component {
     // Get fees dynamically each time component is mounted
     const statusURL = urlAppend(this.props.settings.insightAPI, 'status')
 
-    cordovaHTTP.get(statusURL, {}, {}, (data) => {
-      const jsonData = JSON.parse(data)
+    axios.get(statusURL)
+      .then((resp) => {
+        const fee = parseInt(resp.relayfee) * 100000000
 
-      this.setState({
-        sendFee: parseInt(jsonData.relayfee * 100000000)
+        if (!isNaN(fee)) {
+          this.setState({
+            sendFee: fee
+          })
+        }
       })
-    }, () => alert('Unable to get fees from insight'))
+      .catch((err) => {
+        if (err) {
+          alert('Unable to get fees from insight, setting to default (1 satoshi)')
+        }
+      })
   }
 
   componentWillUnmount () {
@@ -179,10 +187,8 @@ class SendPage extends React.Component {
           // an error occurred, or the scan was canceled (error code `6`)
           if (err) {
             alert(JSON.stringify(err))
-          }
-
-          // The scan completed, display the contents of the QR code:
-          else {
+          } else {
+            // The scan completed, display the contents of the QR code
             this.setState({
               addressReceive: address
             })
@@ -210,9 +216,6 @@ class SendPage extends React.Component {
   }
 
   handleSendZEN () {
-    // Error handling function (less code duplication)
-    const errFunc = (err) => { alert('ERROR: ' + JSON.stringify(err)); this.setProgressValue(0) }
-
     // Language stuff
     const CUR_LANG = this.props.settings.language
 
@@ -276,83 +279,95 @@ class SendPage extends React.Component {
     var recipients = [{ address: recipientAddress, satoshis: satoshisToSend }]
 
     // Get previous unspent transactions
-    cordovaHTTP.get(prevTxURL, {}, {}, (txResp) => {
-      this.setProgressValue(25)
+    axios.get(prevTxURL)
+      .then((txResp) => {
+        this.setProgressValue(25)
 
-      const txData = JSON.parse(txResp.data)
+        const txData = txResp.data
 
-      // Get blockheight and hash
-      cordovaHTTP.get(infoURL, {}, {}, (infoResp) => {
-        this.setProgressValue(50)
-        const infoData = JSON.parse(infoResp.data)
+        // Get blockheight and hash
+        axios.get(infoURL)
+          .then((infoResp) => {
+            this.setProgressValue(50)
+            const infoData = infoResp.data
 
-        const blockHeight = infoData.info.blocks - 300
-        const blockHashURL = urlAppend(this.props.settings.insightAPI, 'block-index/') + blockHeight
+            const blockHeight = infoData.info.blocks - 300
+            const blockHashURL = urlAppend(this.props.settings.insightAPI, 'block-index/') + blockHeight
 
-        // Get block hash
-        cordovaHTTP.get(blockHashURL, {}, {}, (responseBhash) => {
-          this.setProgressValue(75)
+            // Get block hash
+            axios.get(blockHashURL)
+              .then((responseBhash) => {
+                this.setProgressValue(75)
 
-          const blockHash = JSON.parse(responseBhash.data).blockHash
+                const blockHash = responseBhash.data.blockHash
 
-          // Iterate through each utxo
-          // append it to history
-          for (var i = 0; i < txData.length; i++) {
-            if (txData[i].confirmations === 0) {
-              continue
-            }
+                // Iterate through each utxo
+                // append it to history
+                for (var i = 0; i < txData.length; i++) {
+                  if (txData[i].confirmations === 0) {
+                    continue
+                  }
 
-            history = history.concat({
-              txid: txData[i].txid,
-              vout: txData[i].vout,
-              scriptPubKey: txData[i].scriptPubKey
-            })
+                  history = history.concat({
+                    txid: txData[i].txid,
+                    vout: txData[i].vout,
+                    scriptPubKey: txData[i].scriptPubKey
+                  })
 
-            // How many satoshis do we have so far
-            satoshisSoFar = satoshisSoFar + txData[i].satoshis
-            if (satoshisSoFar >= satoshisToSend + satoshisfeesToSend) {
-              break
-            }
-          }
+                  // How many satoshis do we have so far
+                  satoshisSoFar = satoshisSoFar + txData[i].satoshis
+                  if (satoshisSoFar >= satoshisToSend + satoshisfeesToSend) {
+                    break
+                  }
+                }
 
-          // If we don't have enough address
-          // fail and tell user
-          if (satoshisSoFar < satoshisToSend + satoshisfeesToSend) {
-            alert(TRANSLATIONS[CUR_LANG].SendPage.notEnoughZEN)
-            this.setProgressValue(0)
-            return
-          }
+                // If we don't have enough address
+                // fail and tell user
+                if (satoshisSoFar < satoshisToSend + satoshisfeesToSend) {
+                  alert(TRANSLATIONS[CUR_LANG].SendPage.notEnoughZEN)
+                  this.setProgressValue(0)
+                  return
+                }
 
-          // If we don't have exact amount
-          // Refund remaining to current address
-          if (satoshisSoFar !== satoshisToSend + satoshisfeesToSend) {
-            var refundSatoshis = satoshisSoFar - satoshisToSend - satoshisfeesToSend
-            recipients = recipients.concat({ address: senderAddress, satoshis: refundSatoshis })
-          }
+                // If we don't have exact amount
+                // Refund remaining to current address
+                if (satoshisSoFar !== satoshisToSend + satoshisfeesToSend) {
+                  var refundSatoshis = satoshisSoFar - satoshisToSend - satoshisfeesToSend
+                  recipients = recipients.concat({ address: senderAddress, satoshis: refundSatoshis })
+                }
 
-          // Create transaction
-          var txObj = zencashjs.transaction.createRawTx(history, recipients, blockHeight, blockHash)
+                // Create transaction
+                var txObj = zencashjs.transaction.createRawTx(history, recipients, blockHeight, blockHash)
 
-          // Sign each history transcation          
-          for (var j = 0; j < history.length; j++) {
-            txObj = zencashjs.transaction.signTx(txObj, i, senderPrivateKey, true)
-          }
+                // Sign each history transcation
+                for (var j = 0; j < history.length; j++) {
+                  txObj = zencashjs.transaction.signTx(txObj, i, senderPrivateKey, true)
+                }
 
-          // Convert it to hex string
-          const txHexString = zencashjs.transaction.serializeTx(txObj)
+                // Convert it to hex string
+                const txHexString = zencashjs.transaction.serializeTx(txObj)
 
-          // Post it to the api
-          cordovaHTTP.post(sendRawTxURL, { rawtx: txHexString }, {}, (sendtxResp) => {
-            const txRespData = JSON.parse(sendtxResp.data)
+                // Post it to the api
+                axios.post(sendRawTxURL,
+                  {
+                    rawtx: txHexString
+                  },
+                  {
+                    headers: {
+                      'Content-Type': 'application/json'
+                    }
+                  })
+                  .then((sendtxResp) => {
+                    const txRespData = sendtxResp.data
 
-            this.setState({
-              progressValue: 100,
-              sendTxid: txRespData.txid
-            })
-          }, errFunc)
-        }, errFunc)
-      }, errFunc)
-    }, errFunc)
+                    this.setState({
+                      progressValue: 100,
+                      sendTxid: txRespData.txid
+                    })
+                  }).catch((err) => alert(JSON.stringify(err)))
+              }).catch((err) => alert(JSON.stringify(err)))
+          }).catch((err) => alert(JSON.stringify(err)))
+      }).catch((err) => alert(JSON.stringify(err)))
   }
 
   renderToolbar () {
@@ -391,7 +406,7 @@ class SendPage extends React.Component {
     const pageOpacity = this.props.context.qrScanning ? '0.4' : '1.0'
     const pageStyle = this.props.context.qrScanning ? { opacity: pageOpacity, visibility: 'visible', transition: 'all 0.1s ease-out', WebkitTransform: 'translateZ(0)' } : {}
 
-    // Translation stuff    
+    // Translation stuff
     const CUR_LANG = this.props.settings.language
 
     const addressLang = TRANSLATIONS[CUR_LANG].General.address
@@ -417,7 +432,7 @@ class SendPage extends React.Component {
           // Why we have it in redux
           // Is because it needs all background
           // previous page in the navigator
-          // to be transparent :\ fml          
+          // to be transparent :\ fml
           this.props.context.qrScanning
             ? (
               <div style={{ height: '100%', opacity: '0.4' }}>

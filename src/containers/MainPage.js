@@ -3,6 +3,7 @@ import 'babel-polyfill'
 import PropTypes from 'prop-types'
 import React from 'react'
 import moment from 'moment'
+import axios from 'axios'
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -134,7 +135,7 @@ class MainPage extends React.Component {
       selectedAddressTxTo: 50,
       selectedAddressTxs: [],
       selectedAddressNoTxs: false,
-      selectedAddressScannedTxs: false // Have we tried and fined the txs? (used to display loading...)      
+      selectedAddressScannedTxs: false // Have we tried and fined the txs? (used to display loading...)
     }
 
     this.toggleSelectAddressDialog = this.toggleSelectAddressDialog.bind(this)
@@ -166,10 +167,10 @@ class MainPage extends React.Component {
 
     // How many zen
     const addrURL = urlAppend(this.props.settings.insightAPI, 'addr/' + address + '/')
-    cordovaHTTP.get(addrURL, {}, {},
-      (resp) => {
+    axios.get(addrURL)
+      .then((resp) => {
         try {
-          const addrInfo = JSON.parse(resp.data)
+          const addrInfo = resp.data
           const addrBalance = parseFloat(addrInfo.balance)
           this.props.setAddressValue(addrBalance)
         } catch (err) {
@@ -183,10 +184,10 @@ class MainPage extends React.Component {
         // via coinmarketcap
         const curCurrency = this.props.settings.currency
         const cmcZenInfoURL = 'https://api.coinmarketcap.com/v1/ticker/zencash/?convert=' + curCurrency
-        cordovaHTTP.get(cmcZenInfoURL, {}, {},
-          (resp) => {
+        axios.get(cmcZenInfoURL)
+          .then((resp) => {
             try {
-              const coinmarketcapData = JSON.parse(resp.data)
+              const coinmarketcapData = resp.data
               const priceBtc = parseFloat(coinmarketcapData[0]['price_btc'])
               const priceCurrency = parseFloat(coinmarketcapData[0]['price_' + curCurrency.toLowerCase()])
 
@@ -201,32 +202,31 @@ class MainPage extends React.Component {
           }, (err) => {
             if (err) {
               // If there's an error here
-              // I think it's safe to assume that 
+              // I think it's safe to assume that
               // there is no connection
               console.log(err)
             }
 
             this.setConnectionError(true)
-          }
-        )
-      }, (err) => {
+          })
+      })
+      .catch((err) => {
         if (err) {
           // If there's an error here
-          // I think it's safe to assume that 
+          // I think it's safe to assume that
           // there is no connection
           console.log(err)
         }
 
         this.setConnectionError(true)
-      }
-    )
+      })
 
     // Sets information about tx
     // When we set address info
     this.setAddressTxList(address, false)
   }
 
-  // Sets information about tx  
+  // Sets information about tx
   setAddressTxList (address, append = true) {
     const txInfoURL = urlAppend(this.props.settings.insightAPI, 'addrs/' + address + '/txs?from=' + this.state.selectedAddressTxFrom + '&to=' + this.state.selectedAddressTxTo)
 
@@ -234,9 +234,9 @@ class MainPage extends React.Component {
       selectedAddressScannedTxs: false
     })
 
-    cordovaHTTP.get(txInfoURL, {}, {},
-      (resp) => {
-        const txinfo = JSON.parse(resp.data)
+    axios.get(txInfoURL)
+      .then((resp) => {
+        const txinfo = resp.data
         const curTxs = this.state.selectedAddressTxs || []
         const newTxs = append ? curTxs.concat(txinfo.items) : txinfo.items
 
@@ -245,7 +245,8 @@ class MainPage extends React.Component {
           selectedAddressNoTxs: newTxs.length === 0,
           selectedAddressScannedTxs: true
         })
-      }, (err) => {
+      })
+      .catch((err) => {
         if (err) {
           console.log(err)
         }
@@ -269,7 +270,6 @@ class MainPage extends React.Component {
 
       this.props.setAddress(address) // for the send page
       this.props.setPrivateKey(privateKey)
-      this.setAddressInfo(address)
     }
   }
 
