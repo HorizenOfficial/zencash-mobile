@@ -26,13 +26,13 @@ class SetupPage extends React.Component {
     this.handleLoadWallet = this.handleLoadWallet.bind(this)
     this.handleNewWallet = this.handleNewWallet.bind(this)
   }
-  
-  componentDidMount() {    
+
+  componentDidMount () {
     window.ga.trackView('Setup Page')
   }
 
   handleNewWallet () {
-    // generate random phrase    
+    // generate random phrase
     var randomPhrase = []
 
     // Want 9 words

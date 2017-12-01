@@ -344,7 +344,7 @@ class SendPage extends React.Component {
 
                 // Sign each history transcation
                 for (var j = 0; j < history.length; j++) {
-                  txObj = zencashjs.transaction.signTx(txObj, i, senderPrivateKey, true)
+                  txObj = zencashjs.transaction.signTx(txObj, j, senderPrivateKey, true)
                 }
 
                 // Convert it to hex string
