@@ -17,6 +17,10 @@ import {
 import TRANSLATIONS from '../translations'
 
 class SelectCurrencyPage extends React.Component {
+  componentDidMount() {    
+    window.ga.trackView('Currency Page')
+  }
+
   renderToolbar () {
     const CUR_LANG = this.props.settings.language
     const currencyLang = TRANSLATIONS[CUR_LANG].SettingsPage.currency

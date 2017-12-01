@@ -26,6 +26,10 @@ class SetupPage extends React.Component {
     this.handleLoadWallet = this.handleLoadWallet.bind(this)
     this.handleNewWallet = this.handleNewWallet.bind(this)
   }
+  
+  componentDidMount() {    
+    window.ga.trackView('Setup Page')
+  }
 
   handleNewWallet () {
     // generate random phrase    

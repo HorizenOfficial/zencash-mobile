@@ -147,6 +147,9 @@ class SendPage extends React.Component {
   }
 
   componentDidMount () {
+    // Track event
+    window.ga.trackView('Send Page')
+
     // Get fees dynamically each time component is mounted
     const statusURL = urlAppend(this.props.settings.insightAPI, 'status')
 
@@ -364,10 +367,39 @@ class SendPage extends React.Component {
                       progressValue: 100,
                       sendTxid: txRespData.txid
                     })
-                  }).catch((err) => alert(JSON.stringify(err)))
-              }).catch((err) => alert(JSON.stringify(err)))
-          }).catch((err) => alert(JSON.stringify(err)))
-      }).catch((err) => alert(JSON.stringify(err)))
+                  })
+                  .catch((err) => {
+                    // Don't wanna setup firebase lmao
+                    window.ga.trackEvent('Send rawtx error', JSON.stringify(err))
+                    window.ga.dispatch()
+                    alert('Send failure: ' + JSON.stringify(err))
+
+                    this.setProgressValue(0)
+                  })
+              }).catch((err) => {
+                // Don't wanna setup firebase lmao
+                window.ga.trackEvent('Get blockinfo error', JSON.stringify(err))
+                window.ga.dispatch()
+                alert('GET failure: ' + JSON.stringify(err))
+
+                this.setProgressValue(0)
+              })
+          }).catch((err) => {
+            // Don't wanna setup firebase lmao
+            window.ga.trackEvent('Get blockheight and blockhash error', JSON.stringify(err))
+            window.ga.dispatch()
+            alert('GET failure: ' + JSON.stringify(err))
+
+            this.setProgressValue(0)
+          })
+      }).catch((err) => {
+        // Don't wanna setup firebase lmao
+        window.ga.trackEvent('Get utxo error', JSON.stringify(err))
+        window.ga.dispatch()
+        alert('GET failure: ' + JSON.stringify(err))
+
+        this.setProgressValue(0)
+      })
   }
 
   renderToolbar () {

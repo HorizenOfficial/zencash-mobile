@@ -12,6 +12,10 @@ import {
 import TRANSLATIONS from '../translations'
 
 class RecoverWalletPage extends React.Component {
+  componentDidMount() {    
+    window.ga.trackView('About Page')
+  }
+
   renderToolbar () {
     const CUR_LANG = this.props.settings.language
 
