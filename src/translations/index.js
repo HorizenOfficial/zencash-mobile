@@ -8,6 +8,7 @@ import {
   LANG_FRENCH,
   LANG_GERMAN,
   LANG_INDONESIAN,
+  LANG_ITALIAN,
   LANG_NORWEGIAN,
   LANG_PORTUGUESE,
   LANG_RUSSIAN,
@@ -25,6 +26,7 @@ import { FINNISH_TRANSLATION } from './Finnish.js'
 import { FRENCH_TRANSLATION } from './French.js'
 import { GERMAN_TRANSLATION } from './German.js'
 import { INDONESIAN_TRANSLATION } from './Indonesian.js'
+import { ITALIAN_TRANSLATION } from './Italian.js'
 import { NORWEGIAN_TRANSLATION } from './Norwegian.js'
 import { PORTUGUESE_TRANSLATION } from './Portuguese.js'
 import { RUSSIAN_TRANSLATION } from './Russian.js'
@@ -43,6 +45,7 @@ translations[LANG_FILIPINO] = FILIPINO_TRANSLATION
 translations[LANG_FRENCH] = FRENCH_TRANSLATION
 translations[LANG_GERMAN] = GERMAN_TRANSLATION
 translations[LANG_INDONESIAN] = INDONESIAN_TRANSLATION
+translations[LANG_ITALIAN] = ITALIAN_TRANSLATION
 translations[LANG_NORWEGIAN] = NORWEGIAN_TRANSLATION
 translations[LANG_PORTUGUESE] = PORTUGUESE_TRANSLATION
 translations[LANG_RUSSIAN] = RUSSIAN_TRANSLATION

@@ -77,6 +77,7 @@ export const LANG_FINNISH = 'Finnish'
 export const LANG_FRENCH = 'French'
 export const LANG_GERMAN = 'German'
 export const LANG_INDONESIAN = 'Indonesian'
+export const LANG_ITALIAN = 'Italian'
 export const LANG_NORWEGIAN = 'Norwegian'
 export const LANG_PORTUGUESE = 'Portuguese'
 export const LANG_RUSSIAN = 'Russian'
@@ -94,6 +95,7 @@ export const LANGUAGES = [
   LANG_FRENCH,
   LANG_GERMAN,
   LANG_INDONESIAN,
+  LANG_ITALIAN,
   LANG_NORWEGIAN,
   LANG_PORTUGUESE,
   LANG_RUSSIAN,
