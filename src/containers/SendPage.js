@@ -339,7 +339,11 @@ class SendPage extends React.Component {
                 // Refund remaining to current address
                 if (satoshisSoFar !== satoshisToSend + satoshisfeesToSend) {
                   var refundSatoshis = satoshisSoFar - satoshisToSend - satoshisfeesToSend
-                  recipients = recipients.concat({ address: senderAddress, satoshis: refundSatoshis })
+
+                  // Refunding 'dust' (<54 satoshis will result in unconfirmed txs)
+                  if (refundSatoshis > 60) {
+                    recipients = recipients.concat({ address: senderAddress, satoshis: refundSatoshis })
+                  }
                 }
 
                 // Create transaction
