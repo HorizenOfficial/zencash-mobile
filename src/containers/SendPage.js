@@ -77,7 +77,7 @@ class SendPage extends React.Component {
       confirmSend: false,
       addressReceive: '',
       sendValue: 1,
-      sendFee: 1e-8,
+      sendFee: 0.000001,
       progressValue: 0,
       sendTxid: '',
       sendCurrencyValue: props.context.currencyValue
@@ -158,9 +158,12 @@ class SendPage extends React.Component {
         const fee = parseInt(resp.relayfee) * 100000000
 
         if (!isNaN(fee)) {
-          this.setState({
-            sendFee: fee
-          })
+          // Fees can't be too low or too high
+          if (fee > this.state.sendFee && fee <= 0.001) {
+            this.setState({
+              sendFee: fee
+            })
+          }
         }
       })
       .catch((err) => {
