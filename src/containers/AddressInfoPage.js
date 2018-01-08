@@ -24,7 +24,7 @@ class AddressInfoPage extends React.Component {
     }
   }
 
-  componentDidMount() {    
+  componentDidMount () {
     window.ga.trackView('Address Info Page')
   }
 

@@ -230,7 +230,7 @@ class SendPage extends React.Component {
     // Convert how much we wanna send
     // to satoshis
     const satoshisToSend = Math.round(value * 100000000)
-    const satoshisfeesToSend = Math.round(fee) // fees already in satoshis
+    const satoshisfeesToSend = Math.round(fee) * 2 // fees already in satoshis, multiply by 2 so faster tx confirmation
 
     // Reset zen send progress
     this.setProgressValue(1)
