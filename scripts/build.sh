@@ -1,3 +1,1 @@
-#!/usr/bin/env bash
-
-yarn run build
+npm run build

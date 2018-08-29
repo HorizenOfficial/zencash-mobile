@@ -7,12 +7,26 @@ Use node v6.11.X
 ## Setup instructions
 
 ```
-npm install -g yarn cordova
+npm install -g yarn cordova@7.1.0
 yarn install
 cordova plugin add cordova-plugin-qrscanner cordova-plugin-file cordova-plugin-http cordova-clipboard cordova-plugin-inappbrowser cordova-plugin-device cordova-plugin-wkwebview-engine cordova-plugin-whitelist
 cordova plugin add cordova-plugin-google-analytics
 cordova platform add [android@6.2.3 | ios]
 cordova run [android | ios]
+```
+
+## GSM Bug
+Refer to https://github.com/danwilson/google-analytics-plugin/issues/525#issuecomment-414029015
+
+## Updating Color Scheme or Logo
+Toolbar color scheme location:
+```
+assets/css/index.css
+```
+
+Logo location:
+```
+assets/img/zencash.png
 ```
 
 ### iOS FAQ

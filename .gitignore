@@ -39,3 +39,4 @@ plugins
 .vscode/
 dist/
 lib/
+.idea/
