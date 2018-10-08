@@ -6,21 +6,18 @@ Use node v6.11.X
 
 ## Setup instructions
 
-### Setup Android SDK
+### Setup Android SDK and Java JDK 1.8
 On Ubuntu Bionic
 ```
 apt-get install android-sdk
 # Setup Environment Variables
 export ANDROID_HOME="/usr/lib/android-sdk/"
 export PATH="${PATH}:${ANDROID_HOME}tools/:${ANDROID_HOME}platform-tools/"```
-```
 
-### Setup Java JDK 1.8
-```
-sudo add-apt-repository ppa:webupd8team/java
-sudo apt-get update
-sudo apt-get install oracle-java8-installer
-sudo apt-get install oracle-java8-set-default
+add-apt-repository ppa:webupd8team/java
+apt-get update
+apt-get install oracle-java8-installer
+apt-get install oracle-java8-set-default
 # Setup Environment Variables
 export JAVA_HOME=/usr/lib/jvm/java-8-oracle
 export JRE_HOME=/usr/lib/jvm/java-8-oracle/jre
