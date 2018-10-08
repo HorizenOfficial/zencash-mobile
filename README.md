@@ -15,6 +15,17 @@ export ANDROID_HOME="/usr/lib/android-sdk/"
 export PATH="${PATH}:${ANDROID_HOME}tools/:${ANDROID_HOME}platform-tools/"```
 ```
 
+### Setup Java JDK 1.8
+```
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java8-installer
+sudo apt-get install oracle-java8-set-default
+# Setup Environment Variables
+export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+export JRE_HOME=/usr/lib/jvm/java-8-oracle/jre
+```
+
 ### Setup Build Environment
 ```
 npm install -g yarn cordova@7.1.0
