@@ -6,6 +6,15 @@ Use node v6.11.X
 
 ## Setup instructions
 
+### Setup Android SDK
+On Ubuntu Bionic
+```
+apt-get install android-sdk
+# Setup Environment Variables
+export ANDROID_HOME="/usr/lib/android-sdk/"
+export PATH="${PATH}:${ANDROID_HOME}tools/:${ANDROID_HOME}platform-tools/"```
+
+### Setup Build Environment
 ```
 npm install -g yarn cordova@7.1.0
 yarn install
