@@ -4,8 +4,8 @@
     <description>
         ZEN Wallet
     </description>
-    <author email="kendricktan0814@gmail.com" href="https://kndrck.co">
-        Kendrick Tan
+    <author email="infrastructure@horizen.global" href="https://horizen.global">
+       Horizen Global 
     </author>
     <content src="index.html" />
     <access origin="*" />
