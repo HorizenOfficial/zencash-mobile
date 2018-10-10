@@ -12,8 +12,8 @@ import {
 } from '../actions/Settings'
 
 const initialSettings = {
-  insightAPI: 'https://explorer.zensystem.io/insight-api-zen/',
-  explorerURL: 'https://explorer.zensystem.io/',
+  insightAPI: 'https://explorer.horizen.global/insight-api-zen/',
+  explorerURL: 'https://explorer.horizen.global/',
   language: LANG_ENGLISH,
   currency: CURRENCY_USD,
   pin: null
