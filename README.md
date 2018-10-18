@@ -13,6 +13,13 @@ cordova plugin add cordova-plugin-qrscanner cordova-plugin-file cordova-plugin-h
 cordova plugin add cordova-plugin-google-analytics
 cordova platform add [android@6.2.3 | ios]
 cordova run [android | ios]
+
+# Generate a Signed APK
+cordova build --release android
+# Copy keystore to platforms/android/build/output/apk
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore <keystorename> <Unsigned APK file> <Keystore Alias name>
+zipalign -v 4 <Example-release-unsigned.apk> <Example.apk>
+
 ```
 
 ## GSM Bug

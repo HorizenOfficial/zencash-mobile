@@ -74,7 +74,7 @@
     "webpack-dev-server": "^2.7.1"
   },
   "dependencies": {
-    "cordova-android": "^6.2.3",
+    "cordova-android": "^6.4.0",
     "cordova-clipboard": "^1.2.1",
     "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-device": "^2.0.2",
