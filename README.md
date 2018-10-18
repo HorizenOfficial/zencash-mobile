@@ -7,6 +7,7 @@ Use node v6.11.X
 ## Setup instructions
 
 ```
+export ANDROID_HOME=<path to sdk>
 npm install -g yarn cordova@7.1.0
 yarn install
 cordova plugin add cordova-plugin-qrscanner cordova-plugin-file cordova-plugin-http cordova-clipboard cordova-plugin-inappbrowser cordova-plugin-device cordova-plugin-wkwebview-engine cordova-plugin-whitelist
