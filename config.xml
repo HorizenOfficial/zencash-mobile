@@ -4,8 +4,8 @@
     <description>
         ZEN Wallet
     </description>
-    <author email="kendricktan0814@gmail.com" href="https://kndrck.co">
-        Kendrick Tan
+    <author email="infrastructure@horizen.global" href="https://horizen.global">
+       Horizen Global 
     </author>
     <content src="index.html" />
     <access origin="*" />
@@ -18,6 +18,7 @@
     <platform name="android">
         <allow-intent href="market:*" />
         <preference name="android-minSdkVersion" value="19" />
+        <preference name="android-maxSdkVersion" value="28" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
