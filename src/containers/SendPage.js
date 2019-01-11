@@ -103,7 +103,6 @@ class SendPage extends React.Component {
     const sendVal = parseFloat(str)
 
     if (!isNaN(sendVal) && str[str.length - 1] !== '.') {
-      // Jesus fuck Javascript
       this.setState({
         sendValue: str,
         sendCurrencyValue: prettyFormatPrices((this.props.context.currencyValue * sendVal), 6)
