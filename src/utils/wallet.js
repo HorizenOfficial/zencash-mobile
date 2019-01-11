@@ -4,7 +4,7 @@ var zencashjs = require('zencashjs')
 
 // Hierarchical Deterministic wallet
 function phraseToSecretItems (phraseStr) {
-  // Seed key, make it fucking strong
+  // Seed key, make it very strong
   // phraseStr: string
   const seedHex = Buffer.from(phraseStr.slice(0, 64)).toString('hex')
 
