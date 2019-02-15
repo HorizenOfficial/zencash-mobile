@@ -1,7 +1,7 @@
 {
   "name": "zencash-mobile",
-  "version": "0.0.14",
-  "description": "Mobile Wallet for ZEN",
+  "version": "0.0.15",
+  "description": "Mobile Wallet for Horizen",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --host 0.0.0.0 --progress --content-base www/",
@@ -74,7 +74,7 @@
     "webpack-dev-server": "^2.7.1"
   },
   "dependencies": {
-    "cordova-android": "^6.2.3",
+    "cordova-android": "^6.4.0",
     "cordova-clipboard": "^1.2.1",
     "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-device": "^2.0.2",
