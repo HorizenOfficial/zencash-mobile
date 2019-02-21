@@ -12,7 +12,7 @@ import {
 } from '../actions/Settings'
 
 const initialSettings = {
-  insightAPI: 'https://explorer.horizen.global/insight-api-zen/',
+  insightAPI: 'https://explorer.horizen.global/api/',
   explorerURL: 'https://explorer.horizen.global/',
   language: LANG_ENGLISH,
   currency: CURRENCY_USD,
