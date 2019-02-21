@@ -51,11 +51,8 @@ class SelectInsightPage extends React.Component {
           <ListHeader>
             Preconfigured Nodes
           </ListHeader>
-          <ListItem tappable onClick={() => this.props.setInsightAPI('https://explorer.horizen.global/insight-api-zen/')}>
+          <ListItem tappable onClick={() => this.props.setInsightAPI('https://explorer.horizen.global/api/')}>
             horizen.global
-          </ListItem>
-          <ListItem tappable onClick={() => this.props.setInsightAPI('http://explorer.zenmine.pro/insight-api-zen/')}>
-            zenmine.pro
           </ListItem>
           <ListItem tappable onClick={() => this.props.setInsightAPI('https://explorer.zen-solutions.io/api/')}>
             explorer.zen-solutions.io
