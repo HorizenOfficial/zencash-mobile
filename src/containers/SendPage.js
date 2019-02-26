@@ -375,8 +375,7 @@ class SendPage extends React.Component {
                       sendTxid: txRespData.txid
                     })
                   })
-                  .catch((err) => {
-                    // Don't wanna setup firebase lmao
+                  .catch((err) => {       
                     window.ga.trackEvent('Send rawtx error', JSON.stringify(err))
                     window.ga.dispatch()
                     alert('Send failure: ' + JSON.stringify(err))
@@ -384,7 +383,6 @@ class SendPage extends React.Component {
                     this.setProgressValue(0)
                   })
               }).catch((err) => {
-                // Don't wanna setup firebase lmao
                 window.ga.trackEvent('Get blockinfo error', JSON.stringify(err))
                 window.ga.dispatch()
                 alert('GET failure: ' + JSON.stringify(err))
@@ -392,7 +390,6 @@ class SendPage extends React.Component {
                 this.setProgressValue(0)
               })
           }).catch((err) => {
-            // Don't wanna setup firebase lmao
             window.ga.trackEvent('Get blockheight and blockhash error', JSON.stringify(err))
             window.ga.dispatch()
             alert('GET failure: ' + JSON.stringify(err))
@@ -400,7 +397,6 @@ class SendPage extends React.Component {
             this.setProgressValue(0)
           })
       }).catch((err) => {
-        // Don't wanna setup firebase lmao
         window.ga.trackEvent('Get utxo error', JSON.stringify(err))
         window.ga.dispatch()
         alert('GET failure: ' + JSON.stringify(err))
