@@ -38,7 +38,7 @@ class RecoverWalletPage extends React.Component {
           <p>ZEN Wallet v{VERSION}</p>
           <br/>
           <p>Author: Kendrick Tan</p>
-          <p>Made for zensystem.io</p>
+          <p>Made for horizen.global</p>
           <p>Found a bug? File it &nbsp;
             <a
               href='#'

@@ -34,7 +34,7 @@ store.subscribe(() => {
 
   // Save secret phrase and settings
   if (state.secrets.secretPhrase !== null && state.settings.pin !== null) {
-    // Write to file woot woot    
+    // Write to file  
     writeToFile(ZENCASH_MOBILE_SAVE_PATH, {
       secretPhrase: state.secrets.secretPhrase,
       settings: state.settings
@@ -43,7 +43,7 @@ store.subscribe(() => {
 
   // Save contacts (different file)
   if (state.contacts.length > 0) {
-    // Write to file woot woot
+    // Write to file
     writeToFile(ZENCASH_MOBILE_CONTACTS_PATH, {
       contacts: state.contacts
     })

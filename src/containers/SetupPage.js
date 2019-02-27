@@ -12,7 +12,7 @@ import { connect } from 'react-redux'
 
 import { setSecretPhrase, setSecretItems } from '../actions/Secrets'
 import { phraseToSecretItems } from '../utils/wallet'
-
+import Mnemonic from 'bitcore-mnemonic'
 import Sentencer from 'sentencer'
 
 class SetupPage extends React.Component {
@@ -32,29 +32,8 @@ class SetupPage extends React.Component {
   }
 
   handleNewWallet () {
-    // generate random phrase
-    var randomPhrase = []
-
-    // Want 9 words
-    while (randomPhrase.length < 9) {
-      // Noun/Nouns
-      if (Math.random() > 0.5) {
-        // Noun
-        if (Math.random() > 0.5) {
-          randomPhrase = randomPhrase.concat(Sentencer.make('{{ noun }}'))
-        } else {
-          // Nouns
-          randomPhrase = randomPhrase.concat(Sentencer.make('{{ nouns }}'))
-        }
-      } else {
-        // Adjective
-        randomPhrase = randomPhrase.concat(Sentencer.make('{{ adjective }}'))
-      }
-    }
-
-    randomPhrase = randomPhrase.join(' ')
-
-    this.handleLoadWallet(randomPhrase)
+    var seed = new Mnemonic(Mnemonic.Words.ENGLISH)
+    this.handleLoadWallet(seed.toString())
   }
 
   handleLoadWallet (phrase) {
