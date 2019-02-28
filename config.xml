@@ -18,6 +18,7 @@
     <platform name="android">
         <allow-intent href="market:*" />
         <preference name="android-minSdkVersion" value="19" />
+        <preference name="android-targetSdkVersion" value="26" />
         <preference name="android-maxSdkVersion" value="28" />
     </platform>
     <platform name="ios">
@@ -30,7 +31,6 @@
         <param name="ios-package" value="CDVWKWebViewEngine" />
     </feature>
     <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
-    <preference default="11.0.1" name="GMS_VERSION" />
     <hook src="./scripts/build.sh" type="before_prepare" />
     <icon src="./assets/img/zencash.png" />
     <allow-navigation href="http://*/*" />
@@ -40,9 +40,6 @@
     <allow-intent href="*" />
     <engine name="android" spec="^6.2.3" />
     <plugin name="cordova-plugin-file" spec="^4.3.3" />
-    <plugin name="cordova-plugin-google-analytics" spec="^1.8.6">
-        <variable name="GMS_VERSION" value="11.0.1" />
-    </plugin>
     <plugin name="cordova-plugin-qrscanner" spec="^2.6.0" />
     <plugin name="cordova-plugin-http" spec="^1.2.0" />
     <plugin name="cordova-clipboard" spec="^1.2.1" />

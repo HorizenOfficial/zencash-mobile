@@ -17,9 +17,7 @@ import {
 import TRANSLATIONS from '../translations'
 
 class SelectLanguagePage extends React.Component {
-  componentDidMount() {    
-    window.ga.trackView('Language Page')
-  }
+
 
   renderToolbar () {
     const CUR_LANG = this.props.settings.language

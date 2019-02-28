@@ -26,9 +26,7 @@ import SelectInsightPage from './SelectInsightPage'
 import TRANSLATIONS from '../translations'
 
 class SettingsPage extends React.Component {
-  componentDidMount() {    
-    window.ga.trackView('Settings Page')
-  }
+
 
   gotoComponent (c) {
     this.props.navigator.pushPage({component: c})
