@@ -105,9 +105,7 @@ const getContactDetails = (curLang, navigator, addContact, deleteContact, contac
 }
 
 class ContactsPage extends React.Component {
-  componentDidMount() {    
-    window.ga.trackView('Contact Page')
-  }
+
 
   gotoComponent (c) {
     this.props.navigator.pushPage({component: c})

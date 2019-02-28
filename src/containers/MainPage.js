@@ -264,8 +264,6 @@ class MainPage extends React.Component {
   }
 
   componentDidMount () {
-    // Dispatch every 30 seconds
-    window.ga.startTrackerWithId('UA-71060764-11', 30)
 
     if (this.props.secrets.items.length > 0) {
       const address = this.props.secrets.items[0].address

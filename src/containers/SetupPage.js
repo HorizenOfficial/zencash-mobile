@@ -27,10 +27,6 @@ class SetupPage extends React.Component {
     this.handleNewWallet = this.handleNewWallet.bind(this)
   }
 
-  componentDidMount () {
-    window.ga.trackView('Setup Page')
-  }
-
   handleNewWallet () {
     var seed = new Mnemonic(Mnemonic.Words.ENGLISH)
     this.handleLoadWallet(seed.toString())
