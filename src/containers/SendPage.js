@@ -193,8 +193,11 @@ class SendPage extends React.Component {
             alert(JSON.stringify(err))
           } else {
             // The scan completed, display the contents of the QR code
+            const scannedResultSeparated = address.split(/(?:horizen:|=|&|\?)+/)
+            const scannedAddress = scannedResultSeparated[1] || address
+
             this.setState({
-              addressReceive: address
+              addressReceive: scannedAddress
             })
           }
 
