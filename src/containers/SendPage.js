@@ -146,8 +146,7 @@ class SendPage extends React.Component {
   }
 
   componentDidMount () {
-    // Track event
-    window.ga.trackView('Send Page')
+
 
     // Get fees dynamically each time component is mounted
     const statusURL = urlAppend(this.props.settings.insightAPI, 'status')
@@ -194,8 +193,11 @@ class SendPage extends React.Component {
             alert(JSON.stringify(err))
           } else {
             // The scan completed, display the contents of the QR code
+            const scannedResultSeparated = address.split(/(?:horizen:|=|&|\?)+/)
+            const scannedAddress = scannedResultSeparated[1] || address
+
             this.setState({
-              addressReceive: address
+              addressReceive: scannedAddress
             })
           }
 
@@ -375,29 +377,21 @@ class SendPage extends React.Component {
                     })
                   })
                   .catch((err) => {       
-                    window.ga.trackEvent('Send rawtx error', JSON.stringify(err))
-                    window.ga.dispatch()
                     alert('Send failure: ' + JSON.stringify(err))
 
                     this.setProgressValue(0)
                   })
               }).catch((err) => {
-                window.ga.trackEvent('Get blockinfo error', JSON.stringify(err))
-                window.ga.dispatch()
                 alert('GET failure: ' + JSON.stringify(err))
 
                 this.setProgressValue(0)
               })
           }).catch((err) => {
-            window.ga.trackEvent('Get blockheight and blockhash error', JSON.stringify(err))
-            window.ga.dispatch()
             alert('GET failure: ' + JSON.stringify(err))
 
             this.setProgressValue(0)
           })
       }).catch((err) => {
-        window.ga.trackEvent('Get utxo error', JSON.stringify(err))
-        window.ga.dispatch()
         alert('GET failure: ' + JSON.stringify(err))
 
         this.setProgressValue(0)

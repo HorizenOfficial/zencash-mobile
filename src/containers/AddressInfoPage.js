@@ -24,9 +24,6 @@ class AddressInfoPage extends React.Component {
     }
   }
 
-  componentDidMount () {
-    window.ga.trackView('Address Info Page')
-  }
 
   renderToolbar () {
     const CUR_LANG = this.props.settings.language

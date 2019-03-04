@@ -1723,7 +1723,7 @@ cookie@0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.3.1.tgz#e7e0a1f9ef43b4c8ba925c5c5a96e806d16873bb"
 
-cordova-android@^6.4.0:
+cordova-android@^6.2.3:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/cordova-android/-/cordova-android-6.4.0.tgz#54ae8da5728a8d7e5efcc6172d3dcca17bc7fe7d"
   integrity sha1-VK6NpXKKjX5e/MYXLT3MoXvH/n0=
@@ -1770,11 +1770,6 @@ cordova-plugin-device@^2.0.2:
 cordova-plugin-file@^4.3.3:
   version "4.3.3"
   resolved "https://registry.yarnpkg.com/cordova-plugin-file/-/cordova-plugin-file-4.3.3.tgz#012e97aa1afb91f84916e6341b548366d23de9b9"
-
-cordova-plugin-google-analytics@^1.8.6:
-  version "1.8.6"
-  resolved "https://registry.yarnpkg.com/cordova-plugin-google-analytics/-/cordova-plugin-google-analytics-1.8.6.tgz#7886bd7ac9264e4dec7355ebed64d939b274731a"
-  integrity sha512-shg8e3ris1MzmhC8roraScc2GEcfe7sVlbKkvrO3wZUAlYr31sf+4wxZr/VQB6tEcPsmTAkoNjGr1zMwoYjMeg==
 
 cordova-plugin-http@^1.2.0:
   version "1.2.0"

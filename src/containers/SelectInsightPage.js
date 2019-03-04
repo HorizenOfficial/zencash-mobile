@@ -19,9 +19,7 @@ import {
 import TRANSLATIONS from '../translations'
 
 class SelectInsightPage extends React.Component {
-  componentDidMount() {    
-    window.ga.trackView('Insight Page')
-  }
+
 
   renderToolbar () {
     return (
