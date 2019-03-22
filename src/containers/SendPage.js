@@ -77,7 +77,7 @@ class SendPage extends React.Component {
       confirmSend: false,
       addressReceive: '',
       sendValue: 1,
-      sendFee: 0.000001,
+      sendFee: 0.0001,
       progressValue: 0,
       sendTxid: '',
       sendCurrencyValue: props.context.currencyValue
@@ -233,7 +233,7 @@ class SendPage extends React.Component {
 
     // Convert how much we wanna send
     // to satoshis
-    const satoshisToSend = Math.round(value * 100000000)
+    const satoshisToSend = value * 100000000
     const satoshisfeesToSend = 10000 //set static fee of 0.0001
 
     // Reset zen send progress
@@ -326,6 +326,7 @@ class SendPage extends React.Component {
                   if (satoshisSoFar >= satoshisToSend + satoshisfeesToSend) {
                     break
                   }
+     
                 }
 
                 // If we don't have enough address
@@ -508,7 +509,7 @@ class SendPage extends React.Component {
                   <Button
                     modifier='quiet'
                     onClick={
-                      () => this.handleSendValueChange({ target: { value: (this.props.context.value - (this.state.sendFee / 100000000)).toPrecision(8) } })}
+                      () => this.handleSendValueChange({ target: { value: this.props.context.value == 0 ? 0 : ((this.props.context.value * 100000000- 10000)/100000000).toPrecision(8)} })}
                   >
                     {maxLang}
                   </Button>
@@ -517,7 +518,7 @@ class SendPage extends React.Component {
                   <ons-col>
                     <span style={{ fontSize: '12px', color: '#7f8c8d' }}>
                       {balanceLang}:&nbsp;
-                      {prettyFormatPrices(this.props.context.value)}&nbsp;
+                      {this.props.context.value}&nbsp;
                     ZEN
                     </span>
                     <Input
@@ -549,8 +550,16 @@ class SendPage extends React.Component {
                   </ons-col>
                 </ons-row>
 
-                <br />
+             
+                <div>          
+                    <ons-col width={'45%'}>
+                        <ons-row>
+                            <span style={{ fontSize: '12px', color: '#7f8c8d', textAlign: 'center' }}>0.0001 fee</span>
+                        </ons-row>
+                    </ons-col>
+                </div>
 
+                <br />
                 <div>
                   <label className="left">
                     <Checkbox

@@ -40,3 +40,4 @@ plugins
 dist/
 lib/
 .idea/
+release.apk
