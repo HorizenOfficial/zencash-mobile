@@ -1,6 +1,6 @@
 {
   "name": "zencash-mobile",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Mobile Wallet for Horizen",
   "main": "index.js",
   "scripts": {
