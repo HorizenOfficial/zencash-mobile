@@ -9,12 +9,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ZencashOfficial/zencash-mobile.git"
+    "url": "git+https://github.com/HorizenOfficial/zencash-mobile.git"
   },
   "author": "Kendrick Tan <kendricktan0814@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ZencashOfficial/zencash-mobile/issues"
+    "url": "https://github.com/HorizenOfficial/zencash-mobile/issues"
   },
   "homepage": "https://zensystem.io",
   "devDependencies": {
