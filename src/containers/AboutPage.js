@@ -39,7 +39,7 @@ class RecoverWalletPage extends React.Component {
           <p>Found a bug? File it &nbsp;
             <a
               href='#'
-              onClick={() => window.open('https://github.com/zencashofficial/zencash-mobile/issues', '_system')}
+              onClick={() => window.open('https://github.com/HorizenOfficial/zencash-mobile/issues', '_system')}
             >here</a>
           </p>
         </div>
