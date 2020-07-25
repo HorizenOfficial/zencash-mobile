@@ -71,7 +71,7 @@
     "stylus-loader": "^3.0.1",
     "url-loader": "^0.5.9",
     "webpack": "^3.5.5",
-    "webpack-dev-server": "^2.7.1"
+    "webpack-dev-server": "^3.1.11"
   },
   "dependencies": {
     "bitcore-mnemonic": "1.7.0",
