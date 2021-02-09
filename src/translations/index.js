@@ -14,7 +14,8 @@ import {
   LANG_RUSSIAN,
   LANG_SERBIAN,
   LANG_SPANISH,
-  LANG_SWEDISH
+  LANG_SWEDISH,
+  LANG_TURKISH
 } from '../actions/Settings'
 
 import { AFRIKAANS_TRANSLATION } from './Afrikaans.js'
@@ -33,6 +34,7 @@ import { RUSSIAN_TRANSLATION } from './Russian.js'
 import { SERBIAN_TRANSLATION } from './Serbian.js'
 import { SPANISH_TRANSLATION } from './Spanish.js'
 import { SWEDISH_TRANSLATION } from './Swedish.js'
+import { TURKISH_TRANSLATION } from './Turkish.js'
 
 var translations = {}
 
@@ -52,6 +54,7 @@ translations[LANG_RUSSIAN] = RUSSIAN_TRANSLATION
 translations[LANG_SERBIAN] = SERBIAN_TRANSLATION
 translations[LANG_SPANISH] = SPANISH_TRANSLATION
 translations[LANG_SWEDISH] = SWEDISH_TRANSLATION
+translations[LANG_TURKISH] = TURKISH_TRANSLATION
 translations[LANG_FINNISH] = FINNISH_TRANSLATION
 
 export default translations
